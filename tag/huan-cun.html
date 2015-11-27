@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>lizherui的程序世界</title>
+    <meta name="description" content="">
+    <meta name="author" content="lizherui">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+    <script src="../theme/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le styles -->
+    <link href="../theme/bootstrap.min.css" rel="stylesheet">
+    <link href="../theme/bootstrap.min.responsive.css" rel="stylesheet">
+    <link href="../theme/local.css" rel="stylesheet">
+    <link href="../theme/pygments.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-inverse">
+    <div class="navbar-inner">
+      <div class="container">
+          <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+
+        <a class="brand" href="..">lizherui的程序世界</a>
+
+        <div class="nav-collapse collapse">
+        <ul class="nav">
+            
+            <li><a href="../pages/about.html">About</a></li>
+        </ul>
+<form class="navbar-search pull-right" action="/search.html">
+    <input type="text" class="search-query" placeholder="Search" name="q" id="s">
+</form> 
+        </div>
+        
+    </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="content">
+    <div class="row">
+
+        <div class="span9">
+        
+
+        
+
+
+    <div class='article'>
+        <div class="content-title">
+            <a href="../pages/2013/11/27/esi.html"><h1>局部缓存的应用</h1></a>
+2013-11-27
+
+by <a class="url fn" href="../author/lizherui.html">lizherui</a>
+ 
+
+
+ 
+        </div>
+        
+        <div><h2>源起</h2>
+<hr />
+<p>一般来讲，各个网站对页面做的缓存都是整体缓存，用户发请求的时候，缓存服务器会返回整个页面。</p>
+<p>于是每次上线新版本的时候，我们都需要清除全部缓存才能使新版本立即生效。</p>
+<p>在平时，这样没有任何问题。</p>
+<p>但是在一些特殊的场景下，比如天猫双十一的当天，面对那种规模的流量，没有任何人敢清除全部的缓存。而这个时候突然来了一个非常紧急且需要立即生效的上线需求，我们该怎么办？</p>
+<p>此外页面中会有一些定时变动的部分，比如活动相关的页面片段，总不能每次到了新活动的时间都需要我们手动清除线上缓存吧？</p>
+<p>所以，将整体缓存切割成局部缓存势在必行，这意味着低风险和自动化。</p>
+<p>最近我参与了这个缓存局部化的项目，感觉挺有意思，也有所收获。</p>
+<h2>技术</h2>
+<hr />
+<p>局部缓存主要用的是ESI技术，是一种标记语言。</p>
+<p>为了方便叙述，我们定义缓存服务器的名字叫Swift(类似开源界的Varnish，可处理ESI标签)。</p>
+<p>ESI，即Edge Side Includes，是一种数据缓冲/缓存服务器，它提供将Web网页的部分（这里指页面的片段）进行缓冲/缓存的技术及服务。
+详见<a href="http://en.wikipedia.org/wiki/Edge_Side_Includes">Wikipedia</a>。</p>
+<p>ESI标签由Swift负责解析回源，并且Swift会对ESI请求做缓存，并且提供如下特性：</p>
+<ul>
+<li>需要定时做全站变更的页面模块用ESI的include实现，时间判断放在应用服务器处理回源请求的时候。</li>
+<li>回源以后，应用服务器可设置缓存失效的时间。</li>
+<li>Swift提供合并回源，不会重复回源，防止失效后的高并发回源给应用服务器带来冲击。</li>
+<li>Swift在ESI的缓存失效后回源，回源的请求处理期间不会挂起外部请求，会继续向客户端返回老版本的页面，回源请求处理完以后更新成新版本。类似copy on write，防止回源请求挂起导致前端服务器挂起。</li>
+<li>ESI回源时对response header的操作不会发到客户端。</li>
+</ul>
+<p>一个ESI的模块处理过程如下图：</p>
+<p><img alt="1" src="https://lh3.googleusercontent.com/-dquEAiu6EhU/UpMGaPl3_WI/AAAAAAAAAVU/WFTeL1Y0U4Q/s336/esi.png" /></p>
+<p>完整步骤如下：</p>
+<ul>
+<li>在web应用首次被访问到的时候，在页面上生成带ESI标签的页面。</li>
+</ul>
+<blockquote>
+<p>ESI标签在web应用返回给Swift服务器的页面中，但是不被包含在最终页面中。    </p>
+<p>ESI请求和当前的web应用页面的请求是两个请求，不能共用上下文。</p>
+<p>ESI请求是一个单独的http请求，其中用到的参数和上下文信息需要在web应用页面渲染的时候加到ESI请求的URL中。</p>
+</blockquote>
+<ul>
+<li>
+<p>Swift服务器拿到页面后会进行ESI标签的解析，解析完成后向web应用服务器发送单独的ESI请求，并且将响应结果放在页面上。</p>
+</li>
+<li>
+<p>web应用处理ESI请求：</p>
+</li>
+</ul>
+<blockquote>
+<p>根据参数处理业务逻辑。</p>
+<p>设置此ESI模块的失效时间。</p>
+<p>ESI请求对response header的处理不会发送到客户端浏览器。</p>
+</blockquote>
+<ul>
+<li>Swift缓存ESI结果，在失效时间到之前命中缓存。</li>
+</ul>
+<h2>应用</h2>
+<hr />
+<h3>把模板中对风险敏感的变量ESI化</h3>
+<p>模板指的是velocity或jsp，由于没有改动java，所以上线的过程中不会发生编译，直接对velocity/jsp这样的静态文件做替换就能生效。</p>
+<p>我们定义只修改模板并上线的形式叫模板发布，既修改模板又修改java文件的上线叫全量发布。</p>
+<p>以版本号为例，模板中有一个变量代表css/js的版本号，比如1.0，1.1之类的数字。</p>
+<p>我们把原来直接输出版本号的地方变成esi标签的形式，比如原先的形式是：</p>
+<div class="highlight"><pre><span class="n">assetsVersion</span> <span class="o">=</span> <span class="mf">1.0</span>
+</pre></div>
+
+
+<p>修改成</p>
+<div class="highlight"><pre><span class="n">assetsVersion</span> <span class="o">=</span> <span class="o">&lt;!--</span><span class="n">esi</span> <span class="o">&lt;</span><span class="n">esi</span><span class="o">:</span><span class="n">include</span> <span class="n">src</span><span class="o">=</span><span class="s">&quot;/esi/esiAssets.htm?assetsVersionInEsi=1.0&quot;</span><span class="o">/&gt;</span> <span class="o">--&gt;</span>
+</pre></div>
+
+
+<p>然后写对应esiAssets.java和esiAssets.vm(esiAssets.jsp也行)，直接输出1.0。</p>
+<p>模板发布的整个流程如下：</p>
+<ol>
+<li>开发/前端升级版本号assetsVersion并模板发布</li>
+<li>PE清除线上assetsVersion对应的esi局部缓存</li>
+<li>失效后swift回源到web应用，走assets的esi流程 </li>
+<li>assets的esi走流程到模板渲染时，取本地的esi版本号完成渲染并返回</li>
+<li>swift拿到新版本assets的渲染结果拼接页面并返回，同时缓存新版本assets</li>
+</ol>
+<p>如此以来，修改模板并上线后，只需要清除esi局部缓存，就能生效。</p>
+<p>不过这样存在一个问题，若修改java文件进行全量发布时，会发生下图的异常情况：</p>
+<p><img alt="2" src="https://lh6.googleusercontent.com/-eiLJKhwtBo0/Uo3FbLIYWXI/AAAAAAAAAUc/om8szAMzow8/s757/Screen%2520Shot%25202013-11-21%2520at%252016.32.59.png" /></p>
+<p>如果老版本的web应用和新的assets版本号不相互兼容，就会在全量发布的时候出问题。</p>
+<p>为了解决这个问题，我们可以添加一个用来校正的vmVesion版本号，并添加进assets esi的uri参数中，比如</p>
+<div class="highlight"><pre><span class="n">assetsVersion</span> <span class="o">=</span> <span class="o">&lt;!--</span><span class="n">esi</span> <span class="o">&lt;</span><span class="n">esi</span><span class="o">:</span><span class="n">include</span> <span class="n">src</span><span class="o">=</span><span class="s">&quot;/esi/esiAssets.htm?assetsVersionInEsi=1.0&amp;vmVersionInEsi=1.0.0&quot;</span><span class="o">/&gt;</span> <span class="o">--&gt;</span>
+</pre></div>
+
+
+<p>assets的esi流程走到模板渲染时，判断esi参数中的vmVersion版本号和本地vmVersion是否一致。如果一致，则返回本地assets版本号的渲染结果；否则返回esi中assets版本号的渲染结果, 如下图：</p>
+<p><img alt="3" src="https://lh6.googleusercontent.com/-9hAfPlw4jFc/Uo3Hfw3x6eI/AAAAAAAAAVA/ZMjwK49BHMM/s767/Screen%2520Shot%25202013-11-21%2520at%252016.41.37.png" /></p>
+<p>反之亦然，问题解决。</p>
+<h3>把定时变动的部分ESI化</h3>
+<p>现在页面中有一个片段负责展现活动页面，这个活动页面有一批定时活动，比如8点-9点展现活动1，9点30分-10点展现活动2，11点-12点展现活动3。</p>
+<p>ESI有一个功能是可以为某个局部缓存单独设置失效的时间，将它从整体缓存中剥离了出来。</p>
+<p>这个问题可以抽象成下图，有3个活动，逆序表示，即在时间上E3&gt;S3&gt;E2&gt;S2&gt;E1&gt;S1：</p>
+<div class="highlight"><pre><span class="o">*</span> <span class="err">偶数序号为结束时间</span><span class="n">EndTime</span>
+<span class="o">*</span> <span class="err">奇数序号为开始时间</span><span class="n">StartTime</span>
+<span class="o">*</span> <span class="n">noew</span><span class="err">代表当前时间</span>
+<span class="o">*</span> <span class="o">|----|</span>           <span class="o">|----|</span>          <span class="o">|----|</span>
+<span class="o">*</span> <span class="n">E3</span>   <span class="n">S3</span>   <span class="n">null</span>   <span class="n">E2</span>   <span class="n">S2</span>   <span class="n">null</span>  <span class="n">E1</span>   <span class="n">S1</span>
+<span class="o">*</span> <span class="n">a</span><span class="p">)</span><span class="err">如果</span><span class="n">now</span> <span class="o">&gt;</span> <span class="n">E3</span> <span class="n">banner</span><span class="o">:</span> <span class="n">null</span> <span class="n">cache</span><span class="o">-</span><span class="n">control</span><span class="o">:</span><span class="n">very</span> <span class="kt">long</span>
+<span class="o">*</span> <span class="n">b</span><span class="p">)</span><span class="err">如果</span><span class="n">now</span> <span class="o">&gt;</span> <span class="n">S3</span> <span class="n">banner</span><span class="o">:</span> <span class="err">命中某活动，返回相应页面片段</span> <span class="n">cache</span><span class="o">-</span><span class="n">control</span><span class="o">:</span><span class="n">E3</span><span class="o">-</span><span class="n">now</span>
+<span class="o">*</span> <span class="n">c</span><span class="p">)</span><span class="err">如果</span><span class="n">now</span> <span class="o">&gt;</span> <span class="n">E2</span> <span class="n">banner</span><span class="o">:</span> <span class="n">null</span> <span class="n">cache</span><span class="o">-</span><span class="n">control</span><span class="o">:</span><span class="n">S3</span><span class="o">-</span><span class="n">now</span>
+<span class="o">*</span> <span class="n">d</span><span class="p">)</span><span class="err">如果</span><span class="n">now</span> <span class="o">&lt;</span> <span class="n">S1</span> <span class="n">banner</span><span class="o">:</span> <span class="n">null</span> <span class="n">cache</span><span class="o">-</span><span class="n">control</span><span class="o">:</span><span class="n">S1</span><span class="o">-</span><span class="n">now</span>
+</pre></div>
+
+
+<p>我们只要按照上图的逻辑设置esi回源的失效时间(设置http response header里的Catch-Control)，即可达到自动化的目的。</p>
+<h2>总结</h2>
+<hr />
+<p>局部缓存技术的应用场景目前还不是很多，往往都是在一些苛刻的情况下才需要它。</p>
+<p>不过这并不重要，重要的是我们对低风险和自动化的极限追求。</p></div>
+        <hr />
+    </div>
+		
+<div class="pagination">
+<ul>
+    <li class="prev disabled"><a href="#">&larr; Previous</a></li>
+
+    <li class="active"><a href="../tag/huan-cun.html">1</a></li>
+
+    <li class="next disabled"><a href="#">&rarr; Next</a></li>
+
+</ul>
+</div>
+ 
+  
+        </div>
+        
+        <div class="span3">
+
+            <div class="well" style="padding: 8px 0; background-color: #FBFBFB;">
+            <ul class="nav nav-list">
+                <li class="nav-header"> 
+                Site
+                </li>
+            
+                <li><a href="../archives.html">Archives</a>
+                <li><a href="../tags.html">Tags</a>
+                <li><a href="http://www.lizherui.com/feeds/all.rss.xml" rel="alternate">RSS</a></li>
+            </ul>
+            </div>
+
+
+            <div class="well" style="padding: 8px 0; background-color: #FBFBFB;">
+            <ul class="nav nav-list">
+                <li class="nav-header"> 
+                Categories
+                </li>
+                
+                <li><a href="../category/life.html">Life</a></li>
+                <li><a href="../category/tech.html">Tech</a></li>
+                <li><a href="../category/work.html">Work</a></li>
+                   
+            </ul>
+            </div>
+
+
+            <div class="social">
+            <div class="well" style="padding: 8px 0; background-color: #FBFBFB;">
+            <ul class="nav nav-list">
+                <li class="nav-header"> 
+                Social
+                </li>
+           
+                <li><a href="https://github.com/lizherui">Github</a></li>
+                <li><a href="http://www.quora.com/Zherui-Li">Quora</a></li>
+                <li><a href="https://twitter.com/lzrak47">Twitter</a></li>
+                <li><a href="https://www.facebook.com/profile.php?id=100004875786021">Facebook</a></li>
+                <li><a href="http://www.linkedin.com/profile/view?id=232391796">Linkedin</a></li>
+                <li><a href="http://weibo.com/lzrm4a1">微博</a></li>
+                <li><a href="http://www.zhihu.com/people/li-zhe-rui">知乎</a></li>
+                <li><a href="http://www.douban.com/people/lizherui">豆瓣</a></li>
+            </ul>
+            </div>
+            </div>
+
+
+            <div class="well" style="padding: 8px 0; background-color: #FBFBFB;">
+            <ul class="nav nav-list">
+                <li class="nav-header"> 
+                Links
+                </li>
+            
+                <li><a href="https://www.google.com/ncr">Google</a></li>
+                <li><a href="http://python.org/">Python</a></li>
+                <li><a href="http://docs.getpelican.com/">Pelican</a></li>
+            </ul>
+            </div>
+
+
+        </div>  
+    </div>     </div> 
+<footer>
+<br />
+<p><a href="..">lizherui的程序世界</a> &copy; lizherui 2013-2014</p>
+</footer>
+
+</div> <!-- /container -->
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script src="http://twitter.github.com/bootstrap/assets/js/bootstrap-collapse.js"></script>
+<script>var _gaq=[['_setAccount','UA-42648273-1'],['_trackPageview']];(function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];g.src='//www.google-analytics.com/ga.js';s.parentNode.insertBefore(g,s)}(document,'script'))</script>
+<a href="https://github.com/lizherui"><img style="position: absolute; top: 40px; right: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_right_white_ffffff.png" alt="Fork me on GitHub" /></a>
+ 
+</body>
+</html>

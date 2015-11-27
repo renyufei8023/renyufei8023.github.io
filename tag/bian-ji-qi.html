@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>lizherui的程序世界</title>
+    <meta name="description" content="">
+    <meta name="author" content="lizherui">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+    <script src="../theme/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le styles -->
+    <link href="../theme/bootstrap.min.css" rel="stylesheet">
+    <link href="../theme/bootstrap.min.responsive.css" rel="stylesheet">
+    <link href="../theme/local.css" rel="stylesheet">
+    <link href="../theme/pygments.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-inverse">
+    <div class="navbar-inner">
+      <div class="container">
+          <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+
+        <a class="brand" href="..">lizherui的程序世界</a>
+
+        <div class="nav-collapse collapse">
+        <ul class="nav">
+            
+            <li><a href="../pages/about.html">About</a></li>
+        </ul>
+<form class="navbar-search pull-right" action="/search.html">
+    <input type="text" class="search-query" placeholder="Search" name="q" id="s">
+</form> 
+        </div>
+        
+    </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="content">
+    <div class="row">
+
+        <div class="span9">
+        
+
+        
+
+
+    <div class='article'>
+        <div class="content-title">
+            <a href="../pages/2013/07/25/editor_and_ide.html"><h1>编辑器与IDE</h1></a>
+2013-07-25
+
+by <a class="url fn" href="../author/lizherui.html">lizherui</a>
+ 
+
+
+ 
+        </div>
+        
+        <div><p>虽然eclim很强悍，但由于它并没有集成任何的java debug功能，因此用vim+eclim的组合开发java仍然显得力不从心。</p>
+<p>我最终决定回到eclipse的怀抱中。同时，出于对逐渐丧失vim武功的担忧，我决定使用eclipse+viplugin的组合：编辑代码使用vim的指法，其它事情全部交给eclipse。</p>
+<p>这样用了一段时间，节奏还不错，而且eclipse一些强大的功能让我刮目相看，并让我开始反思之前对待编辑器与IDE的态度。</p>
+<p>IDE里面确实蕴含了比普通文本编辑器高级很多的技术。IDE会对程序文本进行真正的解析，之后才开始分析里面的结构。它们的“跳转到定义”一般都是很精确的跳转，而不是像文本编辑器那样瞎猜。</p>
+<p>此外，IDE代码补全的精准度与速度都远远超过了vim的任何插件；IDE对于java的接口与实现、类与类的继承关系、反射等稍高级的功能都支持得非常好。</p>
+<p>vim在这些方面确实做得不好，也不可能做得好。</p>
+<p>这样说来，vim的唯一优势就只是它那极其符合人体工程学的指法带来的行云流水般的操作快感了。</p>
+<p>不像php, python等所见即所得的解释性语言，java这种编译型的语言，若通过打日志来调试，那么每加一条调试用的日志代码，就要重新编译一次，实在是太低效了。而eclipse的调试功能确实是太强大了，调试过程中每个变量的值也都是清清楚楚。</p>
+<p>很多长期使用vim/emacs的人都容易对IDE抱有或多或少的偏见。没错，开发shell, php, python, ruby这样的解释性语言，用vim/emacs确实非常合适，也能满足需求，相比之下用IDE开发它们就会显得有些笨拙。</p>
+<p>但是最近开发java的经历让我逐渐冷静了下来，开始仔细地反思这件事情。就像没有万能的编程语言一样，也没有万能的编辑器。vim很强悍，emacs也很厉害，但是它俩在面对java这样的语言时，确实无法跟eclipse相提并论。</p>
+<p>eclipse能让java程序员的头脑从琐碎的细节里面解脱出来，所以我们能够更加专注于程序本身的语义和算法，这样我们能写出更加优美和可靠的程序。这就是我用eclipse写java程序的时候相对于vim的感觉。我感觉到自己能够看见程序背后所表现的模型，而不只是看到程序的文本和细节。</p>
+<p>最后我想说的是，eclipse这件事情对我触动很大。我开始渐渐认可这样的观点：程序员对诸如编程语言、编辑器这类事物产生宗教般的信仰或偏见确实是没有必要的。我们应该更加多元化地发展，学会尊重别的技术和别的事物，学会去发现、认可每件技术的优势与劣势。</p>
+<p>天下武功，确实没有高低之分；只有习武之人，才有强弱之别。</p></div>
+        <hr />
+    </div>
+		
+<div class="pagination">
+<ul>
+    <li class="prev disabled"><a href="#">&larr; Previous</a></li>
+
+    <li class="active"><a href="../tag/bian-ji-qi.html">1</a></li>
+
+    <li class="next disabled"><a href="#">&rarr; Next</a></li>
+
+</ul>
+</div>
+ 
+  
+        </div>
+        
+        <div class="span3">
+
+            <div class="well" style="padding: 8px 0; background-color: #FBFBFB;">
+            <ul class="nav nav-list">
+                <li class="nav-header"> 
+                Site
+                </li>
+            
+                <li><a href="../archives.html">Archives</a>
+                <li><a href="../tags.html">Tags</a>
+                <li><a href="http://www.lizherui.com/feeds/all.rss.xml" rel="alternate">RSS</a></li>
+            </ul>
+            </div>
+
+
+            <div class="well" style="padding: 8px 0; background-color: #FBFBFB;">
+            <ul class="nav nav-list">
+                <li class="nav-header"> 
+                Categories
+                </li>
+                
+                <li><a href="../category/life.html">Life</a></li>
+                <li><a href="../category/tech.html">Tech</a></li>
+                <li><a href="../category/work.html">Work</a></li>
+                   
+            </ul>
+            </div>
+
+
+            <div class="social">
+            <div class="well" style="padding: 8px 0; background-color: #FBFBFB;">
+            <ul class="nav nav-list">
+                <li class="nav-header"> 
+                Social
+                </li>
+           
+                <li><a href="https://github.com/lizherui">Github</a></li>
+                <li><a href="http://www.quora.com/Zherui-Li">Quora</a></li>
+                <li><a href="https://twitter.com/lzrak47">Twitter</a></li>
+                <li><a href="https://www.facebook.com/profile.php?id=100004875786021">Facebook</a></li>
+                <li><a href="http://www.linkedin.com/profile/view?id=232391796">Linkedin</a></li>
+                <li><a href="http://weibo.com/lzrm4a1">微博</a></li>
+                <li><a href="http://www.zhihu.com/people/li-zhe-rui">知乎</a></li>
+                <li><a href="http://www.douban.com/people/lizherui">豆瓣</a></li>
+            </ul>
+            </div>
+            </div>
+
+
+            <div class="well" style="padding: 8px 0; background-color: #FBFBFB;">
+            <ul class="nav nav-list">
+                <li class="nav-header"> 
+                Links
+                </li>
+            
+                <li><a href="https://www.google.com/ncr">Google</a></li>
+                <li><a href="http://python.org/">Python</a></li>
+                <li><a href="http://docs.getpelican.com/">Pelican</a></li>
+            </ul>
+            </div>
+
+
+        </div>  
+    </div>     </div> 
+<footer>
+<br />
+<p><a href="..">lizherui的程序世界</a> &copy; lizherui 2013-2015</p>
+</footer>
+
+</div> <!-- /container -->
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script src="http://twitter.github.com/bootstrap/assets/js/bootstrap-collapse.js"></script>
+<script>var _gaq=[['_setAccount','UA-42648273-1'],['_trackPageview']];(function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];g.src='//www.google-analytics.com/ga.js';s.parentNode.insertBefore(g,s)}(document,'script'))</script>
+<a href="https://github.com/lizherui"><img style="position: absolute; top: 40px; right: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_right_white_ffffff.png" alt="Fork me on GitHub" /></a>
+ 
+</body>
+</html>

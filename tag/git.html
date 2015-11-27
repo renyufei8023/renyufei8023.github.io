@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>lizherui的程序世界</title>
+    <meta name="description" content="">
+    <meta name="author" content="lizherui">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+    <script src="../theme/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le styles -->
+    <link href="../theme/bootstrap.min.css" rel="stylesheet">
+    <link href="../theme/bootstrap.min.responsive.css" rel="stylesheet">
+    <link href="../theme/local.css" rel="stylesheet">
+    <link href="../theme/pygments.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-inverse">
+    <div class="navbar-inner">
+      <div class="container">
+          <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+
+        <a class="brand" href="..">lizherui的程序世界</a>
+
+        <div class="nav-collapse collapse">
+        <ul class="nav">
+            
+            <li><a href="../pages/about.html">About</a></li>
+        </ul>
+<form class="navbar-search pull-right" action="/search.html">
+    <input type="text" class="search-query" placeholder="Search" name="q" id="s">
+</form> 
+        </div>
+        
+    </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="content">
+    <div class="row">
+
+        <div class="span9">
+        
+
+        
+
+
+    <div class='article'>
+        <div class="content-title">
+            <a href="../pages/2014/06/16/rewrite_git_in_python.html"><h1>用Python重写Git</h1></a>
+2014-06-16
+
+by <a class="url fn" href="../author/lizherui.html">lizherui</a>
+ 
+
+
+ 
+        </div>
+        
+        <div><p>废话不多说：<a href="https://github.com/lizherui/git-in-python">https://github.com/lizherui/git-in-python</a></p></div>
+        <hr />
+    </div>
+		
+
+ 
+        
+
+ 
+
+    <div class='article'>
+        <a href="../pages/2014/05/25/a_git_adventure.html"><h2>Git历险记</h2></a>
+        <div class= "well small"> 2014-05-25
+
+by <a class="url fn" href="../author/lizherui.html">lizherui</a>
+ 
+
+
+ </div>
+        <div class="summary"><p>Git, beautiful software.</p>
+<p>很多SVN使用者刚刚转到Git时，都会为Git独特的使用方式感到疑惑，尤其是Git大名鼎鼎的分布式思想、随时随地的本机开发、独一无二的暂存区、难以置信的轻量级分支、无处不在的fork。</p>
+<p>这些都让Git显得如此与众不同，</p>
+<p>当很多人从一个软件迁移到另一个软件并不再回头的时候，就值得我们注意了。</p>
+<p>这说明另一个软件<strong>更好用</strong>。</p>
+<p>当我们说某个软件更好用的时候，这意味着以下几个问题：为什么很多人都说它好用？具体好用在哪里？它的内部究竟是怎样设计的？为什么要这样设计？</p>
+<p>带着这些疑惑，让我们走进Git内部的神秘世界。</p>
+<h2>Git对象</h2>
+<hr />
+<p>每一位git使用者，都会不由自主地思考这样一件事情：git究竟是怎么存储每个文件和提交历史的？</p>
+<h3>Blob对象</h3>
+<p>我们在本地新建一个git仓库</p>
+<div class="highlight"><pre><span class="n">git</span> <span class="n">init</span> <span class="n">learn</span><span class="o">-</span><span class="n">git</span>
+</pre></div>
+
+
+<p>会发生该目录下多了一个.git文件夹，进去后长这样：</p>
+<div class="highlight"><pre><span class="p">.</span><span class="n">git</span><span class="o">/</span>
+<span class="o">|--</span> <span class="n">HEAD</span>
+<span class="o">|--</span> <span class="n">config</span>
+<span class="o">|--</span> <span class="n">description</span>
+<span class="o">|--</span> <span class="n">hooks</span>
+<span class="o">|</span>   <span class="o">|--</span> <span class="n">applypatch</span><span class="o">-</span><span class="n">msg</span><span class="p">.</span><span class="n">sample</span>
+<span class="o">|</span>   <span class="o">|--</span> <span class="n">commit</span><span class="o">-</span><span class="n">msg</span><span class="p">.</span><span class="n">sample</span>
+<span class="o">|</span>   <span class="o">|--</span> <span class="n">post</span><span class="o">-</span><span class="n">commit</span><span class="p">.</span><span class="n">sample ...</span></pre></div> <a class="btn btn-info xsmall" href="../pages/2014/05/25/a_git_adventure.html">read more</a></div>
+    </div>	
+				
+<div class="pagination">
+<ul>
+    <li class="prev disabled"><a href="#">&larr; Previous</a></li>
+
+    <li class="active"><a href="../tag/git.html">1</a></li>
+
+    <li class="next disabled"><a href="#">&rarr; Next</a></li>
+
+</ul>
+</div>
+ 
+  
+        </div>
+        
+        <div class="span3">
+
+            <div class="well" style="padding: 8px 0; background-color: #FBFBFB;">
+            <ul class="nav nav-list">
+                <li class="nav-header"> 
+                Site
+                </li>
+            
+                <li><a href="../archives.html">Archives</a>
+                <li><a href="../tags.html">Tags</a>
+                <li><a href="http://www.lizherui.com/feeds/all.rss.xml" rel="alternate">RSS</a></li>
+            </ul>
+            </div>
+
+
+            <div class="well" style="padding: 8px 0; background-color: #FBFBFB;">
+            <ul class="nav nav-list">
+                <li class="nav-header"> 
+                Categories
+                </li>
+                
+                <li><a href="../category/life.html">Life</a></li>
+                <li><a href="../category/tech.html">Tech</a></li>
+                <li><a href="../category/work.html">Work</a></li>
+                   
+            </ul>
+            </div>
+
+
+            <div class="social">
+            <div class="well" style="padding: 8px 0; background-color: #FBFBFB;">
+            <ul class="nav nav-list">
+                <li class="nav-header"> 
+                Social
+                </li>
+           
+                <li><a href="https://github.com/lizherui">Github</a></li>
+                <li><a href="http://www.quora.com/Zherui-Li">Quora</a></li>
+                <li><a href="https://twitter.com/lzrak47">Twitter</a></li>
+                <li><a href="https://www.facebook.com/profile.php?id=100004875786021">Facebook</a></li>
+                <li><a href="http://www.linkedin.com/profile/view?id=232391796">Linkedin</a></li>
+                <li><a href="http://weibo.com/lzrm4a1">微博</a></li>
+                <li><a href="http://www.zhihu.com/people/li-zhe-rui">知乎</a></li>
+                <li><a href="http://www.douban.com/people/lizherui">豆瓣</a></li>
+            </ul>
+            </div>
+            </div>
+
+
+            <div class="well" style="padding: 8px 0; background-color: #FBFBFB;">
+            <ul class="nav nav-list">
+                <li class="nav-header"> 
+                Links
+                </li>
+            
+                <li><a href="https://www.google.com/ncr">Google</a></li>
+                <li><a href="http://python.org/">Python</a></li>
+                <li><a href="http://docs.getpelican.com/">Pelican</a></li>
+            </ul>
+            </div>
+
+
+        </div>  
+    </div>     </div> 
+<footer>
+<br />
+<p><a href="..">lizherui的程序世界</a> &copy; lizherui 2013-2015</p>
+</footer>
+
+</div> <!-- /container -->
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script src="http://twitter.github.com/bootstrap/assets/js/bootstrap-collapse.js"></script>
+<script>var _gaq=[['_setAccount','UA-42648273-1'],['_trackPageview']];(function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];g.src='//www.google-analytics.com/ga.js';s.parentNode.insertBefore(g,s)}(document,'script'))</script>
+<a href="https://github.com/lizherui"><img style="position: absolute; top: 40px; right: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_right_white_ffffff.png" alt="Fork me on GitHub" /></a>
+ 
+</body>
+</html>
