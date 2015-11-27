@@ -1,27 +1,104 @@
-##pizn.github.com
+# Tranquilpeak Hexo theme
 
-这是 <a href="http://www.zhanxin.info" target="_blank" title="掌心">zhanxin.info</a> 在 GitHub 上使用 <a href="http://jekyllrb.com" target="_blank" >Jekyll</a> 搭建的个人博客的所有源代码。该博客的目的 用来<strong>快速</strong>记录工作，学习，生活的一点一滴。更多分享，更多交流，更多进步。
+A gorgeous responsive theme for Hexo blog framework 
 
-This is the source code for <a href="http://www.zhanxin.info" target="_blank" title="zhanxin.info">zhanxin.info</a> -- powered by <a href="http://jekyllrb.com" target="_blank" title="jekyll">Jekyll</a>. And this blog use for fast recording my work, learning and life.
+![Tranquilpeak](http://d1u9biwaxjngwg.cloudfront.net/showcases/showcase-v1.4.jpg)
 
-##如何达到快速呢？
+## Summary ##
 
-发表一篇文章，就像写代码一样，直接在编辑器上进行书写和总结。不需要进入网站的后台什么的，就可以完成文章的编辑了。
+- [General](#general)
+- [Features](#features)
+- [Quick start](#quick-start)
+- [Demo](#demo)
+- [Showcase](#showcase)
+- [Documentation](#documentation)
+    * [For users](#for-users)
+    * [For developers](#for-developers)
+- [Contributing](#contributing)
+- [License](#license)
 
-编辑完之后，Git 提交就可以完成。随后的一些事情，Jekyll 就会帮你处理好。恩，我觉得这可以省了我好多时间。又可以像 CodeReview 一样来阅读自己的文章，学而时习之。
+## General ##
 
-##LICENSE
+- **Author** : Louis Barranqueiro
+- **Version** : 1.4.3  
+- **Compatibility** : Hexo 3.0.0 or later
 
-pizn.github.com 上的文章采用<a href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">署名-非商业性使用-相同方式共享</a>协议进行授权，转载请注明转自：<a href="http://pizn.github.com" target="_blank">zhanxin.info</a>.
+## Features ##
 
-设计界面由<a href="http://pizn.net" target="_blank">zhanxin.info</a>设计提供，图片视觉设计版权由 zhanxin.lin 所有。<del><a href="http://www.pizn.me" target="_blank">PIZn.me</a>的紫色主题是 PIZn 的私有主题，</del>如果你喜欢这个主题，请提前跟我说下，并注明是 <a href="http://www.zhanxin.info" target="_blank">zhanxin.lin</a>开发和设计的。谢谢。<del>PS: 我很鄙视别人用了我的劳动成果，还注明是他自己设计的。请尊重在下！</del>
+**General features :**  
+- Fully responsive  
+- Optimized for tablets & mobiles  
+- Configurable menu of the sidebar  
+- Pages to filter tags, categories and archives  
+- Background cover image  
+- Beautiful about page  
+- Support Open Graph protocol  
+- Support internationalization (i18n)
+  
+  
+**Posts features :**  
+- Thumbnail image  
+- Cover image  
+- Responsive videos & images  
+- Sharing options  
+- Navigation menu  
+- GitHub theme for code highlighting  
+- Image gallery  
+- Image generator helpers
+- Table of contents  
+  
+  
+**Integrated services :**  
+- Disqus  
+- Google analytics  
+- Gravatar  
+- Swiftype  
+- Facebook Insights  
+    
+## Quick start ##
 
-站点其他代码采用  <a href="http://zh.wikipedia.org/wiki/MIT_License" target="_blank">MIT License 许可。</a>
+**Please read [user documentation](https://github.com/LouisBarranqueiro/tranquilpeak-hexo-theme/blob/master/docs/user.md), it's short and useful to discover all features and possibilities of the theme, especially the  [writing posts](https://github.com/LouisBarranqueiro/tranquilpeak-hexo-theme/blob/master/docs/user.md#writing-posts) section**
+##### For people who want to use the original version of Tranquilpeak (users) 
+1. Download the latest version ready for production utilisation here : [tranquilpeak-hexo-theme-built-for-production-1.4.3]
+(https://github.com/LouisBarranqueiro/tranquilpeak-hexo-theme/releases/download/v1.4.3/tranquilpeak-hexo-theme-built-for-production-1.4.3.zip) or choose an other version here : [all releases](https://github.com/LouisBarranqueiro/tranquilpeak-hexo-theme/releases)  
+2. Follow [user documentation](https://github.com/LouisBarranqueiro/tranquilpeak-hexo-theme/blob/master/docs/user.md) to install and configure the theme  
 
-##联系我
+##### For people who want to create their own version of tranquilpeak (developers)
+1. Run `git clone https://github.com/LouisBarranqueiro/tranquilpeak-hexo-theme.git`  
+2. Follow [developer documentation](https://github.com/LouisBarranqueiro/tranquilpeak-hexo-theme/blob/master/docs/developer.md) to edit and build the theme  
 
-如果你也想像我这样来写博客，搭建 GitHub 博客，如果有啥不懂的，我们互相交流！
+## Demo  ##
 
-邮箱: zhanxin.info@gmail.com
+Check out Tranquilpeak theme in live  : [Tranquilpeak-hexo-theme demo](http://louisbarranqueiro.github.io/tranquilpeak-hexo-theme)
 
+## Showcase ##
 
+I would like to create a showcase with all blogs having a customized version of tranquilpeak theme.
+If you have customized the original version, please, add your blog into.
+
+##### Via an issue
+1. Create an issue with your blog url and a short description of your changes by clicking [here](https://github.com/LouisBarranqueiro/tranquilpeak-hexo-theme/issues/new?title=Add%20my%20blog%20into%20showcase&body=Hey,%20check%20out%20my%20custom%20version%20of%20Tranquilpeak%20:%0D%0A*%20URL%20:%20%0D%0A*%20Changes%20(short%20description)%20:%20)  
+
+I will judge if the theme is enough customized to be added into showcase.
+
+## Documentation ##
+
+If it's your first time using Hexo, please check [Hexo official documentation](https://hexo.io/docs/)
+
+##### For users 
+To install and configure the theme, consult the following documentation : [user documentation](https://github.com/LouisBarranqueiro/tranquilpeak-hexo-theme/blob/master/docs/user.md)  
+
+##### For developers
+To understand better the code and edit  the theme, consult the following documentation : [developer documentation](https://github.com/LouisBarranqueiro/tranquilpeak-hexo-theme/blob/master/docs/developer.md)
+
+## Contributing ##
+
+[![Join the chat at https://gitter.im/LouisBarranqueiro/tranquilpeak-hexo-theme](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/LouisBarranqueiro/tranquilpeak-hexo-theme?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
+All kinds of contributions (enhancements, new features, documentation & code improvements, issues & bugs reporting) are welcome.
+
+All pull requests must be done on the `dev` branch.
+
+## License ##
+
+Tranquilpeak-hexo-theme is released under the terms of the [GNU General Public License v3.0](https://github.com/LouisBarranqueiro/tranquilpeak-hexo-theme/blob/master/LICENSE)
