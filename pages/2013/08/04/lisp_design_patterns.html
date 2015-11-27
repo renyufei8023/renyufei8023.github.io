@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>lizherui的程序世界</title>
+    <meta name="description" content="">
+    <meta name="author" content="lizherui">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+    <script src="../../../../theme/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le styles -->
+    <link href="../../../../theme/bootstrap.min.css" rel="stylesheet">
+    <link href="../../../../theme/bootstrap.min.responsive.css" rel="stylesheet">
+    <link href="../../../../theme/local.css" rel="stylesheet">
+    <link href="../../../../theme/pygments.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-inverse">
+    <div class="navbar-inner">
+      <div class="container">
+          <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+
+        <a class="brand" href="../../../..">lizherui的程序世界</a>
+
+        <div class="nav-collapse collapse">
+        <ul class="nav">
+            
+            <li><a href="../../../../pages/about.html">About</a></li>
+        </ul>
+<form class="navbar-search pull-right" action="/search.html">
+    <input type="text" class="search-query" placeholder="Search" name="q" id="s">
+</form> 
+        </div>
+        
+    </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="content">
+    <div class="row">
+
+        <div class="span9">
+    <div class='article'>
+        <div class="content-title">
+            <h1>Java设计模式在Common Lisp中的体现</h1>
+2013-08-04
+
+by <a class="url fn" href="../../../../author/lizherui.html">lizherui</a>
+ 
+
+
+        </div>
+	
+        <div><p>最近在进一步学习Java的过程中，我愈发感到Java把面向对象的编程思想玩到了登峰造极的地步。而Java中最能表现面向对象编程思想的，就是大名鼎鼎的设计模式了。</p>
+<p>这是Wikipedia中对设计模式的定义：设计模式并不直接用来完成代码的编写，而是描述在各种不同情况下，要怎么解决问题的一种方案。面向对象设计模式通常以类型或对象来描述其中的关系和相互作用，但不涉及用来完成应用程序的特定类型或对象。设计模式能使不稳定依赖于相对稳定、具体依赖于相对抽象，避免会引起麻烦的紧耦合，以增强软件设计面对并适应变化的能力。</p>
+<p>在学习了一些设计模式后，我们会发现这23种设计模式都围绕着以下三大基本原则：</p>
+<ol>
+<li>中意于组合而不是继承。</li>
+<li>依赖于接口而不是实现。</li>
+<li>高内聚，低耦合。</li>
+</ol>
+<p>不过，除了以上这些收获和感悟以外，我发现了一些更让人感兴趣的东西，这也是这篇文章马上要探讨的重点——Java设计模式在Common lisp中的体现。</p>
+<p>Java和Common lisp, 前者作为OO的代表，喜欢玩类和对象；后者作为Functional Programming的代表，喜欢玩函数和闭包。乍一看它俩应该风马牛不相及，井水不犯河水，但实际上我们会惊讶地发现Java设计模式中有着太多Common Lisp的对照，这种现象让人越来越强烈地感觉：软件设计虽然有众多的门派、风格和表现形式，但总体思想上似乎是殊途同归的，比如构造抽象屏障和提高抽象层次。</p>
+<p>Java至少有16种设计模式能对应到Common Lisp中，如下图：</p>
+<p><img alt="aaa" src="https://lh6.googleusercontent.com/--fbXkQDQfg0/Uf56NGxglbI/AAAAAAAAAGo/vpbBtYGAoxM/w414-h292-no/1.png" /></p>
+<p>Talk is cheap, let me show you the code.</p>
+<p>我们先来看看Singleton模式。</p>
+<p>Singleton模式有一个形象的比喻：Singleton就像追妹子一样，你不能大街上随便拉一个妹子就说是我对象，也不能自己做一个妹子出来说是自己对象。只能通过某种方法（追妹子），来产生一个对象。同时在调用这个方法的时候，会对你是否已经有对象进行检查。如果有，那么方法会直接返回，或者产生一个异常（抽你一巴掌，或者new Exception(”流氓!”)），从而保证你只有一个对象。</p>
+<p>这是一个线程安全的Java单例模式：</p>
+<div class="highlight"><pre><span class="n">class</span> <span class="n">Singleton</span>
+<span class="p">{</span>
+    <span class="n">private</span> <span class="k">static</span> <span class="n">Singleton</span> <span class="n">myInstance</span><span class="p">;</span>
+    <span class="n">public</span> <span class="k">static</span> <span class="n">Singleton</span> <span class="nf">getInstance</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">myInstance</span> <span class="o">==</span> <span class="n">null</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">synchronized</span><span class="p">(</span><span class="n">Singleton</span><span class="p">.</span><span class="n">class</span><span class="p">)</span>
+            <span class="p">{</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">myInstance</span> <span class="o">==</span> <span class="n">null</span><span class="p">)</span>
+                <span class="p">{</span>
+                    <span class="n">myInstance</span> <span class="o">=</span> <span class="n">new</span> <span class="n">Singleton</span><span class="p">();</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+
+        <span class="k">return</span> <span class="n">myInstance</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="n">private</span> <span class="nf">Singleton</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="c1">// Constructor code goes here.</span>
+    <span class="p">}</span>
+
+<span class="p">}</span>
+</pre></div>
+
+
+<p>这个例子简单明了，核心思想是利用Java中函数 的访问权限控制实现单例。</p>
+<p>但是在Common Lisp中，没有访问权限控制，那怎么去实现单例呢？这就变得非常有意思了。不仅是Common Lisp，Python、Ruby等动态语言中都有一种非常强悍的编程机制——元编程。</p>
+<p>这是Wikipedia中对元编程的定义：元编程是指某类计算机程序的编写，这类计算机程序编写或者操纵其它程序（或者自身）作为它们的数据，或者在运行时完成部分本应在编译时完成的工作。多数情况下，与手工编写全部代码相比，程序员可以获得更高的工作效率, 或者给与程序更大的灵活度去处理新的情形而无需重新编译。</p>
+<p>我们需要用到元编程思想中的一个重要应用——元类，即类的模板，元类的实例也是类。</p>
+<p>我们先定义一个元类:</p>
+<div class="highlight"><pre><span class="p">(</span><span class="n">defclass</span> <span class="n">singleton</span><span class="o">-</span><span class="n">class</span> <span class="p">(</span><span class="n">standard</span><span class="o">-</span><span class="n">class</span><span class="p">)</span>
+    <span class="p">((</span><span class="n">instance</span> <span class="o">:</span><span class="n">initform</span> <span class="n">nil</span><span class="p">)))</span>
+</pre></div>
+
+
+<p>这段代码阻止程序员直接实例化singleton-class，有点儿像Java的抽象类。</p>
+<p>然后为了严谨，我们对这个元类进行一些继承方面的限定。</p>
+<p>允许这个元类继承标准类：</p>
+<div class="highlight"><pre><span class="p">(</span><span class="n">defmethod</span> <span class="n">validate</span><span class="o">-</span><span class="n">superclass</span> <span class="p">((</span><span class="n">class</span> <span class="n">singleton</span><span class="o">-</span><span class="n">class</span><span class="p">)</span>                                                                 <span class="p">(</span><span class="n">superclass</span> <span class="n">standard</span><span class="o">-</span><span class="n">class</span><span class="p">))</span>    
+<span class="n">t</span><span class="p">)</span>
+</pre></div>
+
+
+<p>允许其它元类继承这个元类：</p>
+<div class="highlight"><pre><span class="p">(</span><span class="n">defmethod</span> <span class="n">validate</span><span class="o">-</span><span class="n">superclass</span> <span class="p">((</span><span class="n">class</span> <span class="n">singleton</span><span class="o">-</span><span class="n">class</span><span class="p">)</span>                                                                 <span class="p">(</span><span class="n">superclass</span> <span class="n">singleton</span><span class="o">-</span><span class="n">class</span><span class="p">))</span>   
+<span class="n">t</span><span class="p">)</span>
+</pre></div>
+
+
+<p>不允许其它标准类继承这个元类：</p>
+<div class="highlight"><pre><span class="p">(</span><span class="n">defmethod</span> <span class="n">validate</span><span class="o">-</span><span class="n">superclass</span> <span class="p">((</span><span class="n">class</span> <span class="n">standard</span><span class="o">-</span><span class="n">class</span><span class="p">)</span>                                                                  <span class="p">(</span><span class="n">superclass</span> <span class="n">singleton</span><span class="o">-</span><span class="n">class</span><span class="p">))</span>
+<span class="n">nil</span><span class="p">)</span>
+</pre></div>
+
+
+<p>然后定义初始化实例函数：</p>
+<div class="highlight"><pre><span class="p">(</span><span class="n">defvar</span> <span class="o">*</span><span class="n">singleton</span><span class="o">-</span><span class="n">classes</span><span class="o">*</span> <span class="err">&#39;</span><span class="p">())</span>
+
+<span class="p">(</span><span class="n">defmethod</span> <span class="n">initialize</span><span class="o">-</span><span class="n">instance</span> <span class="o">:</span><span class="n">after</span> <span class="p">((</span><span class="n">c</span> <span class="n">singleton</span><span class="o">-</span><span class="n">class</span><span class="p">)</span> <span class="o">&amp;</span><span class="n">key</span><span class="p">)</span>
+  <span class="p">(</span><span class="n">pushnew</span> <span class="n">c</span> <span class="o">*</span><span class="n">singleton</span><span class="o">-</span><span class="n">classes</span><span class="o">*</span><span class="p">))</span>
+</pre></div>
+
+
+<p>再定义真正的make-instance:</p>
+<div class="highlight"><pre><span class="p">(</span><span class="n">defmethod</span> <span class="n">make</span><span class="o">-</span><span class="n">instance</span> <span class="p">((</span><span class="n">class</span> <span class="n">singleton</span><span class="o">-</span><span class="n">class</span><span class="p">)</span>
+                      <span class="o">&amp;</span><span class="n">key</span><span class="p">)</span>
+  <span class="p">(</span><span class="n">with</span><span class="o">-</span><span class="n">slots</span> <span class="p">(</span><span class="n">instance</span><span class="p">)</span> <span class="n">class</span>
+    <span class="p">(</span><span class="n">or</span> <span class="n">instance</span>
+        <span class="p">(</span><span class="n">setf</span> <span class="n">instance</span> <span class="p">(</span><span class="n">call</span><span class="o">-</span><span class="n">next</span><span class="o">-</span><span class="n">method</span><span class="p">)))))</span>
+</pre></div>
+
+
+<p>还可以定义一个reset-singleton-classes：</p>
+<div class="highlight"><pre><span class="p">(</span><span class="n">defun</span> <span class="n">reset</span><span class="o">-</span><span class="n">singleton</span><span class="o">-</span><span class="n">classes</span> <span class="p">()</span>
+  <span class="p">;;</span> <span class="n">This</span> <span class="n">means</span> <span class="n">you</span> <span class="n">will</span> <span class="n">get</span> <span class="n">new</span> <span class="n">singletons</span> <span class="n">from</span> <span class="n">now</span> <span class="n">on</span><span class="p">.</span>
+  <span class="p">(</span><span class="n">loop</span> <span class="k">for</span> <span class="n">c</span> <span class="n">in</span> <span class="o">*</span><span class="n">singleton</span><span class="o">-</span><span class="n">classes</span><span class="o">*</span>
+        <span class="k">do</span> <span class="p">(</span><span class="n">setf</span> <span class="p">(</span><span class="n">slot</span><span class="o">-</span><span class="n">value</span> <span class="n">c</span> <span class="err">&#39;</span><span class="n">instance</span><span class="p">)</span> <span class="n">nil</span><span class="p">)))</span>
+</pre></div>
+
+
+<p>元类完事了，我们定义两个标准类：</p>
+<div class="highlight"><pre><span class="p">(</span><span class="n">defclass</span> <span class="n">foo1</span><span class="p">()</span>
+  <span class="p">()</span>
+  <span class="p">(</span><span class="o">:</span><span class="n">metaclass</span> <span class="n">singleton</span><span class="o">-</span><span class="n">class</span><span class="p">))</span>
+
+<span class="p">(</span><span class="n">defclass</span> <span class="n">foo2</span> <span class="p">()</span>
+  <span class="p">()</span>
+  <span class="p">(</span><span class="o">:</span><span class="n">metaclass</span> <span class="n">singleton</span><span class="o">-</span><span class="n">class</span><span class="p">))</span>
+</pre></div>
+
+
+<p>让我们测试一下，载入刚刚写好的test.lsp：</p>
+<p><img alt="2" src="https://lh5.googleusercontent.com/-vhKXWOXzcBw/Uf56NAb3rlI/AAAAAAAAAGs/sR4IKun665k/w415-h297-no/2.png" /> </p>
+<p>测试一下：</p>
+<p><img alt="3" src="https://lh3.googleusercontent.com/-eeLFQSEwkOU/Uf56NPKq97I/AAAAAAAAAGw/jE0cTtiFY6g/w172-h108-no/3.png" /> </p>
+<p>没有问题，我们还可以试一试刚才写的reset-singleton-classes：</p>
+<p><img alt="4" src="https://lh5.googleusercontent.com/-ROPqd87viOk/Uf56OKLi-xI/AAAAAAAAAG8/aQnvijRXTvQ/w180-h99-no/4.png" /> </p>
+<p>果然，foo1的单个实例被清空重建了。</p>
+<p>小结：Common Lisp中的元类，有一点像Java中的抽象类，比如不能被实例化，可以被继承等等。但元类跟抽象类仍然有着本质的不同：元类的实例是类，不是对象,于是能动态地创建类，更加灵活。Singleton模式具体的实现机制，是在元类中维护了一个内部队列来达到目的。</p>
+<p>张教主有这样一句名言：元编程是一种黑魔法，正派人士都很畏惧。</p>
+<p>我们再来看看工厂模式。</p>
+<p>下面是一个典型的Java工厂模式：</p>
+<div class="highlight"><pre><span class="n">abstract</span> <span class="n">class</span> <span class="n">Pizza</span> <span class="p">{</span>
+    <span class="n">public</span> <span class="n">abstract</span> <span class="kt">int</span> <span class="n">getPrice</span><span class="p">();</span> <span class="c1">// count the cents</span>
+<span class="p">}</span>
+
+<span class="n">class</span> <span class="n">HamAndMushroomPizza</span> <span class="n">extends</span> <span class="n">Pizza</span> <span class="p">{</span>
+    <span class="n">public</span> <span class="kt">int</span> <span class="n">getPrice</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="mi">850</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="n">class</span> <span class="n">DeluxePizza</span> <span class="n">extends</span> <span class="n">Pizza</span> <span class="p">{</span>
+    <span class="n">public</span> <span class="kt">int</span> <span class="n">getPrice</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="mi">1050</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="n">class</span> <span class="n">HawaiianPizza</span> <span class="n">extends</span> <span class="n">Pizza</span> <span class="p">{</span>
+    <span class="n">public</span> <span class="kt">int</span> <span class="n">getPrice</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="mi">1150</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="n">class</span> <span class="n">PizzaFactory</span> <span class="p">{</span>
+    <span class="n">public</span> <span class="k">enum</span> <span class="n">PizzaType</span> <span class="p">{</span>
+        <span class="n">HamMushroom</span><span class="p">,</span>
+        <span class="n">Deluxe</span><span class="p">,</span>
+        <span class="n">Hawaiian</span>
+    <span class="p">}</span>
+
+<span class="n">public</span> <span class="k">static</span> <span class="n">Pizza</span> <span class="n">createPizza</span><span class="p">(</span><span class="n">PizzaType</span> <span class="n">pizzaType</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">switch</span> <span class="p">(</span><span class="n">pizzaType</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">case</span> <span class="n">HamMushroom</span>:
+            <span class="k">return</span> <span class="n">new</span> <span class="n">HamAndMushroomPizza</span><span class="p">();</span>
+        <span class="k">case</span> <span class="n">Deluxe</span>:
+            <span class="k">return</span> <span class="n">new</span> <span class="n">DeluxePizza</span><span class="p">();</span>
+        <span class="k">case</span> <span class="n">Hawaiian</span>:
+            <span class="k">return</span> <span class="n">new</span> <span class="n">HawaiianPizza</span><span class="p">();</span>
+    <span class="p">}</span>
+    <span class="n">throw</span> <span class="n">new</span> <span class="n">IllegalArgumentException</span><span class="p">(</span><span class="s">&quot;The pizza type &quot;</span> <span class="o">+</span> <span class="n">pizzaType</span> <span class="o">+</span> <span class="s">&quot; is not recognized.&quot;</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="n">class</span> <span class="n">PizzaLover</span> <span class="p">{</span>
+    <span class="cm">/*</span>
+<span class="cm">     * Create all available pizzas and print their prices</span>
+<span class="cm">     */</span>
+    <span class="n">public</span> <span class="k">static</span> <span class="kt">void</span> <span class="n">main</span> <span class="p">(</span><span class="n">String</span> <span class="n">args</span><span class="p">[])</span> <span class="p">{</span>
+        <span class="k">for</span> <span class="p">(</span><span class="n">PizzaFactory</span><span class="p">.</span><span class="n">PizzaType</span> <span class="n">pizzaType</span> <span class="o">:</span> <span class="n">PizzaFactory</span><span class="p">.</span><span class="n">PizzaType</span><span class="p">.</span><span class="n">values</span><span class="p">())</span> <span class="p">{</span>
+            <span class="n">System</span><span class="p">.</span><span class="n">out</span><span class="p">.</span><span class="n">println</span><span class="p">(</span><span class="s">&quot;Price of &quot;</span> <span class="o">+</span> <span class="n">pizzaType</span> <span class="o">+</span> <span class="s">&quot; is &quot;</span> <span class="o">+</span> <span class="n">PizzaFactory</span><span class="p">.</span><span class="n">createPizza</span><span class="p">(</span><span class="n">pizzaType</span><span class="p">).</span><span class="n">getPrice</span><span class="p">());</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>输出结果：</p>
+<p>Price of HamMushroom is 850</p>
+<p>Price of Deluxe is 1050</p>
+<p>Price of Hawaiian is 1150</p>
+<p>在Common Lisp中，类和函数都是first class types ，即一等公民：</p>
+<ol>
+<li>可以被存储到变量中。</li>
+<li>可以作为参数传给其它。</li>
+<li>可以作为函数的返。</li>
+<li>可以在运行时被创造。</li>
+</ol>
+<p>因此，Common Lisp实现工厂模式就显得简单粗暴了，或者说，根本用不着工厂模式：</p>
+<div class="highlight"><pre><span class="p">(</span><span class="n">defclass</span> <span class="n">pizza</span> <span class="p">()</span>
+  <span class="p">((</span><span class="n">price</span> <span class="o">:</span><span class="n">accessor</span> <span class="n">price</span><span class="p">)))</span>
+
+<span class="p">(</span><span class="n">defclass</span> <span class="n">ham</span><span class="o">-</span><span class="n">and</span><span class="o">-</span><span class="n">mushroom</span><span class="o">-</span><span class="n">pizza</span> <span class="p">(</span><span class="n">pizza</span><span class="p">)</span>
+  <span class="p">((</span><span class="n">price</span> <span class="o">:</span><span class="n">initform</span> <span class="mi">850</span><span class="p">)))</span>
+
+<span class="p">(</span><span class="n">defclass</span> <span class="n">deluxe</span><span class="o">-</span><span class="n">pizza</span> <span class="p">(</span><span class="n">pizza</span><span class="p">)</span>
+  <span class="p">((</span><span class="n">price</span> <span class="o">:</span><span class="n">initform</span> <span class="mi">1050</span><span class="p">)))</span>
+
+<span class="p">(</span><span class="n">defclass</span> <span class="n">hawaiian</span><span class="o">-</span><span class="n">pizza</span> <span class="p">(</span><span class="n">pizza</span><span class="p">)</span>
+  <span class="p">((</span><span class="n">price</span> <span class="o">:</span><span class="n">initform</span> <span class="mi">1150</span><span class="p">)))</span>
+
+<span class="p">(</span><span class="n">defparameter</span> <span class="o">*</span><span class="n">pizza</span><span class="o">-</span><span class="n">types</span><span class="o">*</span>
+  <span class="p">(</span><span class="n">list</span> <span class="err">&#39;</span><span class="n">ham</span><span class="o">-</span><span class="n">and</span><span class="o">-</span><span class="n">mushroom</span><span class="o">-</span><span class="n">pizza</span>
+        <span class="err">&#39;</span><span class="n">deluxe</span><span class="o">-</span><span class="n">pizza</span>
+        <span class="err">&#39;</span><span class="n">hawaiian</span><span class="o">-</span><span class="n">pizza</span><span class="p">))</span>
+</pre></div>
+
+
+<p>载入测试一下：</p>
+<p><img alt="5" src="https://lh5.googleusercontent.com/-YNmX58cxcDo/Uf56OIKW--I/AAAAAAAAAHA/W-vT08Kmtwo/w324-h112-no/5.png" /></p>
+<p>小结：Common Lisp中由于函数是一等公民的缘故，相对于Java中工厂模式的实现要简单的多，不需要额外建一个工厂类，可以随心所欲地玩。函数式语言相当于OO语言来说，确实有一个优点——可以操纵的单元粒度更小更细，所以更加灵活，同时也更加容易失控。</p>
+<p>最后，让我们看看迭代器模式，首先是Java中的实现：</p>
+<div class="highlight"><pre><span class="n">import</span> <span class="n">java</span><span class="p">.</span><span class="n">util</span><span class="p">.</span><span class="n">ArrayList</span><span class="p">;</span>
+<span class="n">import</span> <span class="n">java</span><span class="p">.</span><span class="n">util</span><span class="p">.</span><span class="n">List</span><span class="p">;</span>
+
+<span class="n">interface</span> <span class="n">Iterator</span> <span class="p">{</span>
+    <span class="n">public</span> <span class="n">Object</span> <span class="n">next</span><span class="p">();</span>
+    <span class="n">public</span> <span class="n">boolean</span> <span class="nf">hasNext</span><span class="p">();</span>
+<span class="p">}</span>
+<span class="n">class</span> <span class="n">ConcreteIterator</span> <span class="n">implements</span> <span class="n">Iterator</span><span class="p">{</span>
+    <span class="n">private</span> <span class="n">List</span> <span class="n">list</span> <span class="o">=</span> <span class="n">new</span> <span class="n">ArrayList</span><span class="p">();</span>
+    <span class="n">private</span> <span class="kt">int</span> <span class="n">cursor</span> <span class="o">=</span><span class="mi">0</span><span class="p">;</span>
+    <span class="n">public</span> <span class="nf">ConcreteIterator</span><span class="p">(</span><span class="n">List</span> <span class="n">list</span><span class="p">){</span>
+        <span class="n">this</span><span class="p">.</span><span class="n">list</span> <span class="o">=</span> <span class="n">list</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="n">public</span> <span class="n">boolean</span> <span class="nf">hasNext</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">cursor</span><span class="o">==</span><span class="n">list</span><span class="p">.</span><span class="n">size</span><span class="p">()){</span>
+            <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="n">public</span> <span class="n">Object</span> <span class="nf">next</span><span class="p">()</span> <span class="p">{</span>
+        <span class="n">Object</span> <span class="n">obj</span> <span class="o">=</span> <span class="n">null</span><span class="p">;</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">this</span><span class="p">.</span><span class="n">hasNext</span><span class="p">()){</span>
+            <span class="n">obj</span> <span class="o">=</span> <span class="n">this</span><span class="p">.</span><span class="n">list</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="n">cursor</span><span class="o">++</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="n">obj</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+<span class="n">interface</span> <span class="n">Aggregate</span> <span class="p">{</span>
+    <span class="n">public</span> <span class="kt">void</span> <span class="n">add</span><span class="p">(</span><span class="n">Object</span> <span class="n">obj</span><span class="p">);</span>
+    <span class="n">public</span> <span class="kt">void</span> <span class="nf">remove</span><span class="p">(</span><span class="n">Object</span> <span class="n">obj</span><span class="p">);</span>
+    <span class="n">public</span> <span class="n">Iterator</span> <span class="nf">iterator</span><span class="p">();</span>
+<span class="p">}</span>
+<span class="n">class</span> <span class="n">ConcreteAggregate</span> <span class="n">implements</span> <span class="n">Aggregate</span> <span class="p">{</span>
+    <span class="n">private</span> <span class="n">List</span> <span class="n">list</span> <span class="o">=</span> <span class="n">new</span> <span class="n">ArrayList</span><span class="p">();</span>
+    <span class="n">public</span> <span class="kt">void</span> <span class="nf">add</span><span class="p">(</span><span class="n">Object</span> <span class="n">obj</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">list</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="n">obj</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="n">public</span> <span class="n">Iterator</span> <span class="nf">iterator</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">new</span> <span class="n">ConcreteIterator</span><span class="p">(</span><span class="n">list</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="n">public</span> <span class="kt">void</span> <span class="nf">remove</span><span class="p">(</span><span class="n">Object</span> <span class="n">obj</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">list</span><span class="p">.</span><span class="n">remove</span><span class="p">(</span><span class="n">obj</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+<span class="n">public</span> <span class="n">class</span> <span class="n">Test</span> <span class="p">{</span>
+    <span class="n">public</span> <span class="k">static</span> <span class="kt">void</span> <span class="n">main</span><span class="p">(</span><span class="n">String</span><span class="p">[]</span> <span class="n">args</span><span class="p">){</span>
+        <span class="n">Aggregate</span> <span class="n">ag</span> <span class="o">=</span> <span class="n">new</span> <span class="n">ConcreteAggregate</span><span class="p">();</span>
+        <span class="n">ag</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="s">&quot;小明&quot;</span><span class="p">);</span>
+        <span class="n">ag</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="s">&quot;小红&quot;</span><span class="p">);</span>
+        <span class="n">ag</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="s">&quot;小刚&quot;</span><span class="p">);</span>
+        <span class="n">Iterator</span> <span class="n">it</span> <span class="o">=</span> <span class="n">ag</span><span class="p">.</span><span class="n">iterator</span><span class="p">();</span>
+        <span class="k">while</span><span class="p">(</span><span class="n">it</span><span class="p">.</span><span class="n">hasNext</span><span class="p">()){</span>
+            <span class="n">String</span> <span class="n">str</span> <span class="o">=</span> <span class="p">(</span><span class="n">String</span><span class="p">)</span><span class="n">it</span><span class="p">.</span><span class="n">next</span><span class="p">();</span>
+            <span class="n">System</span><span class="p">.</span><span class="n">out</span><span class="p">.</span><span class="n">println</span><span class="p">(</span><span class="n">str</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>核心思想是在内部封装一个Arraylist，只对外暴露Iterator的基本接口，跟C++ STL中迭代器的设计基本一致。</p>
+<p>在Common Lisp中实现迭代器，我们只需要定义宏：</p>
+<div class="highlight"><pre><span class="p">(</span><span class="nx">defmethod</span> <span class="nx">make</span><span class="o">-</span><span class="nx">cursor</span><span class="o">-</span><span class="k">for</span> <span class="p">((</span><span class="nx">collection</span> <span class="nx">list</span><span class="p">))</span>
+  <span class="err">#</span><span class="s1">&#39;(lambda (message)</span>
+<span class="s1">      (case message</span>
+<span class="s1">    (:next</span>
+<span class="s1">     (let ((r (first collection)))</span>
+<span class="s1">       (setf collection (cdr collection))</span>
+<span class="s1">       (values r (null collection))))</span>
+<span class="s1">    (:finished-p</span>
+<span class="s1">     (null collection)))))</span>
+
+<span class="s1">(defmethod cursor-next ((cursor function))</span>
+<span class="s1">  (funcall cursor &#39;</span><span class="o">:</span><span class="nx">next</span><span class="p">))</span>
+
+<span class="p">(</span><span class="nx">defmethod</span> <span class="nx">cursor</span><span class="o">-</span><span class="nx">finished</span><span class="o">-</span><span class="nx">p</span> <span class="p">((</span><span class="nx">cursor</span> <span class="kd">function</span><span class="p">))</span>
+  <span class="p">(</span><span class="nx">funcall</span> <span class="nx">cursor</span> <span class="err">&#39;</span><span class="o">:</span><span class="nx">finished</span><span class="o">-</span><span class="nx">p</span><span class="p">))</span>
+</pre></div>
+
+
+<p>测试一下:</p>
+<p><img alt="7" src="https://lh3.googleusercontent.com/-nHpRPpSXzts/Uf56Obb5ufI/AAAAAAAAAHI/4lvgkQWPUBo/w415-h164-no/6.png" /></p>
+<p>小结：Common Lisp中由于自带序列，对迭代天然支持，所以相当于Java会更加简，天生的宏机制表现得畅快淋漓。</p>
+<p>总结：无论在Java还是Common Lisp中，设计模式虽然有不同的表现形式，但目标都一致的：构造抽象屏障，控制抽象层次，降低模块之间的耦合，尽量编写通用的组件。由于函数在Common Lisp中是一等公民的缘故，因此相对Java来说，Common Lisp的操作粒度更小，我们可以构造各种精巧的小函数并利用宏机制让各个小函数互相组合起来工作，显得更加简洁、灵活和强悍。但同时，这种特点也容易使整个项目的可控性受到威胁。而且Common Lisp这种函数式的数学思维，确实显得过于抽象了，不如Java的OO机制来得更加直观、更加贴近生活。</p>
+<p>在学习Java设计模式的过程中，除了开阔了自己的眼界，同时也勾起了我对函数式编程思想的美好怀念以及继续在课余时间学习SICP(<a href="http://book.douban.com/subject/1148282">http://book.douban.com/subject/1148282</a>)的动力。</p>
+<p>以前写Python的时候，我特别喜欢那4把宝剑——lambda、map、reduce、filter带来的随心所欲的编程快感。Java的设计模式对我开启了另一个世界的门——这个世界的疆域更加广阔，规则更加严谨，层次更加明显。</p>
+<p>最后，让我们用一个迷人的小故事来结束本文吧：</p>
+<p>在 ILC 2002 大会上前Lisp大神，当今的Python倡导者Peter Norvig，由于某些原因，做一个类似于马丁路德在梵蒂冈宣扬新教的主题演讲，因为他在演讲中大胆地声称Python就是一种Lisp。</p>
+<p>讲完后进入提问环节，出乎我意料的是，Peter点了我过道另一侧，靠上面几排座位的一个老头，他衣着皱褶，在演讲刚开始的时候踱步进来，然后就靠在了那个座位上面。</p>
+<p>这老头满头凌乱的白发，邋遢的白胡须，像是从旅行团中落下的游客，已经完全迷路了，闲逛到这里来歇歇脚，随便看看我们都在这里干什么。我的第一个念头是，他会因为我们的奇怪的话题感到相当失望；接着，我意识到这位
+老头的年纪，想到斯坦福就在附近，而且我想那人也在斯坦福 —— 难道他是……</p>
+<p>“嗨，John，有什么问题？” Peter说。</p>
+<p>虽然这只是10个字左右的问题，我不会假装自己记住了Lisp之父约翰麦卡锡说的每一个字。他在问Python程序能
+不能像处理数据一样，优雅地处理Python代码。</p>
+<p>“不行。John, Python做不到。” Peter就回答了这一句，然后静静地等待，准备接受教授的质疑，但老人没有再说什么了。此时，无语已胜千言。</p></div>
+	
+        <hr>
+    	   
+        <h2>Comments</h2>
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'lizheruisworld'; 
+    var disqus_title = 'Java设计模式在Common Lisp中的体现';
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+        </div>
+        
+        <div class="span3">
+
+            <div class="well" style="padding: 8px 0; background-color: #FBFBFB;">
+            <ul class="nav nav-list">
+                <li class="nav-header"> 
+                Site
+                </li>
+            
+                <li><a href="../../../../archives.html">Archives</a>
+                <li><a href="../../../../tags.html">Tags</a>
+                <li><a href="http://www.lizherui.com/feeds/all.rss.xml" rel="alternate">RSS</a></li>
+            </ul>
+            </div>
+
+
+            <div class="well" style="padding: 8px 0; background-color: #FBFBFB;">
+            <ul class="nav nav-list">
+                <li class="nav-header"> 
+                Categories
+                </li>
+                
+                <li><a href="../../../../category/life.html">Life</a></li>
+                <li><a href="../../../../category/tech.html">Tech</a></li>
+                <li><a href="../../../../category/work.html">Work</a></li>
+                   
+            </ul>
+            </div>
+
+
+            <div class="social">
+            <div class="well" style="padding: 8px 0; background-color: #FBFBFB;">
+            <ul class="nav nav-list">
+                <li class="nav-header"> 
+                Social
+                </li>
+           
+                <li><a href="https://github.com/lizherui">Github</a></li>
+                <li><a href="http://www.quora.com/Zherui-Li">Quora</a></li>
+                <li><a href="https://twitter.com/lzrak47">Twitter</a></li>
+                <li><a href="https://www.facebook.com/profile.php?id=100004875786021">Facebook</a></li>
+                <li><a href="http://www.linkedin.com/profile/view?id=232391796">Linkedin</a></li>
+                <li><a href="http://weibo.com/lzrm4a1">微博</a></li>
+                <li><a href="http://www.zhihu.com/people/li-zhe-rui">知乎</a></li>
+                <li><a href="http://www.douban.com/people/lizherui">豆瓣</a></li>
+            </ul>
+            </div>
+            </div>
+
+
+            <div class="well" style="padding: 8px 0; background-color: #FBFBFB;">
+            <ul class="nav nav-list">
+                <li class="nav-header"> 
+                Links
+                </li>
+            
+                <li><a href="https://www.google.com/ncr">Google</a></li>
+                <li><a href="http://python.org/">Python</a></li>
+                <li><a href="http://docs.getpelican.com/">Pelican</a></li>
+            </ul>
+            </div>
+
+
+        </div>  
+    </div>     </div> 
+<footer>
+<br />
+<p><a href="../../../..">lizherui的程序世界</a> &copy; lizherui 2013-2015</p>
+</footer>
+
+</div> <!-- /container -->
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script src="http://twitter.github.com/bootstrap/assets/js/bootstrap-collapse.js"></script>
+<script>var _gaq=[['_setAccount','UA-42648273-1'],['_trackPageview']];(function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];g.src='//www.google-analytics.com/ga.js';s.parentNode.insertBefore(g,s)}(document,'script'))</script>
+<a href="https://github.com/lizherui"><img style="position: absolute; top: 40px; right: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_right_white_ffffff.png" alt="Fork me on GitHub" /></a>
+ 
+</body>
+</html>
