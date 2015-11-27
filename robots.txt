@@ -1,1 +1,9 @@
-Sitemap: http://www.lizherui.com/sitemap.xml
+---
+layout: blank
+---
+User-agent: *
+Disallow: /css/
+Disallow: /js/
+Disallow: /works/
+
+Sitemap: {{ site.url }}/sitemap.xml
