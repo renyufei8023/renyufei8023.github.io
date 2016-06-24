@@ -1,0 +1,1005 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <title>iOS开发总结</title>
+  <meta name="description" content="#iOS开发总结">
+  <meta name="author" content="Wei Wang">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="iOS开发总结">
+  <meta name="twitter:description" content="#iOS开发总结">
+
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="iOS开发总结">
+  <meta property="og:description" content="#iOS开发总结">
+
+  <link rel="icon" type="image/ico" href="/assets/images/favicon.ico" />
+  <link href="/assets/images/favicon.ico" rel="shortcut icon" type="image/ico">
+
+  <link rel="stylesheet" href="/css/main.css">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <link rel="canonical" href="http://vno.onevcat.com/2016/05/iOS%E5%BC%80%E5%8F%91%E6%80%BB%E7%BB%93/">
+  <link rel="alternate" type="application/rss+xml" title="上善若水，人淡如菊" href="http://vno.onevcat.com/feed.xml">
+
+  <meta name="google-site-verification" content="1-1ZlHoRvM0T2FqPbW2S-qLgYXN6rsn52kErlMPd_gw" />
+
+</head>
+
+
+  <body>
+
+    <span class="mobile btn-mobile-menu">
+        <i class="fa fa-list btn-mobile-menu__icon"></i>
+        <i class="fa fa-angle-up btn-mobile-close__icon hidden"></i>
+    </span>
+    
+    <header class="panel-cover panel-cover--collapsed" style="background-image: url('/assets/images/background-cover.jpg')">
+  <div class="panel-main">
+
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        <a href="/#blog" title="前往 上善若水，人淡如菊 的主页" class="blog-button"><img src="/assets/images/avatar.jpg" width="80" alt="上善若水，人淡如菊 logo" class="panel-cover__logo logo" /></a>
+        <h1 class="panel-cover__title panel-title"><a href="/#blog" title="link to homepage for 上善若水，人淡如菊" class="blog-button">上善若水，人淡如菊</a></h1>
+        
+        <span class="panel-cover__subtitle panel-subtitle">上善若水，人淡如菊</span>
+        
+        <hr class="panel-cover__divider" />
+        <p class="panel-cover__description">嗨，我是任玉飞 (@Raphcel)，一名走在iOS开发路上的从业者，努力成为一个全栈工程师，爱好唱歌，以及所有与音乐有关的事情。目前在北京工作。吾笃信：认真你就赢了。</p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+        
+        
+        
+        <div class="navigation-wrapper">
+          <div>
+            <nav class="cover-navigation cover-navigation--primary">
+              <ul class="navigation">
+                <li class="navigation__item"><a href="/#blog" title="Visit blog" class="blog-button">博客</a></li>
+                
+                  <li class="navigation__item"><a href="http://about.yufei.ren" target="_blank" title="关于">关于</a></li>
+                
+              </ul>
+            </nav>
+          </div>
+          
+          <div><nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+    
+    <!-- jianshu-->
+    <li class="navigation__item">
+      <a href="http://www.jianshu.com/users/d8f57dd98c59/latest_articles" title="@ 的简书" target="_blank">
+        <i class='social fa fa-book'></i>
+        <span class="label">jianshu</span>
+      </a>
+    </li>
+    
+
+  
+  <!-- Weibo -->
+  <li class="navigation__item">
+    <a href="http://weibo.com/ryf8023" title="@ 的微博" target="_blank">
+      <i class='social fa fa-weibo'></i>
+      <span class="label">Weibo</span>
+    </a>
+  </li>
+  
+
+  
+  <!-- Github -->
+  <li class="navigation__item">
+    <a href="https://github.com/renyufei8023" title="@ 的 Github" target="_blank">
+      <i class='social fa fa-github'></i>
+      <span class="label">Github</span>
+    </a>
+  </li>
+  
+
+  
+
+  
+
+  <!-- RSS -->
+  <li class="navigation__item">
+    <a href="/feed.xml" rel="author" title="RSS" target="_blank">
+      <i class='social fa fa-rss'></i>
+      <span class="label">RSS</span>
+    </a>
+  </li>
+
+  
+  <!-- Email -->
+  <li class="navigation__item">
+    <a href="mailto:renyufei8023@gamil.com" title="Contact me">
+      <i class='social fa fa-envelope'></i>
+      <span class="label">Email</span>
+    </a>
+  </li>
+  
+
+  </ul>
+</nav>
+</div>
+        </div>
+      </div>
+    </div>
+    
+    
+    <div class="panel-cover--overlay cover-black"></div>
+    
+  </div>
+</header>
+
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner">
+            <article class="post-container post-container--single" itemscope itemtype="http://schema.org/BlogPosting">
+  <header class="post-header">
+    <div class="post-meta">
+      <time datetime="2016-05-26 17:23:32 +0800" itemprop="datePublished" class="post-meta__date date">2016-05-26</time> &#8226; <span class="post-meta__tags tags">Blog</span>
+    </div>
+    <h1 class="post-title">iOS开发总结</h1>
+  </header>
+
+  <section class="post">
+    <p>#iOS开发总结</p>
+
+<p>###判断是否是第一次打开应用程序
+先获取CFBundleShortVersionString这个key，然后从沙盒中取这个key，如果两个相等，则表示不是第一次打开该应用程序，不相等的时候应该把沙盒中中的key保存起来，下次启动时候再进行判断</p>
+
+<div class="language-objc highlighter-rouge"><pre class="highlight"><code><span class="err"> </span><span class="n">NSString</span> <span class="o">*</span> <span class="n">key</span> <span class="o">=</span> <span class="s">@"CFBundleShortVersionString"</span><span class="p">;</span>
+<span class="err">  </span> <span class="err"> </span>
+<span class="err"> </span> <span class="err"> </span> <span class="n">NSString</span> <span class="o">*</span><span class="n">currentVersion</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSBundle</span> <span class="nf">mainBundle</span><span class="p">].</span><span class="n">infoDictionary</span><span class="p">[</span><span class="nf">key</span><span class="p">];</span>
+<span class="err"> </span> <span class="err"> </span> <span class="n">NSString</span> <span class="o">*</span><span class="n">sandboxVersion</span> <span class="o">=</span> <span class="p">[[</span><span class="n">NSUserDefaults</span> <span class="nf">standardUserDefaults</span><span class="p">]</span> <span class="nf">stringForKey</span><span class="p">:</span><span class="n">key</span><span class="p">];</span>
+<span class="err"> </span> <span class="err"> </span> <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="p">[</span><span class="n">currentVersion</span> <span class="nf">isEqualToString</span><span class="p">:</span><span class="n">sandboxVersion</span><span class="p">])</span> <span class="p">{</span>
+<span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="p">[[</span><span class="n">NSUserDefaults</span> <span class="nf">standardUserDefaults</span><span class="p">]</span><span class="nf">setObject</span><span class="p">:</span><span class="n">currentVersion</span> <span class="nf">forKey</span><span class="p">:</span><span class="n">key</span><span class="p">];</span>
+<span class="err">  </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span>
+<span class="err"> </span> <span class="err"> </span> <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+<span class="err">  </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span>
+<span class="err"> </span> <span class="err"> </span> <span class="p">}</span>
+<span class="err">  </span> <span class="err"> </span>
+
+<span class="cp">###修改tabbariterm选中以及未选中颜色
+</span>
+<span class="err">我们可以调用</span><span class="n">UIBarItem</span><span class="err">的这个`</span><span class="o">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">setTitleTextAttributes</span><span class="o">:</span><span class="p">(</span><span class="n">nullable</span> <span class="n">NSDictionary</span><span class="o">&lt;</span><span class="n">NSString</span> <span class="o">*</span><span class="p">,</span><span class="n">id</span><span class="o">&gt;</span> <span class="o">*</span><span class="p">)</span><span class="n">attributes</span> <span class="n">forState</span><span class="o">:</span><span class="p">(</span><span class="n">UIControlState</span><span class="p">)</span><span class="n">state</span> <span class="n">NS_AVAILABLE_IOS</span><span class="p">(</span><span class="mi">5</span><span class="n">_0</span><span class="p">)</span> <span class="n">UI_APPEARANCE_SELECTOR</span><span class="p">;</span><span class="err">`方法，这个方法支持在</span><span class="n">appearance</span><span class="err">的时候设置，为什么设置</span><span class="n">UIBarItem</span><span class="err">呢，因为</span><span class="n">UITabBarItem</span><span class="err">继承自</span><span class="n">UIBarItem</span>
+
+<span class="err">```</span><span class="n">objc</span>
+<span class="err"> </span> <span class="n">NSMutableDictionary</span> <span class="o">*</span><span class="n">attrs</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSMutableDictionary</span> <span class="nf">dictionary</span><span class="p">];</span>
+<span class="err"> </span> <span class="err"> </span> <span class="n">attrs</span><span class="p">[</span><span class="nf">NSFontAttributeName</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">UIFont</span> <span class="nf">systemFontOfSize</span><span class="p">:</span><span class="mi">12</span><span class="p">];</span>
+<span class="err"> </span> <span class="err"> </span> <span class="n">attrs</span><span class="p">[</span><span class="nf">NSForegroundColorAttributeName</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">UIColor</span> <span class="nf">grayColor</span><span class="p">];</span>
+<span class="err">  </span> <span class="err"> </span>
+<span class="err"> </span> <span class="err"> </span> <span class="n">NSMutableDictionary</span> <span class="o">*</span><span class="n">selectedAttrs</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSMutableDictionary</span> <span class="nf">dictionary</span><span class="p">];</span>
+<span class="err"> </span> <span class="err"> </span> <span class="n">selectedAttrs</span><span class="p">[</span><span class="nf">NSFontAttributeName</span><span class="p">]</span> <span class="o">=</span> <span class="n">attrs</span><span class="p">[</span><span class="nf">NSFontAttributeName</span><span class="p">];</span>
+<span class="err"> </span> <span class="err"> </span> <span class="n">selectedAttrs</span><span class="p">[</span><span class="nf">NSForegroundColorAttributeName</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">UIColor</span> <span class="nf">darkGrayColor</span><span class="p">];</span>
+<span class="err">  </span> <span class="err"> </span>
+<span class="err"> </span> <span class="err"> </span> <span class="n">UITabBarItem</span> <span class="o">*</span><span class="n">item</span> <span class="o">=</span> <span class="p">[</span><span class="n">UITabBarItem</span> <span class="nf">appearance</span><span class="p">];</span>
+<span class="err"> </span> <span class="err"> </span> <span class="p">[</span><span class="n">item</span> <span class="nf">setTitleTextAttributes</span><span class="p">:</span><span class="n">attrs</span> <span class="nf">forState</span><span class="p">:</span><span class="n">UIControlStateNormal</span><span class="p">];</span>
+<span class="err"> </span> <span class="err"> </span> <span class="p">[</span><span class="n">item</span> <span class="nf">setTitleTextAttributes</span><span class="p">:</span><span class="n">selectedAttrs</span> <span class="nf">forState</span><span class="p">:</span><span class="n">UIControlStateSelected</span><span class="p">];</span>
+</code></pre>
+</div>
+
+<p>###替换系统自带的tabbar
+我们可以使用KVC把系统的tabbar替换成我们自己的
+在TabBarController的viewDidLoad中进行设置即可</p>
+
+<div class="language-objc highlighter-rouge"><pre class="highlight"><code><span class="p">[</span><span class="n">self</span> <span class="nf">setValue</span><span class="p">:[[</span><span class="n">RYFTabBar</span> <span class="nf">alloc</span><span class="p">]</span><span class="nf">init</span><span class="p">]</span> <span class="nf">forKey</span><span class="p">:</span><span class="s">@"tabBar"</span><span class="p">];</span>
+</code></pre>
+</div>
+<p>###自定义tabbar
+现在很多APP中都要求中间有一个加号按钮或者什么的，这个时候就需要我们自定义tabbar了，当然网上有很多自定义tabbar的demo，不过这个方式实现比较简单，我们需要声明一个协议，然后监听按钮的点击，我们先在<code class="highlighter-rouge">- (instancetype)initWithFrame:(CGRect)frame</code>中创建中间的按钮，然后在<code class="highlighter-rouge">layoutSubviews</code>中设置frame，因为吧按钮添加到tabbar上面的时候会触发<code class="highlighter-rouge">layoutSubviews</code>，在这个方法里面拿到的frame比较准确。代码如下</p>
+
+<div class="language-objc highlighter-rouge"><pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="n">instancetype</span><span class="p">)</span><span class="nf">initWithFrame</span><span class="p">:(</span><span class="n">CGRect</span><span class="p">)</span><span class="nv">frame</span>
+<span class="p">{</span>
+<span class="err"> </span> <span class="err"> </span> <span class="k">if</span> <span class="p">(</span><span class="n">self</span> <span class="o">=</span> <span class="p">[</span><span class="n">super</span> <span class="nf">initWithFrame</span><span class="p">:</span><span class="n">frame</span><span class="p">])</span> <span class="p">{</span>
+<span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="n">_plusButton</span> <span class="o">=</span> <span class="p">[</span><span class="n">UIButton</span> <span class="nf">buttonWithType</span><span class="p">:</span><span class="n">UIButtonTypeCustom</span><span class="p">];</span>
+<span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="p">[</span><span class="n">_plusButton</span> <span class="nf">setBackgroundImage</span><span class="p">:[</span><span class="n">UIImage</span> <span class="nf">imageNamed</span><span class="p">:</span><span class="s">@"tabBar_publish_icon"</span><span class="p">]</span> <span class="nf">forState</span><span class="p">:</span><span class="n">UIControlStateNormal</span><span class="p">];</span>
+<span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="p">[</span><span class="n">_plusButton</span> <span class="nf">setBackgroundImage</span><span class="p">:[</span><span class="n">UIImage</span> <span class="nf">imageNamed</span><span class="p">:</span><span class="s">@"tabBar_publish_click_icon"</span><span class="p">]</span> <span class="nf">forState</span><span class="p">:</span><span class="n">UIControlStateSelected</span><span class="p">];</span>
+<span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="p">[</span><span class="n">_plusButton</span> <span class="nf">addTarget</span><span class="p">:</span><span class="n">self</span> <span class="nf">action</span><span class="p">:</span><span class="k">@selector</span><span class="p">(</span><span class="n">plusSignClick</span><span class="p">)</span> <span class="n">forControlEvents</span><span class="o">:</span><span class="n">UIControlEventTouchUpInside</span><span class="p">];</span>
+<span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="p">[</span><span class="n">self</span> <span class="nf">addSubview</span><span class="p">:</span><span class="n">_plusButton</span><span class="p">];</span>
+<span class="err"> </span> <span class="err"> </span> <span class="p">}</span>
+<span class="err"> </span> <span class="err"> </span> <span class="k">return</span> <span class="n">self</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">layoutSubviews</span>
+<span class="p">{</span>
+<span class="err"> </span> <span class="err"> </span> <span class="p">[</span><span class="n">super</span> <span class="nf">layoutSubviews</span><span class="p">];</span>
+<span class="err">  </span> <span class="err"> </span>
+<span class="err"> </span> <span class="err"> </span> <span class="n">_plusButton</span><span class="p">.</span><span class="n">bounds</span> <span class="o">=</span> <span class="n">CGRectMake</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">_plusButton</span><span class="p">.</span><span class="n">currentBackgroundImage</span><span class="p">.</span><span class="n">size</span><span class="p">.</span><span class="n">width</span><span class="p">,</span> <span class="n">_plusButton</span><span class="p">.</span><span class="n">currentBackgroundImage</span><span class="p">.</span><span class="n">size</span><span class="p">.</span><span class="n">height</span><span class="p">);</span>
+<span class="err"> </span> <span class="err"> </span> <span class="n">_plusButton</span><span class="p">.</span><span class="n">center</span> <span class="o">=</span> <span class="n">CGPointMake</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">frame</span><span class="p">.</span><span class="n">size</span><span class="p">.</span><span class="n">width</span> <span class="o">*</span> <span class="mi">0</span><span class="p">.</span><span class="mi">5</span><span class="p">,</span> <span class="n">self</span><span class="p">.</span><span class="n">frame</span><span class="p">.</span><span class="n">size</span><span class="p">.</span><span class="n">height</span> <span class="o">*</span> <span class="mi">0</span><span class="p">.</span><span class="mi">5</span><span class="p">);</span>
+<span class="err">  </span> <span class="err"> </span>
+<span class="err"> </span> <span class="err"> </span> <span class="n">NSInteger</span> <span class="n">index</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+<span class="err"> </span> <span class="err"> </span> <span class="n">CGFloat</span> <span class="n">buttonY</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="err"> </span> <span class="err"> </span> <span class="n">CGFloat</span> <span class="n">buttonW</span> <span class="o">=</span> <span class="n">self</span><span class="p">.</span><span class="n">frame</span><span class="p">.</span><span class="n">size</span><span class="p">.</span><span class="n">width</span> <span class="o">/</span> <span class="mi">5</span><span class="p">;</span>
+<span class="err"> </span> <span class="err"> </span> <span class="n">CGFloat</span> <span class="n">buttonH</span> <span class="o">=</span> <span class="n">self</span><span class="p">.</span><span class="n">frame</span><span class="p">.</span><span class="n">size</span><span class="p">.</span><span class="n">height</span><span class="p">;</span>
+<span class="err"> </span> <span class="err"> </span> <span class="k">for</span> <span class="p">(</span><span class="n">UIView</span> <span class="o">*</span><span class="n">view</span> <span class="k">in</span> <span class="n">self</span><span class="p">.</span><span class="n">subviews</span><span class="p">)</span> <span class="p">{</span>
+<span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="k">if</span> <span class="p">([</span><span class="n">view</span> <span class="nf">isKindOfClass</span><span class="p">:</span><span class="n">NSClassFromString</span><span class="p">(</span><span class="s">@"UITabBarButton"</span><span class="p">)])</span> <span class="p">{</span>
+<span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="n">CGFloat</span> <span class="n">buttonX</span> <span class="o">=</span> <span class="n">buttonW</span> <span class="o">*</span> <span class="p">((</span><span class="n">index</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">)</span> <span class="p">?</span> <span class="p">(</span><span class="n">index</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="p">:</span> <span class="n">index</span><span class="p">);</span>
+<span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="n">view</span><span class="p">.</span><span class="n">frame</span> <span class="o">=</span> <span class="n">CGRectMake</span><span class="p">(</span><span class="n">buttonX</span><span class="p">,</span> <span class="n">buttonY</span><span class="p">,</span> <span class="n">buttonW</span><span class="p">,</span> <span class="n">buttonH</span><span class="p">);</span>
+<span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="n">index</span> <span class="o">++</span><span class="p">;</span>
+<span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="p">}</span>
+<span class="err"> </span> <span class="err"> </span> <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="o">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">plusSignClick</span>
+<span class="p">{</span>
+<span class="err"> </span> <span class="err"> </span> <span class="k">if</span> <span class="p">([</span><span class="n">self</span><span class="p">.</span><span class="n">tabBarDelegate</span> <span class="nf">respondsToSelector</span><span class="p">:</span><span class="k">@selector</span><span class="p">(</span><span class="n">plusBtnClick</span><span class="p">)])</span> <span class="p">{</span>
+<span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">tabBarDelegate</span> <span class="nf">plusBtnClick</span><span class="p">];</span>
+<span class="err"> </span> <span class="err"> </span> <span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<p>###设置导航栏UIBarButtonItem颜色以及字体</p>
+
+<div class="language-objc highlighter-rouge"><pre class="highlight"><code><span class="cm">/**
+ *  当第一次使用这个类的时候会调用一次
+ */</span>
+<span class="k">+</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">initialize</span>
+<span class="p">{</span>
+<span class="err"> </span> <span class="err"> </span> <span class="n">UINavigationBar</span> <span class="o">*</span><span class="n">navigationBar</span> <span class="o">=</span> <span class="p">[</span><span class="n">UINavigationBar</span> <span class="nf">appearance</span><span class="p">];</span>
+<span class="err"> </span> <span class="err"> </span> <span class="p">[</span><span class="n">navigationBar</span> <span class="nf">setBackgroundImage</span><span class="p">:[</span><span class="n">UIImage</span> <span class="nf">imageNamed</span><span class="p">:</span><span class="s">@"navigationbarBackgroundWhite"</span><span class="p">]</span> <span class="nf">forBarMetrics</span><span class="p">:</span><span class="n">UIBarMetricsDefault</span><span class="p">];</span>
+<span class="err">  </span> <span class="err"> </span>
+<span class="err"> </span> <span class="err"> </span> <span class="c1">//更改title文字可以设置self.navigationItem.titleView也可以设置setTitleTextAttributes
+</span><span class="err"> </span> <span class="err"> </span> <span class="n">NSMutableDictionary</span> <span class="o">*</span><span class="n">dict</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSMutableDictionary</span> <span class="nf">dictionary</span><span class="p">];</span>
+<span class="err"> </span> <span class="err"> </span> <span class="n">dict</span><span class="p">[</span><span class="nf">NSFontAttributeName</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">UIFont</span> <span class="nf">systemFontOfSize</span><span class="p">:</span><span class="mi">15</span><span class="p">];</span>
+<span class="err"> </span> <span class="err"> </span> <span class="n">dict</span><span class="p">[</span><span class="nf">NSForegroundColorAttributeName</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">UIColor</span> <span class="nf">blackColor</span><span class="p">];</span>
+<span class="err"> </span> <span class="err"> </span> <span class="p">[</span><span class="n">navigationBar</span> <span class="nf">setTitleTextAttributes</span><span class="p">:</span><span class="n">dict</span><span class="p">];</span><span class="c1">//UI_APPEARANCE_SELECTOR设置一次就行了
+</span>
+<span class="err"> </span> <span class="err"> </span> <span class="c1">//设置barbuttonitem属性
+</span><span class="err"> </span> <span class="err"> </span> <span class="n">UIBarButtonItem</span> <span class="o">*</span><span class="n">item</span> <span class="o">=</span> <span class="p">[</span><span class="n">UIBarButtonItem</span> <span class="nf">appearance</span><span class="p">];</span>
+<span class="err"> </span> <span class="err"> </span> <span class="n">NSMutableDictionary</span> <span class="o">*</span><span class="n">itemAttrs</span><span class="o">=</span> <span class="p">[</span><span class="n">NSMutableDictionary</span> <span class="nf">dictionary</span><span class="p">];</span>
+<span class="err"> </span> <span class="err"> </span> <span class="n">itemAttrs</span><span class="p">[</span><span class="nf">NSForegroundColorAttributeName</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">UIColor</span> <span class="nf">blackColor</span><span class="p">];</span>
+<span class="err"> </span> <span class="err"> </span> <span class="n">itemAttrs</span><span class="p">[</span><span class="nf">NSFontAttributeName</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">UIFont</span> <span class="nf">systemFontOfSize</span><span class="p">:</span><span class="mi">14</span><span class="p">];</span>
+<span class="err"> </span> <span class="err"> </span> <span class="p">[</span><span class="n">item</span> <span class="nf">setTitleTextAttributes</span><span class="p">:</span><span class="n">itemAttrs</span> <span class="nf">forState</span><span class="p">:</span><span class="n">UIControlStateNormal</span><span class="p">];</span>
+<span class="err">  </span> <span class="err"> </span>
+<span class="err"> </span> <span class="err"> </span> <span class="c1">// UIControlStateDisabled
+</span><span class="err"> </span> <span class="err"> </span> <span class="n">NSMutableDictionary</span> <span class="o">*</span><span class="n">itemDisabledAttrs</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSMutableDictionary</span> <span class="nf">dictionary</span><span class="p">];</span>
+<span class="err"> </span> <span class="err"> </span> <span class="n">itemDisabledAttrs</span><span class="p">[</span><span class="nf">NSForegroundColorAttributeName</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">UIColor</span> <span class="nf">lightGrayColor</span><span class="p">];</span>
+<span class="err"> </span> <span class="err"> </span> <span class="p">[</span><span class="n">item</span> <span class="nf">setTitleTextAttributes</span><span class="p">:</span><span class="n">itemDisabledAttrs</span> <span class="nf">forState</span><span class="p">:</span><span class="n">UIControlStateDisabled</span><span class="p">];</span>
+<span class="err">  </span> <span class="err"> </span>
+<span class="p">}</span>
+</code></pre>
+</div>
+<p>###设置导航栏title颜色以及字体</p>
+
+<div class="language-objc highlighter-rouge"><pre class="highlight"><code><span class="n">UINavigationBar</span> <span class="o">*</span><span class="n">bar</span> <span class="o">=</span> <span class="n">self</span><span class="p">.</span><span class="n">navigationController</span><span class="p">.</span><span class="n">navigationBar</span><span class="err">；</span>
+<span class="p">[</span><span class="n">bar</span> <span class="nf">setTitleTextAttributes</span><span class="p">:@{</span><span class="n">NSForegroundColorAttributeName</span> <span class="o">:</span><span class="p">[</span><span class="n">UIColor</span> <span class="nf">whiteColor</span><span class="p">]}];</span>
+</code></pre>
+</div>
+
+<p>###导航栏透明
+设置UINavigationBar全透明, 此处随便设置一张图片即可，重要的是BarMetrics属性决定了bar的样式</p>
+
+<div class="language-objc highlighter-rouge"><pre class="highlight"><code><span class="n">UINavigationBar</span> <span class="o">*</span><span class="n">bar</span> <span class="o">=</span> <span class="n">self</span><span class="p">.</span><span class="n">navigationController</span><span class="p">.</span><span class="n">navigationBar</span><span class="err">；</span>
+<span class="p">[</span><span class="n">bar</span> <span class="nf">setBackgroundImage</span><span class="p">:[</span><span class="n">UIImage</span> <span class="nf">imageNamed</span><span class="p">:</span><span class="s">@"bg.png"</span><span class="p">]</span> <span class="nf">forBarMetrics</span><span class="p">:</span><span class="n">UIBarMetricsCompact</span><span class="p">];</span>
+</code></pre>
+</div>
+
+<p>###push到下一个控制器的时候隐藏tabbar
+这时候我们可以重写<code class="highlighter-rouge">- (void)pushViewController:(UIViewController *)viewController animated:(BOOL)animated</code>这个方法，当然我们也可以在这个方法里面设置返回按钮</p>
+
+<div class="language-objc highlighter-rouge"><pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">pushViewController</span><span class="p">:(</span><span class="n">UIViewController</span> <span class="o">*</span><span class="p">)</span><span class="nv">viewController</span> <span class="nf">animated</span><span class="p">:(</span><span class="n">BOOL</span><span class="p">)</span><span class="nv">animated</span>
+<span class="p">{</span>
+<span class="err"> </span> <span class="err"> </span> <span class="k">if</span> <span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">viewControllers</span><span class="p">.</span><span class="n">count</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+<span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="n">UIButton</span> <span class="o">*</span><span class="n">btn</span> <span class="o">=</span> <span class="p">[</span><span class="n">UIButton</span> <span class="nf">buttonWithType</span><span class="p">:</span><span class="n">UIButtonTypeCustom</span><span class="p">];</span>
+<span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="p">[</span><span class="n">btn</span> <span class="nf">setImage</span><span class="p">:[</span><span class="n">UIImage</span> <span class="nf">imageNamed</span><span class="p">:</span><span class="s">@"navigationButtonReturn"</span><span class="p">]</span> <span class="nf">forState</span><span class="p">:</span><span class="n">UIControlStateNormal</span><span class="p">];</span>
+<span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="p">[</span><span class="n">btn</span> <span class="nf">setImage</span><span class="p">:[</span><span class="n">UIImage</span> <span class="nf">imageNamed</span><span class="p">:</span><span class="s">@"navigationButtonReturnClick"</span><span class="p">]</span> <span class="nf">forState</span><span class="p">:</span><span class="n">UIControlStateHighlighted</span><span class="p">];</span>
+<span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="p">[</span><span class="n">btn</span> <span class="nf">setTitle</span><span class="p">:</span><span class="s">@"返回"</span> <span class="nf">forState</span><span class="p">:</span><span class="n">UIControlStateNormal</span><span class="p">];</span>
+<span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="p">[</span><span class="n">btn</span> <span class="nf">setTitle</span><span class="p">:</span><span class="s">@"返回"</span> <span class="nf">forState</span><span class="p">:</span><span class="n">UIControlStateHighlighted</span><span class="p">];</span>
+<span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="p">[</span><span class="n">btn</span> <span class="nf">setTitleColor</span><span class="p">:[</span><span class="n">UIColor</span> <span class="nf">blackColor</span><span class="p">]</span> <span class="nf">forState</span><span class="p">:</span><span class="n">UIControlStateNormal</span><span class="p">];</span>
+<span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="p">[</span><span class="n">btn</span> <span class="nf">setTitleColor</span><span class="p">:[</span><span class="n">UIColor</span> <span class="nf">redColor</span><span class="p">]</span> <span class="nf">forState</span><span class="p">:</span><span class="n">UIControlStateHighlighted</span><span class="p">];</span>
+<span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="n">btn</span><span class="p">.</span><span class="n">size</span> <span class="o">=</span> <span class="n">CGSizeMake</span><span class="p">(</span><span class="mi">70</span><span class="p">,</span> <span class="mi">30</span><span class="p">);</span>
+<span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="n">btn</span><span class="p">.</span><span class="n">contentHorizontalAlignment</span> <span class="o">=</span> <span class="n">UIControlContentHorizontalAlignmentLeft</span><span class="p">;</span>
+<span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="n">btn</span><span class="p">.</span><span class="n">contentEdgeInsets</span> <span class="o">=</span> <span class="n">UIEdgeInsetsMake</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+<span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="p">[</span><span class="n">btn</span> <span class="nf">addTarget</span><span class="p">:</span><span class="n">self</span> <span class="nf">action</span><span class="p">:</span><span class="k">@selector</span><span class="p">(</span><span class="n">back</span><span class="p">)</span> <span class="n">forControlEvents</span><span class="o">:</span><span class="n">UIControlEventTouchUpInside</span><span class="p">];</span>
+<span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="n">viewController</span><span class="p">.</span><span class="n">navigationItem</span><span class="p">.</span><span class="n">leftBarButtonItem</span> <span class="o">=</span> <span class="p">[[</span><span class="n">UIBarButtonItem</span> <span class="nf">alloc</span><span class="p">]</span><span class="nf">initWithCustomView</span><span class="p">:</span><span class="n">btn</span><span class="p">];</span>
+<span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="n">viewController</span><span class="p">.</span><span class="n">hidesBottomBarWhenPushed</span> <span class="o">=</span> <span class="nb">YES</span><span class="p">;</span>
+<span class="err"> </span> <span class="err"> </span> <span class="p">}</span>
+<span class="err"> </span> <span class="err"> </span> <span class="p">[</span><span class="n">super</span> <span class="nf">pushViewController</span><span class="p">:</span><span class="n">viewController</span> <span class="nf">animated</span><span class="p">:</span><span class="n">animated</span><span class="p">];</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+<p>###解决重写返回按钮的时候可能会导致系统自带的左侧滑动返回实现
+可以使用孙源大神写的那个<code class="highlighter-rouge">FDFullscreenPopGesture</code>，也可以设置<code class="highlighter-rouge"> self.interactivePopGestureRecognizer.delegate = nil;</code>，在导航控制器中设置即可</p>
+
+<p>###自定义UIBarButtonItem
+我们可以给UIBarButtonItem添加一个分类，这样用起来也比较方便</p>
+
+<div class="language-objc highlighter-rouge"><pre class="highlight"><code><span class="k">+</span> <span class="p">(</span><span class="n">instancetype</span><span class="p">)</span><span class="nf">itemWithimage</span><span class="p">:(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">image</span> <span class="nf">heighlitImage</span><span class="p">:(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">heighlitImage</span> <span class="nf">target</span><span class="p">:(</span><span class="n">id</span><span class="p">)</span><span class="nv">target</span> <span class="nf">ation</span><span class="p">:(</span><span class="n">SEL</span><span class="p">)</span><span class="nv">action</span>
+<span class="p">{</span>
+<span class="err"> </span> <span class="err"> </span> <span class="n">UIButton</span> <span class="o">*</span><span class="n">btn</span> <span class="o">=</span> <span class="p">[</span><span class="n">UIButton</span> <span class="nf">buttonWithType</span><span class="p">:</span><span class="n">UIButtonTypeCustom</span><span class="p">];</span>
+<span class="err"> </span> <span class="err"> </span> <span class="p">[</span><span class="n">btn</span> <span class="nf">setBackgroundImage</span><span class="p">:[</span><span class="n">UIImage</span> <span class="nf">imageNamed</span><span class="p">:</span><span class="n">image</span><span class="p">]</span> <span class="nf">forState</span><span class="p">:</span><span class="n">UIControlStateNormal</span><span class="p">];</span>
+<span class="err"> </span> <span class="err"> </span> <span class="p">[</span><span class="n">btn</span> <span class="nf">setBackgroundImage</span><span class="p">:[</span><span class="n">UIImage</span> <span class="nf">imageNamed</span><span class="p">:</span><span class="n">heighlitImage</span><span class="p">]</span> <span class="nf">forState</span><span class="p">:</span><span class="n">UIControlStateHighlighted</span><span class="p">];</span>
+<span class="err"> </span> <span class="err"> </span> <span class="p">[</span><span class="n">btn</span> <span class="nf">addTarget</span><span class="p">:</span><span class="n">target</span> <span class="nf">action</span><span class="p">:</span><span class="n">action</span> <span class="n">forControlEvents</span><span class="o">:</span><span class="n">UIControlEventTouchUpInside</span><span class="p">];</span>
+<span class="err"> </span> <span class="err"> </span> <span class="n">btn</span><span class="p">.</span><span class="n">size</span> <span class="o">=</span> <span class="n">btn</span><span class="p">.</span><span class="n">currentBackgroundImage</span><span class="p">.</span><span class="n">size</span><span class="p">;</span>
+<span class="err"> </span> <span class="err"> </span> <span class="k">return</span> <span class="p">[[</span><span class="n">self</span> <span class="nf">alloc</span><span class="p">]</span><span class="nf">initWithCustomView</span><span class="p">:</span><span class="n">btn</span><span class="p">];</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+<p>###状态栏的设置
+//iOS7以后状态栏由controller进行控制，如果不需要控制器控制的话需要在info.plist设置<code class="highlighter-rouge">View controller-based status bar appearancer</code>然后通过<code class="highlighter-rouge">[UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault</code>;设置
+如果不想设置plist，我们可以重写</p>
+
+<p><code class="highlighter-rouge">- (UIStatusBarStyle)preferredStatusBarStyle</code></p>
+
+<div class="language-objc highlighter-rouge"><pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="n">UIStatusBarStyle</span><span class="p">)</span><span class="n">preferredStatusBarStyle</span>
+<span class="p">{</span>
+<span class="err"> </span> <span class="err"> </span> <span class="k">return</span> <span class="n">UIStatusBarStyleLightContent</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<p>###修改UITextField的placeholder颜色
+ 1. 修改<code class="highlighter-rouge">Placeholder</code>的方法有好几种，可以设置<code class="highlighter-rouge">textField</code>的<code class="highlighter-rouge">attributedPlaceholder</code>属性，这是一个富文本属性，
+ 2. 也可以自定义一个<code class="highlighter-rouge">TextField</code>，重写<code class="highlighter-rouge">- (void)drawPlaceholderInRect:(CGRect)rect</code>这个方法<code class="highlighter-rouge">[self.placeholder drawInRect:rect withAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}]</code>;
+ 3. 就是通过Runtime运行时进行修改
+ 
+- 使用属性</p>
+
+<div class="language-objc highlighter-rouge"><pre class="highlight"><code><span class="k">@property</span><span class="p">(</span><span class="n">nonatomic</span><span class="p">,</span><span class="n">copy</span><span class="p">)</span> <span class="err"> </span> <span class="n">NSAttributedString</span> <span class="err"> </span> <span class="err"> </span> <span class="o">*</span><span class="n">attributedPlaceholder</span><span class="p">;</span>
+
+<span class="c1">// 文字属性
+</span><span class="n">NSMutableDictionary</span> <span class="o">*</span><span class="n">attrs</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSMutableDictionary</span> <span class="nf">dictionary</span><span class="p">];</span>
+<span class="n">attrs</span><span class="p">[</span><span class="nf">NSForegroundColorAttributeName</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">UIColor</span> <span class="nf">grayColor</span><span class="p">];</span>
+
+<span class="c1">// NSAttributedString : 带有属性的文字(富文本技术)
+</span><span class="n">NSAttributedString</span> <span class="o">*</span><span class="n">placeholder</span> <span class="o">=</span> <span class="p">[[</span><span class="n">NSAttributedString</span> <span class="nf">alloc</span><span class="p">]</span> <span class="nf">initWithString</span><span class="p">:</span><span class="s">@"手机号"</span> <span class="nf">attributes</span><span class="p">:</span><span class="n">attrs</span><span class="p">];</span>
+<span class="n">self</span><span class="p">.</span><span class="n">phoneField</span><span class="p">.</span><span class="n">attributedPlaceholder</span> <span class="o">=</span> <span class="n">placeholder</span><span class="p">;</span>
+
+<span class="n">NSMutableAttributedString</span> <span class="o">*</span><span class="n">placehoder</span> <span class="o">=</span> <span class="p">[[</span><span class="n">NSMutableAttributedString</span> <span class="nf">alloc</span><span class="p">]</span> <span class="nf">initWithString</span><span class="p">:</span><span class="s">@"手机号"</span><span class="p">];</span>
+<span class="p">[</span><span class="n">placehoder</span> <span class="nf">setAttributes</span><span class="p">:@{</span><span class="n">NSForegroundColorAttributeName</span> <span class="o">:</span> <span class="p">[</span><span class="n">UIColor</span> <span class="nf">whiteColor</span><span class="p">]}</span> <span class="nf">range</span><span class="p">:</span><span class="n">NSMakeRange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)];</span>
+<span class="p">[</span><span class="n">placehoder</span> <span class="nf">setAttributes</span><span class="p">:@{</span>
+<span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="n">NSForegroundColorAttributeName</span> <span class="o">:</span> <span class="p">[</span><span class="n">UIColor</span> <span class="nf">yellowColor</span><span class="p">],</span>
+<span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="n">NSFontAttributeName</span> <span class="o">:</span> <span class="p">[</span><span class="n">UIFont</span> <span class="nf">systemFontOfSize</span><span class="p">:</span><span class="mi">30</span><span class="p">]</span>
+<span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="p">}</span> <span class="nf">range</span><span class="p">:</span><span class="n">NSMakeRange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)];</span>
+<span class="p">[</span><span class="n">placehoder</span> <span class="nf">setAttributes</span><span class="p">:@{</span><span class="n">NSForegroundColorAttributeName</span> <span class="o">:</span> <span class="p">[</span><span class="n">UIColor</span> <span class="nf">redColor</span><span class="p">]}</span> <span class="nf">range</span><span class="p">:</span><span class="n">NSMakeRange</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)];</span>
+<span class="n">self</span><span class="p">.</span><span class="n">phoneField</span><span class="p">.</span><span class="n">attributedPlaceholder</span> <span class="o">=</span> <span class="n">placehoder</span><span class="p">;</span>
+</code></pre>
+</div>
+
+<ul>
+  <li>重写方法</li>
+</ul>
+
+<div class="language-objc highlighter-rouge"><pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">drawPlaceholderInRect</span><span class="p">:(</span><span class="n">CGRect</span><span class="p">)</span><span class="nv">rect</span>
+<span class="p">{</span>
+<span class="err"> </span> <span class="err"> </span> <span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">placeholder</span> <span class="nf">drawInRect</span><span class="p">:</span><span class="n">CGRectMake</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="n">rect</span><span class="p">.</span><span class="n">size</span><span class="p">.</span><span class="n">width</span><span class="p">,</span> <span class="mi">25</span><span class="p">)</span> <span class="nf">withAttributes</span><span class="p">:@{</span>
+<span class="err">  </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="n">NSForegroundColorAttributeName</span> <span class="o">:</span> <span class="p">[</span><span class="n">UIColor</span> <span class="nf">grayColor</span><span class="p">],</span>
+<span class="err">  </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="n">NSFontAttributeName</span> <span class="o">:</span> <span class="n">self</span><span class="p">.</span><span class="n">font</span><span class="p">}];</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<ul>
+  <li>使用KVC</li>
+</ul>
+
+<div class="language-objc highlighter-rouge"><pre class="highlight"><code><span class="p">[</span><span class="n">self</span> <span class="nf">setValue</span><span class="p">:[</span><span class="n">UIColor</span> <span class="nf">grayColor</span><span class="p">]</span> <span class="nf">forKeyPath</span><span class="p">:</span><span class="s">@"_placeholderLabel.textColor"</span><span class="p">];</span>
+</code></pre>
+</div>
+
+<p>###图片在上面文字在下面的UIButton
+我们可以自定义一个UIButton
+我们在<code class="highlighter-rouge">awakeFromNib</code>以及<code class="highlighter-rouge">initWithFrame</code>设置文字的居中，在<code class="highlighter-rouge">layoutSubviews</code>设置UIButton的图片位置大小以及lable的位置大小</p>
+
+<div class="language-objc highlighter-rouge"><pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">awakeFromNib</span>
+<span class="p">{</span>
+<span class="err"> </span> <span class="err"> </span> <span class="p">[</span><span class="n">self</span> <span class="nf">setup</span><span class="p">];</span>
+<span class="p">}</span>
+
+<span class="o">-</span> <span class="p">(</span><span class="n">instancetype</span><span class="p">)</span><span class="n">initWithFrame</span><span class="o">:</span><span class="p">(</span><span class="n">CGRect</span><span class="p">)</span><span class="n">frame</span>
+<span class="p">{</span>
+<span class="err"> </span> <span class="err"> </span> <span class="k">if</span> <span class="p">(</span><span class="n">self</span> <span class="o">=</span> <span class="p">[</span><span class="n">super</span> <span class="nf">initWithFrame</span><span class="p">:</span><span class="n">frame</span><span class="p">])</span> <span class="p">{</span>
+<span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="p">[</span><span class="n">self</span> <span class="nf">setup</span><span class="p">];</span>
+<span class="err"> </span> <span class="err"> </span> <span class="p">}</span>
+<span class="err"> </span> <span class="err"> </span> <span class="k">return</span> <span class="n">self</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="o">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">setup</span>
+<span class="p">{</span>
+<span class="err"> </span> <span class="err"> </span> <span class="n">self</span><span class="p">.</span><span class="n">titleLabel</span><span class="p">.</span><span class="n">textAlignment</span> <span class="o">=</span> <span class="n">NSTextAlignmentCenter</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="o">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">layoutSubviews</span>
+<span class="p">{</span>
+<span class="err"> </span> <span class="err"> </span> <span class="p">[</span><span class="n">super</span> <span class="nf">layoutSubviews</span><span class="p">];</span>
+<span class="err">  </span> <span class="err"> </span>
+<span class="err"> </span> <span class="err"> </span> <span class="n">self</span><span class="p">.</span><span class="n">imageView</span><span class="p">.</span><span class="n">x</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="err"> </span> <span class="err"> </span> <span class="n">self</span><span class="p">.</span><span class="n">imageView</span><span class="p">.</span><span class="n">y</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="err"> </span> <span class="err"> </span> <span class="n">self</span><span class="p">.</span><span class="n">imageView</span><span class="p">.</span><span class="n">width</span> <span class="o">=</span> <span class="n">self</span><span class="p">.</span><span class="n">imageView</span><span class="p">.</span><span class="n">width</span><span class="p">;</span>
+<span class="err"> </span> <span class="err"> </span> <span class="n">self</span><span class="p">.</span><span class="n">imageView</span><span class="p">.</span><span class="n">height</span> <span class="o">=</span> <span class="n">self</span><span class="p">.</span><span class="n">imageView</span><span class="p">.</span><span class="n">width</span><span class="p">;</span>
+<span class="err">  </span> <span class="err"> </span>
+<span class="err"> </span> <span class="err"> </span> <span class="n">self</span><span class="p">.</span><span class="n">titleLabel</span><span class="p">.</span><span class="n">x</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="err"> </span> <span class="err"> </span> <span class="n">self</span><span class="p">.</span><span class="n">titleLabel</span><span class="p">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">self</span><span class="p">.</span><span class="n">imageView</span><span class="p">.</span><span class="n">height</span> <span class="o">+</span> <span class="mi">10</span><span class="p">;</span>
+<span class="err"> </span> <span class="err"> </span> <span class="n">self</span><span class="p">.</span><span class="n">titleLabel</span><span class="p">.</span><span class="n">width</span> <span class="o">=</span> <span class="n">self</span><span class="p">.</span><span class="n">imageView</span><span class="p">.</span><span class="n">width</span><span class="p">;</span>
+<span class="err"> </span> <span class="err"> </span> <span class="n">self</span><span class="p">.</span><span class="n">titleLabel</span><span class="p">.</span><span class="n">height</span> <span class="o">=</span> <span class="n">self</span><span class="p">.</span><span class="n">titleLabel</span><span class="p">.</span><span class="n">height</span><span class="p">;</span>
+<span class="err">  </span> <span class="err"> </span>
+<span class="p">}</span>
+</code></pre>
+</div>
+<p>###SDWebImage获取缓存图片大小
+SDWebImage已经提供了方法获取图片占据内存大小了，我们调用即可</p>
+
+<div class="language-objc highlighter-rouge"><pre class="highlight"><code><span class="p">[[</span><span class="n">SDImageCache</span> <span class="nf">sharedImageCache</span><span class="p">]</span><span class="nf">getSize</span><span class="p">]</span>
+</code></pre>
+</div>
+
+<ul>
+  <li>清空缓存</li>
+</ul>
+
+<div class="language-objc highlighter-rouge"><pre class="highlight"><code><span class="p">[[</span><span class="n">SDImageCache</span> <span class="nf">sharedImageCache</span><span class="p">]</span><span class="nf">cleanDisk</span><span class="p">];</span>
+</code></pre>
+</div>
+<p>###带有placeholder的UITextView
+一个好的自定义控件最好有提供一些其他属性供其他人用，这里提供了一个设置placeholder颜色以及字体的属性，使用懒加载先设置一下placeholder的基本属性以及x，y以及设置默认的颜色，然后在initWithFrame方法里面监听<code class="highlighter-rouge">UITextViewTextDidChangeNotification</code>这个通知，通过UITextView是否有文字输入从而判断placeholder是否隐藏，重写setfont，settext以及setAttributedText方法，代码如下</p>
+
+<div class="language-objc highlighter-rouge"><pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="n">UILabel</span> <span class="o">*</span><span class="p">)</span><span class="n">placeholerLabel</span>
+<span class="p">{</span>
+<span class="err"> </span> <span class="err"> </span> <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">_placeholerLabel</span><span class="p">)</span> <span class="p">{</span>
+<span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="n">_placeholerLabel</span> <span class="o">=</span> <span class="p">[[</span><span class="n">UILabel</span> <span class="nf">alloc</span><span class="p">]</span><span class="nf">init</span><span class="p">];</span>
+<span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="p">[</span><span class="n">self</span> <span class="nf">addSubview</span><span class="p">:</span><span class="n">_placeholerLabel</span><span class="p">];</span>
+<span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="n">_placeholerLabel</span><span class="p">.</span><span class="n">numberOfLines</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="n">_placeholerLabel</span><span class="p">.</span><span class="n">x</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>
+<span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="n">_placeholerLabel</span><span class="p">.</span><span class="n">y</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>
+<span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="n">_placeholerLabel</span><span class="p">.</span><span class="n">textColor</span> <span class="o">=</span> <span class="p">[</span><span class="n">UIColor</span> <span class="nf">lightGrayColor</span><span class="p">];</span>
+<span class="err"> </span> <span class="err"> </span> <span class="p">}</span>
+<span class="err"> </span> <span class="err"> </span> <span class="k">return</span> <span class="n">_placeholerLabel</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="o">-</span> <span class="p">(</span><span class="n">instancetype</span><span class="p">)</span><span class="n">initWithFrame</span><span class="o">:</span><span class="p">(</span><span class="n">CGRect</span><span class="p">)</span><span class="n">frame</span>
+<span class="p">{</span>
+<span class="err"> </span> <span class="err"> </span> <span class="k">if</span> <span class="p">(</span><span class="n">self</span> <span class="o">=</span> <span class="p">[</span><span class="n">super</span> <span class="nf">initWithFrame</span><span class="p">:</span><span class="n">frame</span><span class="p">])</span> <span class="p">{</span>
+<span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="n">self</span><span class="p">.</span><span class="n">alwaysBounceVertical</span> <span class="o">=</span> <span class="nb">YES</span><span class="p">;</span>
+<span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="n">self</span><span class="p">.</span><span class="n">font</span> <span class="o">=</span> <span class="p">[</span><span class="n">UIFont</span> <span class="nf">systemFontOfSize</span><span class="p">:</span><span class="mi">15</span><span class="p">];</span>
+<span class="err">  </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span>
+<span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="p">[[</span><span class="n">NSNotificationCenter</span> <span class="nf">defaultCenter</span><span class="p">]</span><span class="nf">addObserver</span><span class="p">:</span><span class="n">self</span> <span class="nf">selector</span><span class="p">:</span><span class="k">@selector</span><span class="p">(</span><span class="n">textChange</span><span class="p">)</span> <span class="n">name</span><span class="o">:</span><span class="n">UITextViewTextDidChangeNotification</span> <span class="n">object</span><span class="o">:</span><span class="nb">nil</span><span class="p">];</span>
+<span class="err"> </span> <span class="err"> </span> <span class="p">}</span>
+<span class="err"> </span> <span class="err"> </span> <span class="k">return</span> <span class="n">self</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="o">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">textChange</span>
+<span class="p">{</span>
+<span class="err"> </span> <span class="err"> </span> <span class="n">self</span><span class="p">.</span><span class="n">placeholerLabel</span><span class="p">.</span><span class="n">hidden</span> <span class="o">=</span> <span class="n">self</span><span class="p">.</span><span class="n">hasText</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="o">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">setPlaceholer</span><span class="o">:</span><span class="p">(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="n">placeholer</span>
+<span class="p">{</span>
+<span class="err"> </span> <span class="err"> </span> <span class="n">_placeholer</span> <span class="o">=</span> <span class="n">placeholer</span><span class="p">;</span>
+<span class="err"> </span> <span class="err"> </span> <span class="n">self</span><span class="p">.</span><span class="n">placeholerLabel</span><span class="p">.</span><span class="n">text</span> <span class="o">=</span> <span class="n">placeholer</span><span class="p">;</span>
+<span class="err"> </span> <span class="err"> </span> <span class="p">[</span><span class="n">self</span> <span class="nf">setNeedsLayout</span><span class="p">];</span>
+<span class="p">}</span>
+
+<span class="o">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">setPlaceholerColor</span><span class="o">:</span><span class="p">(</span><span class="n">UIColor</span> <span class="o">*</span><span class="p">)</span><span class="n">placeholerColor</span>
+<span class="p">{</span>
+<span class="err"> </span> <span class="err"> </span> <span class="n">_placeholerColor</span> <span class="o">=</span> <span class="n">placeholerColor</span><span class="p">;</span>
+<span class="err"> </span> <span class="err"> </span> <span class="n">self</span><span class="p">.</span><span class="n">placeholerLabel</span><span class="p">.</span><span class="n">textColor</span> <span class="o">=</span> <span class="n">placeholerColor</span><span class="p">;</span>
+<span class="err">  </span> <span class="err"> </span>
+<span class="p">}</span>
+
+<span class="o">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">setFont</span><span class="o">:</span><span class="p">(</span><span class="n">UIFont</span> <span class="o">*</span><span class="p">)</span><span class="n">font</span>
+<span class="p">{</span>
+<span class="err"> </span> <span class="err"> </span> <span class="p">[</span><span class="n">super</span> <span class="nf">setFont</span><span class="p">:</span><span class="n">font</span><span class="p">];</span>
+<span class="err"> </span> <span class="err"> </span> <span class="n">self</span><span class="p">.</span><span class="n">placeholerLabel</span><span class="p">.</span><span class="n">font</span> <span class="o">=</span> <span class="n">font</span><span class="p">;</span>
+<span class="err"> </span> <span class="err"> </span> <span class="p">[</span><span class="n">self</span> <span class="nf">setNeedsLayout</span><span class="p">];</span>
+<span class="p">}</span>
+
+<span class="o">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">setText</span><span class="o">:</span><span class="p">(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="n">text</span>
+<span class="p">{</span>
+<span class="err"> </span> <span class="err"> </span> <span class="p">[</span><span class="n">super</span> <span class="nf">setText</span><span class="p">:</span><span class="n">text</span><span class="p">];</span>
+<span class="err"> </span> <span class="err"> </span> <span class="p">[</span><span class="n">self</span> <span class="nf">textChange</span><span class="p">];</span>
+<span class="p">}</span>
+
+<span class="o">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">setAttributedText</span><span class="o">:</span><span class="p">(</span><span class="n">NSAttributedString</span> <span class="o">*</span><span class="p">)</span><span class="n">attributedText</span>
+<span class="p">{</span>
+<span class="err"> </span> <span class="err"> </span> <span class="p">[</span><span class="n">super</span> <span class="nf">setAttributedText</span><span class="p">:</span><span class="n">attributedText</span><span class="p">];</span>
+<span class="err"> </span> <span class="err"> </span> <span class="p">[</span><span class="n">self</span> <span class="nf">textChange</span><span class="p">];</span>
+<span class="p">}</span>
+
+<span class="o">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">layoutSubviews</span>
+<span class="p">{</span>
+<span class="err"> </span> <span class="err"> </span> <span class="p">[</span><span class="n">super</span> <span class="nf">layoutSubviews</span><span class="p">];</span>
+<span class="err"> </span> <span class="err"> </span> <span class="n">self</span><span class="p">.</span><span class="n">placeholerLabel</span><span class="p">.</span><span class="n">width</span> <span class="o">=</span> <span class="n">SCREENWIDTH</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">self</span><span class="p">.</span><span class="n">placeholerLabel</span><span class="p">.</span><span class="n">x</span><span class="p">;</span>
+<span class="err"> </span> <span class="err"> </span> <span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">placeholerLabel</span> <span class="nf">sizeToFit</span><span class="p">];</span>
+<span class="p">}</span>
+<span class="cm">/**
+ * 更新占位文字的尺寸
+ */</span>
+<span class="o">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">updatePlaceholderLabelSize</span>
+<span class="p">{</span>
+<span class="err"> </span> <span class="err"> </span> <span class="n">CGSize</span> <span class="n">maxSize</span> <span class="o">=</span> <span class="n">CGSizeMake</span><span class="p">(</span><span class="n">SCREENWIDTH</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">self</span><span class="p">.</span><span class="n">placeholerLabel</span><span class="p">.</span><span class="n">x</span><span class="p">,</span> <span class="n">MAXFLOAT</span><span class="p">);</span>
+<span class="err"> </span> <span class="err"> </span> <span class="n">self</span><span class="p">.</span><span class="n">placeholerLabel</span><span class="p">.</span><span class="n">size</span> <span class="o">=</span> <span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">placeholer</span> <span class="nf">boundingRectWithSize</span><span class="p">:</span><span class="n">maxSize</span> <span class="nf">options</span><span class="p">:</span><span class="n">NSStringDrawingUsesLineFragmentOrigin</span> <span class="n">attributes</span><span class="o">:</span><span class="p">@{</span><span class="n">NSFontAttributeName</span> <span class="o">:</span> <span class="n">self</span><span class="p">.</span><span class="n">font</span><span class="p">}</span> <span class="n">context</span><span class="o">:</span><span class="nb">nil</span><span class="p">].</span><span class="n">size</span><span class="p">;</span>
+<span class="c1">//    self.placeholerLabel.backgroundColor = [UIColor redColor];
+</span><span class="p">}</span>
+
+<span class="o">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">dealloc</span>
+<span class="p">{</span>
+<span class="err"> </span> <span class="err"> </span> <span class="p">[[</span><span class="n">NSNotificationCenter</span> <span class="nf">defaultCenter</span><span class="p">]</span><span class="nf">removeObserver</span><span class="p">:</span><span class="n">self</span><span class="p">];</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+<p>另一种是使用drawRect方法实现的</p>
+
+<div class="language-objc highlighter-rouge"><pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="n">instancetype</span><span class="p">)</span><span class="nf">initWithFrame</span><span class="p">:(</span><span class="n">CGRect</span><span class="p">)</span><span class="nv">frame</span>
+<span class="p">{</span>
+<span class="err"> </span> <span class="err"> </span> <span class="k">if</span> <span class="p">(</span><span class="n">self</span> <span class="o">=</span> <span class="p">[</span><span class="n">super</span> <span class="nf">initWithFrame</span><span class="p">:</span><span class="n">frame</span><span class="p">])</span> <span class="p">{</span>
+<span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="n">self</span><span class="p">.</span><span class="n">alwaysBounceVertical</span> <span class="o">=</span> <span class="nb">YES</span><span class="p">;</span>
+<span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="n">self</span><span class="p">.</span><span class="n">font</span> <span class="o">=</span> <span class="p">[</span><span class="n">UIFont</span> <span class="nf">systemFontOfSize</span><span class="p">:</span><span class="mi">15</span><span class="p">];</span>
+<span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="n">self</span><span class="p">.</span><span class="n">placeholerColor</span> <span class="o">=</span> <span class="p">[</span><span class="n">UIColor</span> <span class="nf">lightGrayColor</span><span class="p">];</span>
+<span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="p">[[</span><span class="n">NSNotificationCenter</span> <span class="nf">defaultCenter</span><span class="p">]</span><span class="nf">addObserver</span><span class="p">:</span><span class="n">self</span> <span class="nf">selector</span><span class="p">:</span><span class="k">@selector</span><span class="p">(</span><span class="n">textChange</span><span class="p">)</span> <span class="n">name</span><span class="o">:</span><span class="n">UITextViewTextDidChangeNotification</span> <span class="n">object</span><span class="o">:</span><span class="nb">nil</span><span class="p">];</span>
+<span class="err"> </span> <span class="err"> </span> <span class="p">}</span>
+<span class="err"> </span> <span class="err"> </span> <span class="k">return</span> <span class="n">self</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">textChange</span>
+<span class="p">{</span>
+<span class="err"> </span> <span class="err"> </span> <span class="p">[</span><span class="n">self</span> <span class="nf">setNeedsDisplay</span><span class="p">];</span>
+<span class="p">}</span>
+
+<span class="o">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">drawRect</span><span class="o">:</span><span class="p">(</span><span class="n">CGRect</span><span class="p">)</span><span class="n">rect</span> <span class="p">{</span>
+<span class="err">  </span> <span class="err"> </span>
+<span class="err"> </span> <span class="err"> </span> <span class="c1">//可以使用这种方式判断
+//    if (self.text.length || self.attributedText.length) return;
+</span><span class="err"> </span> <span class="err"> </span> <span class="c1">//或者是这种
+</span><span class="err"> </span> <span class="err"> </span> <span class="k">if</span> <span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">hasText</span><span class="p">)</span> <span class="k">return</span><span class="p">;</span>
+<span class="err"> </span> <span class="err"> </span> <span class="n">rect</span><span class="p">.</span><span class="n">origin</span><span class="p">.</span><span class="n">x</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>
+<span class="err"> </span> <span class="err"> </span> <span class="n">rect</span><span class="p">.</span><span class="n">origin</span><span class="p">.</span><span class="n">y</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>
+<span class="err"> </span> <span class="err"> </span> <span class="n">rect</span><span class="p">.</span><span class="n">size</span><span class="p">.</span><span class="n">width</span> <span class="o">-=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">rect</span><span class="p">.</span><span class="n">origin</span><span class="p">.</span><span class="n">x</span><span class="p">;</span>
+<span class="err"> </span> <span class="err"> </span> <span class="n">NSMutableDictionary</span> <span class="o">*</span><span class="n">att</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSMutableDictionary</span> <span class="nf">dictionary</span><span class="p">];</span>
+<span class="err"> </span> <span class="err"> </span> <span class="n">att</span><span class="p">[</span><span class="nf">NSFontAttributeName</span><span class="p">]</span> <span class="o">=</span> <span class="n">self</span><span class="p">.</span><span class="n">font</span><span class="p">;</span>
+<span class="err"> </span> <span class="err"> </span> <span class="n">att</span><span class="p">[</span><span class="nf">NSForegroundColorAttributeName</span><span class="p">]</span> <span class="o">=</span> <span class="n">self</span><span class="p">.</span><span class="n">placeholerColor</span><span class="p">;</span>
+<span class="err"> </span> <span class="err"> </span> <span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">placeholer</span> <span class="nf">drawInRect</span><span class="p">:</span><span class="n">rect</span> <span class="nf">withAttributes</span><span class="p">:</span><span class="n">att</span><span class="p">];</span>
+<span class="p">}</span>
+
+<span class="o">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">setPlaceholer</span><span class="o">:</span><span class="p">(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="n">placeholer</span>
+<span class="p">{</span>
+<span class="err"> </span> <span class="err"> </span> <span class="n">_placeholer</span> <span class="o">=</span> <span class="n">placeholer</span><span class="p">;</span>
+<span class="err"> </span> <span class="err"> </span> <span class="p">[</span><span class="n">self</span> <span class="nf">setNeedsDisplay</span><span class="p">];</span>
+<span class="p">}</span>
+
+<span class="o">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">setPlaceholerColor</span><span class="o">:</span><span class="p">(</span><span class="n">UIColor</span> <span class="o">*</span><span class="p">)</span><span class="n">placeholerColor</span>
+<span class="p">{</span>
+<span class="err"> </span> <span class="err"> </span> <span class="n">_placeholerColor</span> <span class="o">=</span> <span class="n">placeholerColor</span><span class="p">;</span>
+<span class="err"> </span> <span class="err"> </span> <span class="p">[</span><span class="n">self</span> <span class="nf">setNeedsDisplay</span><span class="p">];</span>
+<span class="p">}</span>
+
+<span class="o">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">setFont</span><span class="o">:</span><span class="p">(</span><span class="n">UIFont</span> <span class="o">*</span><span class="p">)</span><span class="n">font</span>
+<span class="p">{</span>
+<span class="err"> </span> <span class="err"> </span> <span class="p">[</span><span class="n">super</span> <span class="nf">setFont</span><span class="p">:</span><span class="n">font</span><span class="p">];</span>
+<span class="err"> </span> <span class="err"> </span> <span class="p">[</span><span class="n">self</span> <span class="nf">setNeedsDisplay</span><span class="p">];</span>
+<span class="p">}</span>
+
+<span class="o">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">setText</span><span class="o">:</span><span class="p">(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="n">text</span>
+<span class="p">{</span>
+<span class="err"> </span> <span class="err"> </span> <span class="p">[</span><span class="n">super</span> <span class="nf">setText</span><span class="p">:</span><span class="n">text</span><span class="p">];</span>
+<span class="err"> </span> <span class="err"> </span> <span class="p">[</span><span class="n">self</span> <span class="nf">setNeedsDisplay</span><span class="p">];</span>
+<span class="p">}</span>
+
+<span class="o">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">setAttributedText</span><span class="o">:</span><span class="p">(</span><span class="n">NSAttributedString</span> <span class="o">*</span><span class="p">)</span><span class="n">attributedText</span>
+<span class="p">{</span>
+<span class="err"> </span> <span class="err"> </span> <span class="p">[</span><span class="n">super</span> <span class="nf">setAttributedText</span><span class="p">:</span><span class="n">attributedText</span><span class="p">];</span>
+<span class="err"> </span> <span class="err"> </span> <span class="p">[</span><span class="n">self</span> <span class="nf">setNeedsDisplay</span><span class="p">];</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<p>####当点击一个按钮就发送一次请求的时候，如果不想连着点两下发两次网络请求，这时候我们可以把请求参数弄一个property，然后比较两次是否相同，相同就不发请求</p>
+
+<p>####当网络比较慢的时候，我们从当前页面返回到了上一个页面，这时候可能后来返回数据的时候造成崩溃，我们可以重写dealloc方法，在dealloc方法中把这次请求给取消掉</p>
+
+<p>###cell选中颜色</p>
+
+<div class="language-objc highlighter-rouge"><pre class="highlight"><code><span class="c1">//highlightedTextColor可以设置选中时候字体的颜色
+</span><span class="n">self</span><span class="p">.</span><span class="n">textLabel</span><span class="p">.</span><span class="n">highlightedTextColor</span> <span class="o">=</span> <span class="n">RGBCOLOR</span><span class="p">(</span><span class="mi">215</span><span class="p">,</span> <span class="mi">27</span><span class="p">,</span> <span class="mi">26</span><span class="p">);</span>
+</code></pre>
+</div>
+<p>###改变cell的大小
+我们可以在layoutSubviews中设置</p>
+
+<div class="language-objc highlighter-rouge"><pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">layoutSubviews</span>
+<span class="p">{</span>
+<span class="err"> </span> <span class="err"> </span> <span class="p">[</span><span class="n">super</span> <span class="nf">layoutSubviews</span><span class="p">];</span>
+<span class="err">  </span> <span class="err"> </span>
+<span class="err"> </span> <span class="err"> </span> <span class="c1">//如果想改变系统中某一个控件的位置可以在layoutSubviews重新设置控件的位置
+</span><span class="err"> </span> <span class="err"> </span> <span class="n">self</span><span class="p">.</span><span class="n">textLabel</span><span class="p">.</span><span class="n">height</span> <span class="o">=</span> <span class="n">self</span><span class="p">.</span><span class="n">height</span> <span class="o">-</span> <span class="mi">2</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+<p>###cell选择一个标记视图
+我们可以在<code class="highlighter-rouge">- (void)setSelected:(BOOL)selected animated:(BOOL)animated</code> 这个方法中设置
+当选中cell的时候如果设置了<code class="highlighter-rouge">selectionStyle</code>为none的话会造成<code class="highlighter-rouge">self.textLabel.highlightedTextColor</code>这个颜色无法正常显示，解决这个问题的方法就是在<code class="highlighter-rouge">- (void)setSelected:(BOOL)selected animated:(BOOL)animated</code>这个方法中设置选中时字体颜色以及普通状态下的文字颜色,cell被选中时内部子控件不会进入高亮状态</p>
+
+<div class="language-objc highlighter-rouge"><pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">setSelected</span><span class="p">:(</span><span class="n">BOOL</span><span class="p">)</span><span class="nv">selected</span> <span class="nf">animated</span><span class="p">:(</span><span class="n">BOOL</span><span class="p">)</span><span class="nv">animated</span> <span class="p">{</span>
+<span class="err"> </span> <span class="err"> </span> <span class="p">[</span><span class="n">super</span> <span class="nf">setSelected</span><span class="p">:</span><span class="n">selected</span> <span class="nf">animated</span><span class="p">:</span><span class="n">animated</span><span class="p">];</span>
+
+<span class="err"> </span> <span class="err"> </span> <span class="cm">/**
+     *  当选中cell的时候如果设置了selectionStyle为none的话会造成self.textLabel.highlightedTextColor这个颜色无法正常显示，解决这个问题的方法就是在- (void)setSelected:(BOOL)selected animated:(BOOL)animated这个方法中设置选中时字体颜色以及普通状态下的文字颜色,cell被选中时内部子控件不会进入高亮状态
+     *
+     *
+     */</span>
+<span class="err"> </span> <span class="err"> </span> <span class="n">_selectView</span><span class="p">.</span><span class="n">hidden</span> <span class="o">=</span> <span class="o">!</span><span class="n">selected</span><span class="p">;</span>
+<span class="err"> </span> <span class="err"> </span> <span class="n">self</span><span class="p">.</span><span class="n">textLabel</span><span class="p">.</span><span class="n">textColor</span> <span class="o">=</span> <span class="o">!</span><span class="n">selected</span> <span class="p">?</span> <span class="n">RGBCOLOR</span><span class="p">(</span><span class="mi">74</span><span class="p">,</span> <span class="mi">74</span><span class="p">,</span> <span class="mi">74</span><span class="p">)</span> <span class="p">:</span> <span class="n">RGBCOLOR</span><span class="p">(</span><span class="mi">215</span><span class="p">,</span> <span class="mi">27</span><span class="p">,</span> <span class="mi">26</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<p>###改变UITextField提示文字颜色</p>
+
+<div class="language-objc highlighter-rouge"><pre class="highlight"><code><span class="k">static</span> <span class="n">NSString</span> <span class="o">*</span> <span class="k">const</span> <span class="n">PlacerholderColorKeyPath</span> <span class="o">=</span> <span class="s">@"_placeholderLabel.textColor"</span><span class="p">;</span>
+
+<span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">drawPlaceholderInRect</span><span class="p">:(</span><span class="n">CGRect</span><span class="p">)</span><span class="nv">rect</span>
+<span class="p">{</span>
+<span class="err"> </span> <span class="err"> </span> <span class="p">[</span><span class="n">super</span> <span class="nf">drawPlaceholderInRect</span><span class="p">:</span><span class="n">rect</span><span class="p">];</span>
+<span class="err"> </span> <span class="err"> </span> <span class="c1">//需要设置位置
+</span><span class="err"> </span> <span class="err"> </span> <span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">placeholder</span> <span class="nf">drawInRect</span><span class="p">:</span><span class="n">CGRectMake</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="nf">withAttributes</span><span class="p">:@{</span><span class="n">NSForegroundColorAttributeName</span><span class="o">:</span><span class="p">[</span><span class="n">UIColor</span> <span class="nf">whiteColor</span><span class="p">]}];</span>
+<span class="p">}</span>
+
+<span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">awakeFromNib</span>
+<span class="p">{</span>
+<span class="err"> </span> <span class="err"> </span> <span class="c1">//设置光标颜色和文字颜色一样
+</span><span class="err"> </span> <span class="err"> </span> <span class="n">self</span><span class="p">.</span><span class="n">tintColor</span> <span class="o">=</span> <span class="n">self</span><span class="p">.</span><span class="n">textColor</span><span class="p">;</span>
+<span class="err">  </span> <span class="err"> </span>
+<span class="err"> </span> <span class="err"> </span> <span class="p">[</span><span class="n">self</span> <span class="nf">resignFirstResponder</span><span class="p">];</span>
+<span class="p">}</span>
+
+<span class="o">-</span> <span class="p">(</span><span class="n">BOOL</span><span class="p">)</span><span class="n">becomeFirstResponder</span>
+<span class="p">{</span>
+<span class="err"> </span> <span class="err"> </span> <span class="p">[</span><span class="n">self</span> <span class="nf">setValue</span><span class="p">:[</span><span class="n">UIColor</span> <span class="nf">whiteColor</span><span class="p">]</span> <span class="nf">forKeyPath</span><span class="p">:</span><span class="n">PlacerholderColorKeyPath</span><span class="p">];</span>
+<span class="err"> </span> <span class="err"> </span> <span class="k">return</span> <span class="p">[</span><span class="n">super</span> <span class="nf">becomeFirstResponder</span><span class="p">];</span>
+<span class="p">}</span>
+
+<span class="o">-</span> <span class="p">(</span><span class="n">BOOL</span><span class="p">)</span><span class="n">resignFirstResponder</span>
+<span class="p">{</span>
+<span class="err"> </span> <span class="err"> </span> <span class="p">[</span><span class="n">self</span> <span class="nf">setValue</span><span class="p">:[</span><span class="n">UIColor</span> <span class="nf">grayColor</span><span class="p">]</span> <span class="nf">forKeyPath</span><span class="p">:</span><span class="n">PlacerholderColorKeyPath</span><span class="p">];</span>
+<span class="err"> </span> <span class="err"> </span> <span class="k">return</span> <span class="p">[</span><span class="n">super</span> <span class="nf">resignFirstResponder</span><span class="p">];</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+<p>###判断一个控件是否在主窗口上面
+首先把当前控件坐标转换成其父控件所在坐标系的rect，然后判断转换后的rect是否在主窗口的bounds之内，然后只有当前控件显示以及透明度大于0.01 以及当前控件所在的窗口为主窗口以及转换后的rect是否在主窗口的bounds之内，只有这些条件都成立的时候这个控件才在主窗口上面显示，代码如下</p>
+
+<div class="language-objc highlighter-rouge"><pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="n">BOOL</span><span class="p">)</span><span class="n">isShowOnWindow</span>
+<span class="p">{</span>
+<span class="err"> </span> <span class="err"> </span> <span class="c1">//主窗口
+</span><span class="err"> </span> <span class="err"> </span> <span class="n">UIWindow</span> <span class="o">*</span><span class="n">keyWindow</span> <span class="o">=</span> <span class="p">[</span><span class="n">UIApplication</span> <span class="nf">sharedApplication</span><span class="p">].</span><span class="n">keyWindow</span><span class="p">;</span>
+<span class="err">  </span> <span class="err"> </span>
+<span class="err"> </span> <span class="err"> </span> <span class="c1">//相对于父控件转换之后的rect
+</span><span class="err"> </span> <span class="err"> </span> <span class="n">CGRect</span> <span class="n">newRect</span> <span class="o">=</span> <span class="p">[</span><span class="n">keyWindow</span> <span class="nf">convertRect</span><span class="p">:</span><span class="n">self</span><span class="p">.</span><span class="n">frame</span> <span class="nf">fromView</span><span class="p">:</span><span class="n">self</span><span class="p">.</span><span class="n">superview</span><span class="p">];</span>
+<span class="err"> </span> <span class="err"> </span> <span class="c1">//主窗口的bounds
+</span><span class="err"> </span> <span class="err"> </span> <span class="n">CGRect</span> <span class="n">winBounds</span> <span class="o">=</span> <span class="n">keyWindow</span><span class="p">.</span><span class="n">bounds</span><span class="p">;</span>
+<span class="err"> </span> <span class="err"> </span> <span class="c1">//判断两个坐标系是否有交汇的地方，返回bool值
+</span><span class="err"> </span> <span class="err"> </span> <span class="n">BOOL</span> <span class="n">isIntersects</span> <span class="o">=</span><span class="err"> </span> <span class="n">CGRectIntersectsRect</span><span class="p">(</span><span class="n">newRect</span><span class="p">,</span> <span class="n">winBounds</span><span class="p">);</span>
+<span class="err"> </span> <span class="err"> </span> <span class="k">if</span> <span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">hidden</span> <span class="o">!=</span> <span class="nb">YES</span> <span class="o">&amp;&amp;</span> <span class="n">self</span><span class="p">.</span><span class="n">alpha</span> <span class="o">&gt;</span><span class="mi">0</span><span class="p">.</span><span class="mo">01</span> <span class="o">&amp;&amp;</span> <span class="n">self</span><span class="p">.</span><span class="n">window</span> <span class="o">==</span> <span class="n">keyWindow</span> <span class="o">&amp;&amp;</span> <span class="n">isIntersects</span><span class="p">)</span> <span class="p">{</span>
+<span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="k">return</span> <span class="nb">YES</span><span class="p">;</span>
+<span class="err"> </span> <span class="err"> </span> <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+<span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="k">return</span> <span class="nb">NO</span><span class="p">;</span>
+<span class="err"> </span> <span class="err"> </span> <span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+<p>###在XIB或者SB中设置控件圆角或者边框
+我们可以写一个UIView的分类，然后在分类中加入IB_DESIGNABLE，以及property(borderWidth,borderColor,cornerRadius)这些property前面需要使用IBInspectable修饰才会有效果，然后重写set方法即可</p>
+
+<div class="language-objc highlighter-rouge"><pre class="highlight"><code><span class="n">IB_DESIGNABLE</span>
+
+<span class="k">@interface</span> <span class="nc">UIView</span> <span class="p">(</span><span class="nl">RYF</span><span class="p">)</span>
+<span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">,</span> <span class="n">assign</span><span class="p">)</span><span class="n">CGFloat</span> <span class="n">x</span><span class="p">;</span>
+<span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">,</span> <span class="n">assign</span><span class="p">)</span><span class="n">CGFloat</span> <span class="n">y</span><span class="p">;</span>
+<span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">,</span> <span class="n">assign</span><span class="p">)</span><span class="n">CGFloat</span> <span class="n">width</span><span class="p">;</span>
+<span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">,</span> <span class="n">assign</span><span class="p">)</span><span class="n">CGFloat</span> <span class="n">height</span><span class="p">;</span>
+<span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">,</span> <span class="n">assign</span><span class="p">)</span><span class="n">CGFloat</span> <span class="n">centerX</span><span class="p">;</span>
+<span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">,</span> <span class="n">assign</span><span class="p">)</span><span class="n">CGFloat</span> <span class="n">centerY</span><span class="p">;</span>
+<span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">,</span> <span class="n">assign</span><span class="p">)</span><span class="n">CGSize</span> <span class="n">size</span><span class="p">;</span>
+<span class="k">@property</span><span class="p">(</span><span class="n">nonatomic</span><span class="p">,</span> <span class="n">assign</span><span class="p">)</span> <span class="n">IBInspectable</span> <span class="n">CGFloat</span> <span class="n">borderWidth</span><span class="p">;</span>
+<span class="k">@property</span><span class="p">(</span><span class="n">nonatomic</span><span class="p">,</span> <span class="n">assign</span><span class="p">)</span> <span class="n">IBInspectable</span> <span class="n">UIColor</span> <span class="o">*</span><span class="n">borderColor</span><span class="p">;</span>
+<span class="k">@property</span><span class="p">(</span><span class="n">nonatomic</span><span class="p">,</span> <span class="n">assign</span><span class="p">)</span> <span class="n">IBInspectable</span> <span class="n">CGFloat</span> <span class="n">cornerRadius</span><span class="p">;</span>
+
+<span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">setBorderWidth</span><span class="p">:(</span><span class="n">CGFloat</span><span class="p">)</span><span class="nv">borderWidth</span>
+<span class="p">{</span>
+<span class="err"> </span> <span class="err"> </span> <span class="k">if</span> <span class="p">(</span><span class="n">borderWidth</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+<span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="k">return</span><span class="p">;</span>
+<span class="err"> </span> <span class="err"> </span> <span class="p">}</span>
+<span class="err"> </span> <span class="err"> </span> <span class="n">self</span><span class="p">.</span><span class="n">layer</span><span class="p">.</span><span class="n">borderWidth</span> <span class="o">=</span> <span class="n">borderWidth</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">setBorderColor</span><span class="p">:(</span><span class="n">UIColor</span> <span class="o">*</span><span class="p">)</span><span class="nv">borderColor</span>
+<span class="p">{</span>
+<span class="err"> </span> <span class="err"> </span> <span class="n">self</span><span class="p">.</span><span class="n">layer</span><span class="p">.</span><span class="n">borderColor</span> <span class="o">=</span> <span class="n">borderColor</span><span class="p">.</span><span class="n">CGColor</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">setCornerRadius</span><span class="p">:(</span><span class="n">CGFloat</span><span class="p">)</span><span class="nv">cornerRadius</span>
+<span class="p">{</span>
+<span class="err"> </span> <span class="err"> </span> <span class="n">self</span><span class="p">.</span><span class="n">layer</span><span class="p">.</span><span class="n">cornerRadius</span> <span class="o">=</span> <span class="n">cornerRadius</span><span class="p">;</span>
+<span class="err"> </span> <span class="err"> </span> <span class="n">self</span><span class="p">.</span><span class="n">layer</span><span class="p">.</span><span class="n">masksToBounds</span> <span class="o">=</span> <span class="nb">YES</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<p>###判断当前view所属的控制器
+UIView的分类里面写的一个对象方法</p>
+
+<div class="language-objc highlighter-rouge"><pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="n">UIViewController</span> <span class="o">*</span><span class="p">)</span><span class="n">parentController</span>
+<span class="p">{</span>
+<span class="err"> </span> <span class="err"> </span> <span class="n">UIResponder</span> <span class="o">*</span><span class="n">responder</span> <span class="o">=</span> <span class="p">[</span><span class="n">self</span> <span class="nf">nextResponder</span><span class="p">];</span>
+<span class="err"> </span> <span class="err"> </span> <span class="k">while</span> <span class="p">(</span><span class="n">responder</span><span class="p">)</span> <span class="p">{</span>
+<span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="k">if</span> <span class="p">([</span><span class="n">responder</span> <span class="nf">isKindOfClass</span><span class="p">:[</span><span class="n">UIViewController</span> <span class="nf">class</span><span class="p">]])</span> <span class="p">{</span>
+<span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="k">return</span> <span class="p">(</span><span class="n">UIViewController</span> <span class="o">*</span><span class="p">)</span><span class="n">responder</span><span class="p">;</span>
+<span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="p">}</span>
+<span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="n">responder</span> <span class="o">=</span> <span class="p">[</span><span class="n">responder</span> <span class="nf">nextResponder</span><span class="p">];</span>
+<span class="err"> </span> <span class="err"> </span> <span class="p">}</span>
+<span class="err"> </span> <span class="err"> </span> <span class="k">return</span> <span class="nb">nil</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<p>####当设置某一个控件为tableview的tableHeaderView时候，当滑动tableview的时候会一直调用找个控件的setframe方法</p>
+
+<p>###连续点击tabbar刷新tableView或者返回至最上面
+首先我们现在AppDelegate当中监听tabbar的点击，通过<code class="highlighter-rouge">- (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController</code>,然后发出通知，在需要的地方监听，然后判断当前view是否在主窗口上面以及设置一个index记录上次selectedIndex，只有显示在主窗口以及不等于上次的selectedIndex的时候进入刷新</p>
+
+<div class="language-objc highlighter-rouge"><pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">tabbarClick</span>
+<span class="p">{</span>
+<span class="err"> </span> <span class="err"> </span> <span class="cm">/**
+     *  先判断是否显示在窗口上了，如果没有显示在窗口就不刷新，然后判断当前选中的和上次是否一致，如果不一致的话才会刷新
+     */</span>
+<span class="err"> </span> <span class="err"> </span> <span class="k">if</span> <span class="p">([</span><span class="n">self</span><span class="p">.</span><span class="n">view</span> <span class="nf">isShowOnWindow</span><span class="p">]</span> <span class="o">&amp;&amp;</span> <span class="n">self</span><span class="p">.</span><span class="n">tabSelectIndex</span> <span class="o">!=</span> <span class="n">self</span><span class="p">.</span><span class="n">tabBarController</span><span class="p">.</span><span class="n">selectedIndex</span><span class="p">)</span> <span class="p">{</span>
+<span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">tableView</span><span class="p">.</span><span class="n">mj_header</span> <span class="nf">beginRefreshing</span><span class="p">];</span>
+<span class="err"> </span> <span class="err"> </span> <span class="p">}</span>
+<span class="err"> </span> <span class="err"> </span> <span class="n">self</span><span class="p">.</span><span class="n">tabSelectIndex</span> <span class="o">=</span><span class="err"> </span> <span class="n">self</span><span class="p">.</span><span class="n">tabBarController</span><span class="p">.</span><span class="n">selectedIndex</span><span class="p">;</span>
+<span class="err">  </span> <span class="err"> </span>
+<span class="p">}</span>
+</code></pre>
+</div>
+<p>###当UITableView是plain的样式时候，两个cell之间需要有一定的间隙，这时候我们可以重写cell的setFramefangfa</p>
+
+<div class="language-objc highlighter-rouge"><pre class="highlight"><code><span class="cm">/**
+ *  修改父类中的东西可以在这个方法中进行设置，这个方法会覆盖之前所有的frame
+ *
+ *  @param frame &lt;#frame description#&gt;
+ */</span>
+<span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">setFrame</span><span class="p">:(</span><span class="n">CGRect</span><span class="p">)</span><span class="nv">frame</span>
+<span class="p">{</span>
+<span class="err"> </span> <span class="err"> </span> <span class="n">frame</span><span class="p">.</span><span class="n">origin</span><span class="p">.</span><span class="n">x</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+<span class="err"> </span> <span class="err"> </span> <span class="n">frame</span><span class="p">.</span><span class="n">size</span><span class="p">.</span><span class="n">width</span> <span class="o">-=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">frame</span><span class="p">.</span><span class="n">origin</span><span class="p">.</span><span class="n">x</span><span class="p">;</span>
+<span class="err"> </span> <span class="err"> </span> <span class="n">frame</span><span class="p">.</span><span class="n">size</span><span class="p">.</span><span class="n">height</span> <span class="o">-=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="err">  </span> <span class="err"> </span>
+<span class="err"> </span> <span class="err"> </span> <span class="p">[</span><span class="n">super</span> <span class="nf">setFrame</span><span class="p">:</span><span class="n">frame</span><span class="p">];</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<p>####当一个控件从XIB创建的时候，如果显示出来的效果和你设置的不一样，建议你把autoresizingMask设置为UIViewAutoresizingNone</p>
+
+<p>###当一个很长的图片在一个固定大小的区域内我们想显示图片的最上方内容
+我们可以裁剪图片然后再显示到UIImageView上面</p>
+
+<div class="language-objc highlighter-rouge"><pre class="highlight"><code><span class="err"> </span><span class="c1">//在这里设置长图片显示最上方的一部分
+</span><span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="n">UIGraphicsBeginImageContextWithOptions</span><span class="p">(</span><span class="n">jokesModel</span><span class="p">.</span><span class="n">picF</span><span class="p">.</span><span class="n">size</span><span class="p">,</span> <span class="nb">YES</span><span class="p">,</span> <span class="mi">0</span><span class="p">.</span><span class="mi">0</span><span class="p">);</span>
+<span class="err">  </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span>
+<span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="n">CGFloat</span> <span class="n">width</span> <span class="o">=</span> <span class="n">jokesModel</span><span class="p">.</span><span class="n">picF</span><span class="p">.</span><span class="n">size</span><span class="p">.</span><span class="n">width</span><span class="p">;</span>
+<span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="n">CGFloat</span> <span class="n">height</span> <span class="o">=</span> <span class="n">width</span> <span class="o">*</span> <span class="n">image</span><span class="p">.</span><span class="n">size</span><span class="p">.</span><span class="n">height</span> <span class="o">/</span> <span class="n">image</span><span class="p">.</span><span class="n">size</span><span class="p">.</span><span class="n">width</span><span class="p">;</span>
+<span class="err">  </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span>
+<span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="p">[</span><span class="n">image</span> <span class="nf">drawInRect</span><span class="p">:</span><span class="n">CGRectMake</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">)];</span>
+<span class="err">  </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span>
+<span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="n">_imageView</span><span class="p">.</span><span class="n">image</span> <span class="o">=</span> <span class="n">UIGraphicsGetImageFromCurrentImageContext</span><span class="p">();</span>
+<span class="err">  </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span>
+<span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="n">UIGraphicsEndImageContext</span><span class="p">();</span>
+
+</code></pre>
+</div>
+<p>###UIImage裁剪</p>
+
+<div class="language-objc highlighter-rouge"><pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="n">UIImage</span> <span class="o">*</span><span class="p">)</span><span class="n">circleImage</span>
+<span class="p">{</span>
+<span class="err"> </span> <span class="err"> </span> <span class="c1">//NO代表透明
+</span><span class="err"> </span> <span class="err"> </span> <span class="n">UIGraphicsBeginImageContextWithOptions</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">size</span><span class="p">,</span> <span class="nb">NO</span><span class="p">,</span> <span class="mi">0</span><span class="p">.</span><span class="mi">0</span><span class="p">);</span>
+<span class="err">  </span> <span class="err"> </span>
+<span class="err"> </span> <span class="err"> </span> <span class="n">CGContextRef</span> <span class="n">ref</span> <span class="o">=</span> <span class="n">UIGraphicsGetCurrentContext</span><span class="p">();</span>
+<span class="err">  </span> <span class="err"> </span>
+<span class="err"> </span> <span class="err"> </span> <span class="n">CGRect</span> <span class="n">rect</span> <span class="o">=</span> <span class="n">CGRectMake</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">self</span><span class="p">.</span><span class="n">size</span><span class="p">.</span><span class="n">width</span><span class="p">,</span> <span class="n">self</span><span class="p">.</span><span class="n">size</span><span class="p">.</span><span class="n">height</span><span class="p">);</span>
+<span class="err"> </span> <span class="err"> </span> <span class="n">CGContextAddEllipseInRect</span><span class="p">(</span><span class="n">ref</span><span class="p">,</span> <span class="n">rect</span><span class="p">);</span>
+<span class="err">  </span> <span class="err"> </span>
+<span class="err"> </span> <span class="err"> </span> <span class="n">CGContextClip</span><span class="p">(</span><span class="n">ref</span><span class="p">);</span>
+<span class="err"> </span> <span class="err"> </span> <span class="c1">//把圆画上去
+</span><span class="err"> </span> <span class="err"> </span> <span class="p">[</span><span class="n">self</span> <span class="nf">drawInRect</span><span class="p">:</span><span class="n">rect</span><span class="p">];</span>
+<span class="err">  </span> <span class="err"> </span>
+<span class="err"> </span> <span class="err"> </span> <span class="n">UIImage</span> <span class="o">*</span><span class="n">image</span> <span class="o">=</span> <span class="n">UIGraphicsGetImageFromCurrentImageContext</span><span class="p">();</span>
+<span class="err"> </span> <span class="err"> </span> <span class="k">return</span> <span class="n">image</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<p>###iOS开发当中开发技巧总结
+#####自定义了leftBarbuttonItem左滑返回手势失效了怎么办?左 
+<code class="highlighter-rouge">objc
+self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]
+                                         initWithImage:img
+                                         style:UIBarButtonItemStylePlain
+                                         target:self
+                                         action:@selector(onBack:)];
+ self.navigationController.interactivePopGestureRecognizer.delegate = (id&lt;UIGestureRecognizerDelegate&gt;)self;
+</code>
+  
+#####ScrollView莫名其妙不能在viewController划到顶怎么办?</p>
+
+<div class="language-objc highlighter-rouge"><pre class="highlight"><code><span class="n">self</span><span class="p">.</span><span class="n">automaticallyAdjustsScrollView</span> 
+</code></pre>
+</div>
+
+<p>#####想在代码里改在xib里添加的layoutAttributes,但是怎么用代码找啊?
+像拉button一样的拉你的约束<code class="highlighter-rouge">.nslayoutattribute</code>也是可以拉线的.</p>
+
+<p>#####怎么像safari一样滑动的时候隐藏navigationbar?</p>
+
+<div class="language-objc highlighter-rouge"><pre class="highlight"><code><span class="n">navigationController</span><span class="p">.</span><span class="n">hidesBarsOnSwipe</span> <span class="o">=</span> <span class="n">Yes</span>
+</code></pre>
+</div>
+
+<p>#####导航条返回键带的title太讨厌了,怎么让它消失!
+<code class="highlighter-rouge">objc
+[[UIBarButtonItem appearance] setBackButtonTitlePositionAdjustment:UIOffsetMake(0, -60)
+                                                     forBarMetrics:UIBarMetricsDefault];
+</code>   </p>
+
+<p>                                       </p>
+
+<p>                                        
+#####本来我的statusbar是lightcontent的，结果用UIImagePickerController会导致我的statusbar的样式变成黑色，怎么办？
+<code class="highlighter-rouge">objc
+ - (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated
+ {
+     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+ }
+</code></p>
+
+<p>#####怎么把我的navigationbar弄成透明的而不是带模糊的效果？</p>
+
+<div class="language-objc highlighter-rouge"><pre class="highlight"><code> <span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">navigationBar</span> <span class="nf">setBackgroundImage</span><span class="p">:[</span><span class="n">UIImage</span> <span class="nf">new</span><span class="p">]</span>
+<span class="err">  </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="nf">forBarMetrics</span><span class="p">:</span><span class="n">UIBarMetricsDefault</span><span class="p">];</span>
+ <span class="n">self</span><span class="p">.</span><span class="n">navigationBar</span><span class="p">.</span><span class="n">shadowImage</span> <span class="o">=</span> <span class="p">[</span><span class="n">UIImage</span> <span class="nf">new</span><span class="p">];</span>
+ <span class="n">self</span><span class="p">.</span><span class="n">navigationBar</span><span class="p">.</span><span class="n">trans</span>
+</code></pre>
+</div>
+
+<p>#####怎么改变uitextfield placeholder的颜色和位置？</p>
+
+<div class="language-objc highlighter-rouge"><pre class="highlight"><code><span class="mi">1</span><span class="p">.</span> <span class="err">重写方法 </span>
+ 
+  <span class="o">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="n">drawPlaceholderInRect</span><span class="o">:</span><span class="p">(</span><span class="n">CGRect</span><span class="p">)</span><span class="n">rect</span>
+  <span class="p">{</span>
+<span class="err"> </span> <span class="err"> </span>   <span class="p">[[</span><span class="n">UIColor</span> <span class="nf">blueColor</span><span class="p">]</span> <span class="nf">setFill</span><span class="p">];</span>
+<span class="err"> </span> <span class="err"> </span>   <span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">placeholder</span> <span class="nf">drawInRect</span><span class="p">:</span><span class="n">rect</span> <span class="nf">withFont</span><span class="p">:</span><span class="n">self</span><span class="p">.</span><span class="n">font</span>  <span class="n">lineBreakMode</span><span class="o">:</span><span class="n">UILineBreakModeTailTruncation</span> <span class="n">alignment</span><span class="o">:</span><span class="n">self</span><span class="p">.</span><span class="n">textAlignment</span><span class="p">];</span>
+  <span class="p">}</span>
+
+ 
+<span class="mi">2</span><span class="p">.</span> <span class="n">KVC</span>
+ <span class="err"> </span>
+<span class="err"> </span> <span class="err"> </span>
+<span class="err"> </span>  <span class="n">UIColor</span> <span class="o">*</span><span class="n">color</span> <span class="o">=</span> <span class="p">[</span><span class="n">UIColor</span> <span class="nf">whiteColor</span><span class="p">];</span> <span class="err"> </span>
+<span class="err"> </span> <span class="err"> </span>  <span class="n">_userName</span><span class="p">.</span><span class="n">attributedPlaceholder</span> <span class="o">=</span> <span class="p">[[</span><span class="n">NSAttributedString</span> <span class="nf">alloc</span><span class="p">]</span> <span class="nf">initWithString</span><span class="p">:</span><span class="s">@"用户名"</span> <span class="nf">attributes</span><span class="p">:@{</span><span class="n">NSForegroundColorAttributeName</span><span class="o">:</span> <span class="n">color</span><span class="p">}];</span> <span class="err"> </span>
+<span class="err">  </span>
+<span class="err"> </span> <span class="err"> </span>
+  <span class="p">[</span><span class="n">_userName</span> <span class="nf">setValue</span><span class="p">:[</span><span class="n">UIColor</span> <span class="nf">whiteColor</span><span class="p">]</span> <span class="nf">forKeyPath</span><span class="p">:</span><span class="s">@"_placeholderLabel.textColor"</span><span class="p">];</span> <span class="err"> </span>
+
+</code></pre>
+</div>
+
+<p>#####应该使用FOUNDATION_EXPORT还是#define来定义常量?</p>
+
+<div class="language-objc highlighter-rouge"><pre class="highlight"><code><span class="err">一般</span><span class="n">iOS</span><span class="err">我们定义常量的方法有两种</span><span class="p">,</span><span class="err">来看下面例子</span>
+<span class="err">我的</span><span class="p">.</span><span class="n">h</span><span class="err">文件</span>
+
+ <span class="n">FOUNDATION_EXPORT</span> <span class="n">NSString</span> <span class="o">*</span> <span class="k">const</span> <span class="n">kMyConstantString</span><span class="p">;</span> <span class="err"> </span>
+ <span class="n">FOUNDATION_EXPORT</span> <span class="n">NSString</span> <span class="o">*</span> <span class="k">const</span> <span class="n">kMyConstantString2</span><span class="p">;</span>
+<span class="p">.</span><span class="n">m</span><span class="err">文件是这样定义的</span>
+
+ <span class="n">NSString</span> <span class="o">*</span> <span class="k">const</span> <span class="n">kMyConstantString</span> <span class="o">=</span> <span class="s">@"Hello"</span><span class="p">;</span>
+ <span class="n">NSString</span> <span class="o">*</span> <span class="k">const</span> <span class="n">kMyConstantString2</span> <span class="o">=</span> <span class="s">@"World"</span><span class="p">;</span>
+<span class="err">还有一种是常用的#</span><span class="n">define</span><span class="err">方法了</span>
+
+ <span class="cp">#define kMyConstantString @"Hello"
+</span>
+<span class="err">有什么区别呢</span><span class="p">?</span>
+<span class="err">使用第一种方法在检测字符串的值是否相等的时候更快</span><span class="p">.</span><span class="err">对于第一种你可以直接使用`</span><span class="p">(</span><span class="n">stringInstance</span> <span class="o">==</span> <span class="n">MyFirstConstant</span><span class="p">)</span><span class="err">`来比较</span><span class="p">,</span><span class="err">而`</span><span class="n">define</span><span class="err">`则使用的是这种`</span><span class="p">.([</span><span class="n">stringInstance</span> <span class="nf">isEqualToString</span><span class="p">:</span><span class="n">MyFirstConstant</span><span class="p">])</span><span class="err">`</span>
+<span class="err">哪个效率高</span><span class="p">,</span><span class="err">显而易见了</span><span class="p">.</span><span class="err">第一种直接比较的是指针地址</span><span class="p">,</span><span class="err">而第二个则是一一比较字符串的每一个字符是否相等</span><span class="p">.</span>
+
+</code></pre>
+</div>
+
+<p>#####static inline function是干嘛的?</p>
+
+<div class="language-objc highlighter-rouge"><pre class="highlight"><code><span class="err">如果你的</span><span class="p">.</span><span class="n">m</span><span class="err">文件需要频繁调用一个函数</span><span class="p">,</span><span class="err">可以用</span><span class="k">static</span> <span class="kr">inline</span><span class="err">来声明</span><span class="p">,</span><span class="err">这相当于把函数体当做一个大号的宏定义</span><span class="p">.</span><span class="err">不过这也不是百分之百有效</span><span class="p">,</span><span class="err">到底能不能把函数体转换为大号宏定义来用要看编译器心情</span><span class="p">,</span><span class="err">它要是觉得你的方法太复杂</span><span class="p">,</span><span class="err">他就不转了</span><span class="p">.</span><span class="err">他直接调用函数</span><span class="p">.</span>
+<span class="err">类似这种简单函数他肯定是乐意的</span><span class="p">.</span>
+
+ <span class="k">static</span> <span class="kr">inline</span> <span class="n">CGRect</span> <span class="n">ScaleRect</span><span class="p">(</span><span class="n">CGRect</span> <span class="n">rect</span><span class="p">,</span> <span class="kt">float</span> <span class="n">n</span><span class="p">)</span>
+
+<span class="cp">#####
+</span></code></pre>
+</div>
+
+
+  </section>
+</article>
+
+<section class="read-more">
+   
+   
+   <div class="read-more-item">
+       <span class="read-more-item-dim">最近的文章</span>
+       <h2 class="post-list__post-title post-title"><a href="/2016/05/iOS%E5%BC%80%E5%8F%91%E4%B8%AD%E5%B8%B8%E7%94%A8%E7%9A%84%E5%AE%8F%E5%AE%9A%E4%B9%89/" title="link to iOS开发中常用的宏定义">iOS开发中常用的宏定义</a></h2>
+       <p class="excerpt">#iOS开发中常用的宏定义####尺寸宏	#define StatusBar_HEIGHT 20#define NavigationBar_HEIGHT 44#define NavigationBarIcon 20#define TabBar_HEIGHT 49#define TabBarIcon 30#define SCREEN_WIDTH ([UIScreen mainScreen].bounds.size.width)#define SCREEN_HEIGHT ([UIScreen ...&hellip;</p>
+       <div class="post-list__meta"><time datetime="2016-05-26 17:40:32 +0800" class="post-list__meta--date date">2016-05-26</time> &#8226; <span class="post-list__meta--tags tags">Blog</span><a class="btn-border-small" href=/2016/05/iOS%E5%BC%80%E5%8F%91%E4%B8%AD%E5%B8%B8%E7%94%A8%E7%9A%84%E5%AE%8F%E5%AE%9A%E4%B9%89/>继续阅读</a></div>
+   </div>
+   
+   
+   
+   
+   <div class="read-more-item">
+       <span class="read-more-item-dim">更早的文章</span>
+       <h2 class="post-list__post-title post-title"><a href="/2016/05/ReactiveCocoa%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95/" title="link to ReactiveCocoa基本用法">ReactiveCocoa基本用法</a></h2>
+       <p class="excerpt">#ReactiveCocoa基本用法1.ReactiveCocoa简介ReactiveCocoa（简称为RAC）,是由Github开源的一个应用于iOS和OS开发的新框架,Cocoa是苹果整套框架的简称，因此很多苹果框架喜欢以Cocoa结尾。2.ReactiveCocoa作用在我们iOS开发过程中，经常会响应某些事件来处理某些业务逻辑，例如按钮的点击，上下拉刷新，网络请求，属性的变化（通过KVO）或者用户位置的变化（通过CoreLocation）。但是这些事件都用不同的方式来处理，比如ac...&hellip;</p>
+       <div class="post-list__meta"><time datetime="2016-05-26 14:31:32 +0800" class="post-list__meta--date date">2016-05-26</time> &#8226; <span class="post-list__meta--tags tags">Blog</span><a class="btn-border-small" href=/2016/05/ReactiveCocoa%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95/>继续阅读</a></div>
+   </div>
+   
+</section>
+
+<section class="post-comments">
+  
+    <div id="disqus_thread"></div>
+    <script>
+    
+    var disqus_config = function () {
+        this.page.url = "http://vno.onevcat.com/2016/05/iOS%E5%BC%80%E5%8F%91%E6%80%BB%E7%BB%93/";
+        this.page.identifier = "/2016/05/iOS%E5%BC%80%E5%8F%91%E6%80%BB%E7%BB%93/";
+    };
+
+    var disqus_shortname = 'halfrostsfield';
+    
+    (function() { // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        })();
+    </script>
+    <noscript>要查看<a href="http://disqus.com/?ref_noscript"> Disqus </a>评论，请启用 JavaScript</noscript>
+    
+  
+  
+  
+  
+</section>
+
+
+            <section class="footer">
+    <footer>
+      <br>
+      <br>
+    	<span class="footer__copyright">本站点采用<a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">知识共享 署名-非商业性使用-相同方式共享 4.0 国际 许可协议</a></span>
+        <span class="footer__copyright">由 <a href="https://jekyllrb.com">Jekyll</a> 于 2016-06-24 生成，感谢<a href="https://pages.github.com"> GitHub Pages</a> 强力驱动</span>
+        <span class="footer__copyright">本站由 <a href="http://yufei.ren">@halfrost</a> 创建，采用 <a href="https://github.com/onevcat/vno-jekyll">Vno - Jekyll</a> 作为主题，您可以在 GitHub 找到<a href="https://github.com/onevcat/OneV-s-Den">本站源码</a> - &copy; 2016</span>
+    </footer>
+</section>
+
+        </div>
+    </div>
+    
+    <script type="text/javascript" src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+
+<script type="text/javascript" src="/js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+<script type="text/javascript" src="/js/main.js"></script>
+
+
+
+    
+  </body>
+
+</html>

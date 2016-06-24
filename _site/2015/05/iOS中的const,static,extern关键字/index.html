@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <title>iOS中的const,static,extern关键字</title>
+  <meta name="description" content="#iOS中的const,static,extern关键字">
+  <meta name="author" content="Wei Wang">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="iOS中的const,static,extern关键字">
+  <meta name="twitter:description" content="#iOS中的const,static,extern关键字">
+
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="iOS中的const,static,extern关键字">
+  <meta property="og:description" content="#iOS中的const,static,extern关键字">
+
+  <link rel="icon" type="image/ico" href="/assets/images/favicon.ico" />
+  <link href="/assets/images/favicon.ico" rel="shortcut icon" type="image/ico">
+
+  <link rel="stylesheet" href="/css/main.css">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <link rel="canonical" href="http://vno.onevcat.com/2015/05/iOS%E4%B8%AD%E7%9A%84const,static,extern%E5%85%B3%E9%94%AE%E5%AD%97/">
+  <link rel="alternate" type="application/rss+xml" title="上善若水，人淡如菊" href="http://vno.onevcat.com/feed.xml">
+
+  <meta name="google-site-verification" content="1-1ZlHoRvM0T2FqPbW2S-qLgYXN6rsn52kErlMPd_gw" />
+
+</head>
+
+
+  <body>
+
+    <span class="mobile btn-mobile-menu">
+        <i class="fa fa-list btn-mobile-menu__icon"></i>
+        <i class="fa fa-angle-up btn-mobile-close__icon hidden"></i>
+    </span>
+    
+    <header class="panel-cover panel-cover--collapsed" style="background-image: url('/assets/images/background-cover.jpg')">
+  <div class="panel-main">
+
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        <a href="/#blog" title="前往 上善若水，人淡如菊 的主页" class="blog-button"><img src="/assets/images/avatar.jpg" width="80" alt="上善若水，人淡如菊 logo" class="panel-cover__logo logo" /></a>
+        <h1 class="panel-cover__title panel-title"><a href="/#blog" title="link to homepage for 上善若水，人淡如菊" class="blog-button">上善若水，人淡如菊</a></h1>
+        
+        <span class="panel-cover__subtitle panel-subtitle">上善若水，人淡如菊</span>
+        
+        <hr class="panel-cover__divider" />
+        <p class="panel-cover__description">嗨，我是任玉飞 (@Raphcel)，一名走在iOS开发路上的从业者，努力成为一个全栈工程师，爱好唱歌，以及所有与音乐有关的事情。目前在北京工作。吾笃信：认真你就赢了。</p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+        
+        
+        
+        <div class="navigation-wrapper">
+          <div>
+            <nav class="cover-navigation cover-navigation--primary">
+              <ul class="navigation">
+                <li class="navigation__item"><a href="/#blog" title="Visit blog" class="blog-button">博客</a></li>
+                
+                  <li class="navigation__item"><a href="http://about.yufei.ren" target="_blank" title="关于">关于</a></li>
+                
+              </ul>
+            </nav>
+          </div>
+          
+          <div><nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+    
+    <!-- jianshu-->
+    <li class="navigation__item">
+      <a href="http://www.jianshu.com/users/d8f57dd98c59/latest_articles" title="@ 的简书" target="_blank">
+        <i class='social fa fa-book'></i>
+        <span class="label">jianshu</span>
+      </a>
+    </li>
+    
+
+  
+  <!-- Weibo -->
+  <li class="navigation__item">
+    <a href="http://weibo.com/ryf8023" title="@ 的微博" target="_blank">
+      <i class='social fa fa-weibo'></i>
+      <span class="label">Weibo</span>
+    </a>
+  </li>
+  
+
+  
+  <!-- Github -->
+  <li class="navigation__item">
+    <a href="https://github.com/renyufei8023" title="@ 的 Github" target="_blank">
+      <i class='social fa fa-github'></i>
+      <span class="label">Github</span>
+    </a>
+  </li>
+  
+
+  
+
+  
+
+  <!-- RSS -->
+  <li class="navigation__item">
+    <a href="/feed.xml" rel="author" title="RSS" target="_blank">
+      <i class='social fa fa-rss'></i>
+      <span class="label">RSS</span>
+    </a>
+  </li>
+
+  
+  <!-- Email -->
+  <li class="navigation__item">
+    <a href="mailto:renyufei8023@gamil.com" title="Contact me">
+      <i class='social fa fa-envelope'></i>
+      <span class="label">Email</span>
+    </a>
+  </li>
+  
+
+  </ul>
+</nav>
+</div>
+        </div>
+      </div>
+    </div>
+    
+    
+    <div class="panel-cover--overlay cover-black"></div>
+    
+  </div>
+</header>
+
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner">
+            <article class="post-container post-container--single" itemscope itemtype="http://schema.org/BlogPosting">
+  <header class="post-header">
+    <div class="post-meta">
+      <time datetime="2015-05-25 17:59:32 +0800" itemprop="datePublished" class="post-meta__date date">2015-05-25</time> &#8226; <span class="post-meta__tags tags">Blog</span>
+    </div>
+    <h1 class="post-title">iOS中的const,static,extern关键字</h1>
+  </header>
+
+  <section class="post">
+    <p>#iOS中的const,static,extern关键字</p>
+
+<h3 id="conststaticextern">const,static,extern简介</h3>
+
+<h3 id="const">一、const与宏的区别（面试题）:</h3>
+<ul>
+  <li><code class="highlighter-rouge">const简介</code>:之前常用的字符串常量，一般是抽成宏，但是苹果不推荐我们抽成宏，推荐我们使用const常量。
+    <ul>
+      <li><code class="highlighter-rouge">执行时刻</code>:宏是预编译（编译之前处理），const是编译阶段。</li>
+      <li><code class="highlighter-rouge">编译检查</code>:宏不做检查，不会报编译错误，只是替换，const会编译检查，会报编译错误。</li>
+      <li><code class="highlighter-rouge">宏的好处</code>:宏能定义一些函数，方法。 const不能。</li>
+      <li><code class="highlighter-rouge">宏的坏处</code>:使用大量宏，容易造成编译时间久，每次都需要重新替换。</li>
+    </ul>
+
+    <p>注意:很多Blog都说使用宏，会消耗很多内存，我这验证并不会生成很多内存，宏定义的是常量，常量都放在常量区，只会生成一份内存。</p>
+  </li>
+</ul>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>// 常见的常量：抽成宏
+#define XMGAccount @"account"
+
+#define XMGUserDefault [NSUserDefaults standardUserDefaults]
+
+// 字符串常量
+static NSString * const account = @"account";
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    
+    // 偏好设置存储
+    // 使用宏
+    [XMGUserDefault setValue:@"123" forKey:XMGAccount];
+    
+    // 使用const常量
+    [[NSUserDefaults standardUserDefaults] setValue:@"123" forKey:account];
+    
+}
+
+</code></pre>
+</div>
+
+<h3 id="const-1">二、const作用：限制类型</h3>
+<div class="highlighter-rouge"><pre class="highlight"><code>*	1.const仅仅用来修饰右边的变量（基本数据变量p，指针变量*p）
+*	2.被const修饰的变量是只读的。
+</code></pre>
+</div>
+
+<ul>
+  <li><code class="highlighter-rouge">const基本使用</code></li>
+</ul>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>- (void)viewDidLoad {
+    [super viewDidLoad];
+    
+    // 定义变量
+    int a = 1;
+    
+    // 允许修改值
+    a = 20;
+    
+    // const两种用法
+    // const:修饰基本变量p
+    // 这两种写法是一样的，const只修饰右边的基本变量b
+    const int b = 20; // b:只读变量
+    int const b = 20; // b:只读变量
+    
+    // 不允许修改值
+    b = 1;
+    
+    // const:修饰指针变量*p，带*的变量，就是指针变量.
+    // 定义一个指向int类型的指针变量，指向a的地址
+    int *p = &amp;a;
+    
+    int c = 10;
+    
+    p = &amp;c;
+    
+    // 允许修改p指向的地址，
+    // 允许修改p访问内存空间的值
+    *p = 20;
+    
+    // const修饰指针变量访问的内存空间，修饰的是右边*p1，
+    // 两种方式一样
+    const int *p1; // *p1：常量 p1:变量
+    int const *p1; // *p1：常量 p1:变量
+    
+    // const修饰指针变量p1
+    int * const p1; // *p1:变量 p1:常量
+
+    
+    // 第一个const修饰*p1 第二个const修饰 p1
+    // 两种方式一样
+    const int * const p1; // *p1：常量 p1：常量
+    
+    int const * const p1;  // *p1：常量 p1：常量
+    
+    
+    
+}
+
+</code></pre>
+</div>
+
+<h3 id="const-2">三、const开发中使用场景:</h3>
+<div class="highlighter-rouge"><pre class="highlight"><code>*	1.需求1:提供一个方法，这个方法的参数是地址，里面只能通过地址读取值,不能通过地址修改值
+*	2.需求2:提供一个方法，这个方法的参数是地址，里面不能修改参数的地址。
+</code></pre>
+</div>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="k">@implementation</span> <span class="nc">ViewController</span>
+
+<span class="c1">// const放*前面约束参数，表示*a只读
+// 只能修改地址a,不能通过a修改访问的内存空间
+</span><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">test</span><span class="p">:(</span><span class="k">const</span> <span class="kt">int</span> <span class="o">*</span> <span class="p">)</span><span class="nv">a</span>
+<span class="p">{</span>
+<span class="c1">//    *a = 20;
+</span><span class="p">}</span>
+
+<span class="c1">// const放*后面约束参数，表示a只读
+// 不能修改a的地址，只能修改a访问的值
+</span><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">test1</span><span class="p">:(</span><span class="kt">int</span> <span class="o">*</span> <span class="k">const</span><span class="p">)</span><span class="nv">a</span>
+<span class="p">{</span>
+    <span class="kt">int</span> <span class="n">b</span><span class="p">;</span>
+    <span class="c1">// 会报错
+</span>    <span class="n">a</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">b</span><span class="p">;</span>
+    
+    <span class="o">*</span><span class="n">a</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">viewDidLoad</span> <span class="p">{</span>
+    <span class="p">[</span><span class="n">super</span> <span class="nf">viewDidLoad</span><span class="p">];</span>
+    <span class="c1">// Do any additional setup after loading the view, typically from a nib.
+</span>    
+    <span class="kt">int</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+    
+    <span class="c1">// 需求1:提供一个方法，这个方法的参数是地址，里面只能通过地址读取值,不能通过地址修改值。
+</span>    
+    <span class="c1">// 这时候就需要使用const，约束方法的参数只读.
+</span>    <span class="p">[</span><span class="n">self</span> <span class="nf">test</span><span class="p">:</span><span class="o">&amp;</span><span class="n">a</span><span class="p">];</span>
+    
+    <span class="c1">// 需求2:提供一个方法，这个方法的参数是地址，里面不能修改参数的地址。
+</span>    <span class="p">[</span><span class="n">self</span> <span class="nf">test1</span><span class="p">:</span><span class="o">&amp;</span><span class="n">a</span><span class="p">];</span>
+<span class="p">}</span>
+
+
+<span class="k">@end</span>
+</code></pre>
+</div>
+
+<h3 id="staticextern">四、static和extern简单使用(要使用一个东西，先了解其作用)</h3>
+
+<ul>
+  <li><code class="highlighter-rouge">static作用</code>:
+ 	* 修饰局部变量：</li>
+</ul>
+
+ 		1.延长局部变量的生命周期,程序结束才会销毁。
+
+<div class="highlighter-rouge"><pre class="highlight"><code>	2.局部变量只会生成一份内存,只会初始化一次。
+	 
+	3.改变局部变量的作用域。
+ 
+ * 修饰全局变量
+</code></pre>
+</div>
+
+ 		1.只能在本文件中访问,修改全局变量的作用域,生命周期不会改
+
+<div class="highlighter-rouge"><pre class="highlight"><code>	2.避免重复定义全局变量
+</code></pre>
+</div>
+
+<ul>
+  <li><code class="highlighter-rouge">extern作用</code>:
+ 	*	只是用来获取全局变量(包括全局静态变量)的值，不能用于定义变量</li>
+  <li><code class="highlighter-rouge">extern工作原理</code>:
+ 	* 	先在当前文件查找有没有全局变量，没有找到，才会去其他文件查找。</li>
+</ul>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>// 全局变量：只有一份内存，所有文件共享，与extern联合使用。
+int a = 20;
+
+// static修饰全局变量
+static int age = 20;
+
+- (void)test
+{
+    // static修饰局部变量
+    static int age = 0;
+    age++;
+    NSLog(@"%d",age);
+}
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    // Do any additional setup after loading the view, typically from a nib.
+    
+    
+    [self test];
+    [self test];
+    
+    extern int age;
+    NSLog(@"%d",age);
+}
+I
+</code></pre>
+</div>
+
+<h3 id="staticconst">五、static与const联合使用</h3>
+<ul>
+  <li>static与const作用:声明一个只读的静态变量</li>
+  <li>开发使用场景:在<code class="highlighter-rouge">一个文件中</code>经常使用的字符串常量，可以使用static与const组合</li>
+</ul>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>// 开发中常用static修饰全局变量,只改变作用域
+
+// 为什么要改变全局变量作用域，防止重复声明全局变量。
+
+// 开发中声明的全局变量，有些不希望外界改动，只允许读取。
+
+// 比如一个基本数据类型不希望别人改动
+
+// 声明一个静态的全局只读常量
+static const int a = 20;
+
+// staic和const联合的作用:声明一个静态的全局只读常量
+
+// iOS中staic和const常用使用场景，是用来代替宏，把一个经常使用的字符串常量，定义成静态全局只读变量.
+
+// 开发中经常拿到key修改值，因此用const修饰key,表示key只读，不允许修改。
+static  NSString * const key = @"name";
+
+// 如果 const修饰 *key1,表示*key1只读，key1还是能改变。
+
+static  NSString const *key1 = @"name";
+
+</code></pre>
+</div>
+
+<h3 id="externconst">六、extern与const联合使用</h3>
+<ul>
+  <li>开发中使用场景:在<code class="highlighter-rouge">多个文件中</code>经常使用的同一个字符串常量，可以使用extern与const组合。</li>
+  <li>原因:
+    <ul>
+      <li>static与const组合：在每个文件都需要定义一份静态全局变量。</li>
+      <li>extern与const组合:只需要定义一份全局变量，多个文件共享。</li>
+    </ul>
+  </li>
+  <li>
+    <p>全局常量正规写法:开发中便于管理所有的全局变量，通常搞一个GlobeConst文件，里面专门定义全局变量，统一管理，要不然项目文件多不好找。</p>
+  </li>
+  <li>GlobeConst.h</li>
+</ul>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>/*******************************首页****************************/
+
+extern NSString * const nameKey = @"name";
+
+/*******************************首页****************************/
+</code></pre>
+</div>
+
+<ul>
+  <li>GlobeConst.m</li>
+</ul>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>#import &lt;Foundation/Foundation.h&gt;
+
+/*******************************首页****************************/
+
+NSString * const nameKey = @"name";
+
+
+/*******************************首页****************************/
+
+</code></pre>
+</div>
+
+
+  </section>
+</article>
+
+<section class="read-more">
+   
+   
+   <div class="read-more-item">
+       <span class="read-more-item-dim">最近的文章</span>
+       <h2 class="post-list__post-title post-title"><a href="/2015/11/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B9%8BNSThread/" title="link to 多线程之NSThreadHeadView">多线程之NSThreadHeadView</a></h2>
+       <p class="excerpt">#多线程之NSThread##Pthread####使用pthread必须盗用头文件#import 可以使用`[NSThread currentThread]`来获取当前在哪条线程上面 num = 1为主线程####创建线程pthread_t myRestrict;pthread_create(&amp;myRestrict, NULL, run, NULL);run为一个void的函数##NSThread###主线程相关用法+ (NSThread *)mainThread; // 获得主...&hellip;</p>
+       <div class="post-list__meta"><time datetime="2015-11-06 16:16:32 +0800" class="post-list__meta--date date">2015-11-06</time> &#8226; <span class="post-list__meta--tags tags">Blog</span><a class="btn-border-small" href=/2015/11/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B9%8BNSThread/>继续阅读</a></div>
+   </div>
+   
+   
+   
+</section>
+
+<section class="post-comments">
+  
+    <div id="disqus_thread"></div>
+    <script>
+    
+    var disqus_config = function () {
+        this.page.url = "http://vno.onevcat.com/2015/05/iOS%E4%B8%AD%E7%9A%84const,static,extern%E5%85%B3%E9%94%AE%E5%AD%97/";
+        this.page.identifier = "/2015/05/iOS%E4%B8%AD%E7%9A%84const,static,extern%E5%85%B3%E9%94%AE%E5%AD%97/";
+    };
+
+    var disqus_shortname = 'halfrostsfield';
+    
+    (function() { // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        })();
+    </script>
+    <noscript>要查看<a href="http://disqus.com/?ref_noscript"> Disqus </a>评论，请启用 JavaScript</noscript>
+    
+  
+  
+  
+  
+</section>
+
+
+            <section class="footer">
+    <footer>
+      <br>
+      <br>
+    	<span class="footer__copyright">本站点采用<a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">知识共享 署名-非商业性使用-相同方式共享 4.0 国际 许可协议</a></span>
+        <span class="footer__copyright">由 <a href="https://jekyllrb.com">Jekyll</a> 于 2016-06-24 生成，感谢<a href="https://pages.github.com"> GitHub Pages</a> 强力驱动</span>
+        <span class="footer__copyright">本站由 <a href="http://yufei.ren">@halfrost</a> 创建，采用 <a href="https://github.com/onevcat/vno-jekyll">Vno - Jekyll</a> 作为主题，您可以在 GitHub 找到<a href="https://github.com/onevcat/OneV-s-Den">本站源码</a> - &copy; 2016</span>
+    </footer>
+</section>
+
+        </div>
+    </div>
+    
+    <script type="text/javascript" src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+
+<script type="text/javascript" src="/js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+<script type="text/javascript" src="/js/main.js"></script>
+
+
+
+    
+  </body>
+
+</html>

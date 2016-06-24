@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <title>CGAffineTransform相关函数</title>
+  <meta name="description" content="#CGAffineTransform相关函数">
+  <meta name="author" content="Wei Wang">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="CGAffineTransform相关函数">
+  <meta name="twitter:description" content="#CGAffineTransform相关函数">
+
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="CGAffineTransform相关函数">
+  <meta property="og:description" content="#CGAffineTransform相关函数">
+
+  <link rel="icon" type="image/ico" href="/assets/images/favicon.ico" />
+  <link href="/assets/images/favicon.ico" rel="shortcut icon" type="image/ico">
+
+  <link rel="stylesheet" href="/css/main.css">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <link rel="canonical" href="http://vno.onevcat.com/2015/12/CGAffineTransform%E7%9B%B8%E5%85%B3%E5%87%BD%E6%95%B0/">
+  <link rel="alternate" type="application/rss+xml" title="上善若水，人淡如菊" href="http://vno.onevcat.com/feed.xml">
+
+  <meta name="google-site-verification" content="1-1ZlHoRvM0T2FqPbW2S-qLgYXN6rsn52kErlMPd_gw" />
+
+</head>
+
+
+  <body>
+
+    <span class="mobile btn-mobile-menu">
+        <i class="fa fa-list btn-mobile-menu__icon"></i>
+        <i class="fa fa-angle-up btn-mobile-close__icon hidden"></i>
+    </span>
+    
+    <header class="panel-cover panel-cover--collapsed" style="background-image: url('/assets/images/background-cover.jpg')">
+  <div class="panel-main">
+
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        <a href="/#blog" title="前往 上善若水，人淡如菊 的主页" class="blog-button"><img src="/assets/images/avatar.jpg" width="80" alt="上善若水，人淡如菊 logo" class="panel-cover__logo logo" /></a>
+        <h1 class="panel-cover__title panel-title"><a href="/#blog" title="link to homepage for 上善若水，人淡如菊" class="blog-button">上善若水，人淡如菊</a></h1>
+        
+        <span class="panel-cover__subtitle panel-subtitle">上善若水，人淡如菊</span>
+        
+        <hr class="panel-cover__divider" />
+        <p class="panel-cover__description">嗨，我是任玉飞 (@Raphcel)，一名走在iOS开发路上的从业者，努力成为一个全栈工程师，爱好唱歌，以及所有与音乐有关的事情。目前在北京工作。吾笃信：认真你就赢了。</p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+        
+        
+        
+        <div class="navigation-wrapper">
+          <div>
+            <nav class="cover-navigation cover-navigation--primary">
+              <ul class="navigation">
+                <li class="navigation__item"><a href="/#blog" title="Visit blog" class="blog-button">博客</a></li>
+                
+                  <li class="navigation__item"><a href="http://about.yufei.ren" target="_blank" title="关于">关于</a></li>
+                
+              </ul>
+            </nav>
+          </div>
+          
+          <div><nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+    
+    <!-- jianshu-->
+    <li class="navigation__item">
+      <a href="http://www.jianshu.com/users/d8f57dd98c59/latest_articles" title="@ 的简书" target="_blank">
+        <i class='social fa fa-book'></i>
+        <span class="label">jianshu</span>
+      </a>
+    </li>
+    
+
+  
+  <!-- Weibo -->
+  <li class="navigation__item">
+    <a href="http://weibo.com/ryf8023" title="@ 的微博" target="_blank">
+      <i class='social fa fa-weibo'></i>
+      <span class="label">Weibo</span>
+    </a>
+  </li>
+  
+
+  
+  <!-- Github -->
+  <li class="navigation__item">
+    <a href="https://github.com/renyufei8023" title="@ 的 Github" target="_blank">
+      <i class='social fa fa-github'></i>
+      <span class="label">Github</span>
+    </a>
+  </li>
+  
+
+  
+
+  
+
+  <!-- RSS -->
+  <li class="navigation__item">
+    <a href="/feed.xml" rel="author" title="RSS" target="_blank">
+      <i class='social fa fa-rss'></i>
+      <span class="label">RSS</span>
+    </a>
+  </li>
+
+  
+  <!-- Email -->
+  <li class="navigation__item">
+    <a href="mailto:renyufei8023@gamil.com" title="Contact me">
+      <i class='social fa fa-envelope'></i>
+      <span class="label">Email</span>
+    </a>
+  </li>
+  
+
+  </ul>
+</nav>
+</div>
+        </div>
+      </div>
+    </div>
+    
+    
+    <div class="panel-cover--overlay cover-black"></div>
+    
+  </div>
+</header>
+
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner">
+            <article class="post-container post-container--single" itemscope itemtype="http://schema.org/BlogPosting">
+  <header class="post-header">
+    <div class="post-meta">
+      <time datetime="2015-12-07 14:23:32 +0800" itemprop="datePublished" class="post-meta__date date">2015-12-07</time> &#8226; <span class="post-meta__tags tags">Blog</span>
+    </div>
+    <h1 class="post-title">CGAffineTransform相关函数</h1>
+  </header>
+
+  <section class="post">
+    <p>#CGAffineTransform相关函数</p>
+
+<p>###CGAffineTransform相关函数
+* CGAffineTransformMakeTranslation(CGFloat tx,
+  CGFloat ty);是改变位置的，
+* CGAffineTransformRotate(CGAffineTransform t,
+  CGFloat angle)旋转，需要传入一个transform和一个角度
+* CGAffineTransformMakeRotation(CGFloat angle)旋转的，直接传入一个角度
+* CGAffineTransformScale(CGAffineTransform t,
+  CGFloat sx, CGFloat sy)是缩放的
+* CGAffineTransformIdentity线性代数里面讲的矩阵变换，这个是恒等变换，当你改变过一个view.transform属性或者view.layer.transform的时候需要恢复默认状态的话，记得先把他们重置可以使用，（假设你一直不断的改变一个view.transform的属性，而每次改变之前没有重置的话，你会发现后来 的改变和你想要的发生变化了，不是你真正想要的结果）</p>
+
+<p>###CTM
+Quartz转换实现的原理:Quartz把绘图分成两个部分，
+用户空间，即和设备无关，
+设备空间，
+用户空间和设备空间中间存在一个转换矩阵 ： CTM
+#####Quartz提供的3大功能
+* 移动
+* 旋转
+* 缩放</p>
+
+<p>演示如下，首先加载一张图片</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>void CGContextDrawImage (
+CGContextRef c,
+CGRect rect,
+CGImageRef image
+);
+</code></pre>
+</div>
+
+<ul>
+  <li>
+    <p>移动函数</p>
+
+    <p>CGContextTranslateCTM (myContext, 100, 50);</p>
+  </li>
+  <li>
+    <p>旋转函数</p>
+
+    <div class="highlighter-rouge"><pre class="highlight"><code>  include &lt;math.h&gt;
+  static inline double radians (double degrees) {return degrees * M_PI/180;}
+  CGContextRotateCTM (myContext, radians(–45.));
+</code></pre>
+    </div>
+  </li>
+</ul>
+
+<p>缩放</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>CGContextScaleCTM (myContext, .5, .75);
+</code></pre>
+</div>
+
+<p>翻转， 两种转换合成后的效果，先把图片移动到右上角，然后旋转180度</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>CGContextTranslateCTM (myContext, w,h);
+CGContextRotateCTM (myContext, radians(-180.));
+</code></pre>
+</div>
+
+<p>组合几个动作</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>CGContextTranslateCTM (myContext, w/4, 0);
+CGContextScaleCTM (myContext, .25,  .5);
+CGContextRotateCTM (myContext, radians ( 22.));
+
+CGContextRotateCTM (myContext, radians ( 22.));
+CGContextScaleCTM (myContext, .25,  .5);
+CGContextTranslateCTM (myContext, w/4, 0);
+</code></pre>
+</div>
+
+<p>上面是通过直接修改当前的ctm实现3大效果，下面是通过创建Affine Transforms，然后连接ctm实现同样的3种效果
+这样做的好处是可以重用这个Affine Transforms
+应用Affine Transforms 到ctm的函数</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>void CGContextConcatCTM (
+CGContextRef c,
+CGAffineTransform transform
+);
+
+Creating Affine Transforms 移动效果
+
+CGAffineTransform CGAffineTransformMakeTranslation (
+CGFloat tx,
+CGFloat ty
+);
+
+CGAffineTransform CGAffineTransformTranslate (
+CGAffineTransform t,
+CGFloat tx,
+CGFloat ty
+);
+</code></pre>
+</div>
+
+<p>旋转效果</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>CGAffineTransform CGAffineTransformMakeRotation (
+CGFloat angle
+);
+
+CGAffineTransform CGAffineTransformRotate (
+CGAffineTransform t,
+CGFloat angle
+);
+</code></pre>
+</div>
+
+<p>缩放效果</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>CGAffineTransform CGAffineTransformMakeScale (
+CGFloat sx,
+CGFloat sy
+);
+
+CGAffineTransform CGAffineTransformScale (
+CGAffineTransform t,
+CGFloat sx,
+CGFloat sy
+);
+</code></pre>
+</div>
+
+<p>反转效果</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>CGAffineTransform CGAffineTransformInvert (
+CGAffineTransform t
+);
+</code></pre>
+</div>
+
+<p>只对局部产生效果</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>CGRect CGRectApplyAffineTransform (
+CGRect rect,
+CGAffineTransform t
+);
+</code></pre>
+</div>
+
+<p>判断两个AffineTrans是否相等</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>bool CGAffineTransformEqualToTransform (
+CGAffineTransform t1,
+CGAffineTransform t2
+);
+</code></pre>
+</div>
+
+<p>获得Affine Transform</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>CGAffineTransform CGContextGetUserSpaceToDeviceSpaceTransform (
+CGContextRef c
+);
+</code></pre>
+</div>
+
+<p>下面的函数只起到查看的效果，比如看一下这个用户空间的点，转换到设备空间去坐标是多少</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>CGPoint CGContextConvertPointToDeviceSpace (
+CGContextRef c,
+CGPoint point
+);
+
+CGPoint CGContextConvertPointToUserSpace (
+CGContextRef c,
+CGPoint point
+);
+
+CGSize CGContextConvertSizeToDeviceSpace (
+CGContextRef c,
+CGSize size
+);
+
+CGSize CGContextConvertSizeToUserSpace (
+CGContextRef c,
+CGSize size
+);
+
+CGRect CGContextConvertRectToDeviceSpace (
+CGContextRef c,
+CGRect rect
+);
+
+CGRect CGContextConvertRectToUserSpace (
+CGContextRef c,
+CGRect rect
+);
+</code></pre>
+</div>
+
+<p>CTM真正的数学行为
+这个转换矩阵其实是一个 3×3的 举证
+如下图</p>
+
+<p>下面举例说明几个转换运算的数学实现
+x y 是原先点的坐标
+下面是从用户坐标转换到设备坐标的计算公式</p>
+
+<p>下面是一个identity matrix，就是输入什么坐标，出来什么坐标，没有转换</p>
+
+<p>最终的计算结果是 x=x，y=y，</p>
+
+<p>可以用函数判断这个矩阵是不是一个 identity matrix
+bool CGAffineTransformIsIdentity (
+CGAffineTransform t
+);</p>
+
+<p>参考:http://developer.apple.com/library/ios/#documentation/GraphicsImaging/Conceptual/drawingwithquartz2d/dq_affine/dq_affine.html</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>– (void)willAnimateFirstHalfOfRotationToInterfaceOrientation:	(UIInterfaceOrientation)toInterfaceOrientation   duration:	(NSTimeInterval)duration
+{
+
+	if (toInterfaceOrientation == UIInterfaceOrientationPortrait)
+		{
+			b=YES;
+
+			self.view=mainvv;
+			self.view.transform = CGAffineTransformIdentity;
+			self.view.transform = CGAffineTransformMakeRotation(degreesToRadian(0));
+			self.view.bounds = CGRectMake(0.0, 0.0, 768.0, 1004.0);
+
+		}
+	else if (toInterfaceOrientation == UIInterfaceOrientationLandscapeLeft)
+{
+	b=NO;
+
+	self.view = self.vv;
+	self.view.transform = CGAffineTransformIdentity;
+	self.view.transform = CGAffineTransformMakeRotation(degreesToRadian(-90));
+	self.view.bounds = CGRectMake(0.0, 0.0, 1024.0, 748.0);
+
+}
+else if (toInterfaceOrientation == UIInterfaceOrientationPortraitUpsideDown)
+{
+
+	b=YES;
+	self.view=mainvv;
+	self.view.transform = CGAffineTransformIdentity;
+	self.view.transform = CGAffineTransformMakeRotation(degreesToRadian(180));
+	self.view.bounds = CGRectMake(0.0, 0.0, 768.0, 1004.0);
+
+}
+else if (toInterfaceOrientation == UIInterfaceOrientationLandscapeRight)
+{
+
+	b=NO;
+	self.view = self.vv;
+	self.view.transform = CGAffineTransformIdentity;
+	self.view.transform = CGAffineTransformMakeRotation(degreesToRadian(90));
+	self.view.bounds = CGRectMake(0.0, 0.0, 1024.0, 748.0);
+
+}
+
+}
+</code></pre>
+</div>
+
+<p>3</p>
+
+<p>Quartz转换实现的原理:Quartz把绘图分成两个部分，
+用户空间，即和设备无关，
+设备空间，
+用户空间和设备空间中间存在一个转换矩阵 ： CTM
+本章实质是讲解CTM</p>
+
+<p>Quartz提供的3大功能
+移动，旋转，缩放</p>
+
+<p>演示如下，首先加载一张图片</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>void CGContextDrawImage (
+CGContextRef c,
+CGRect rect,
+CGImageRef image
+);
+</code></pre>
+</div>
+
+<p>移动函数</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>CGContextTranslateCTM (myContext, 100, 50);
+</code></pre>
+</div>
+
+<p>旋转函数</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>include &lt;math.h&gt;
+static inline double radians (double degrees) {return degrees * M_PI/180;}
+CGContextRotateCTM (myContext, radians(–45.));
+</code></pre>
+</div>
+
+<p>缩放</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>CGContextScaleCTM (myContext, .5, .75);
+</code></pre>
+</div>
+
+<p>翻转， 两种转换合成后的效果，先把图片移动到右上角，然后旋转180度</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>CGContextTranslateCTM (myContext, w,h);
+CGContextRotateCTM (myContext, radians(-180.));
+</code></pre>
+</div>
+
+<p>组合几个动作</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>CGContextTranslateCTM (myContext, w/4, 0);
+CGContextScaleCTM (myContext, .25,  .5);
+CGContextRotateCTM (myContext, radians ( 22.));
+
+CGContextRotateCTM (myContext, radians ( 22.));
+CGContextScaleCTM (myContext, .25,  .5);
+CGContextTranslateCTM (myContext, w/4, 0);
+</code></pre>
+</div>
+
+<p>上面是通过直接修改当前的ctm实现3大效果，下面是通过创建Affine Transforms，然后连接ctm实现同样的3种效果
+这样做的好处是可以重用这个Affine Transforms
+应用Affine Transforms 到ctm的函数</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>void CGContextConcatCTM (
+CGContextRef c,
+CGAffineTransform transform
+);
+
+Creating Affine Transforms 移动效果
+
+CGAffineTransform CGAffineTransformMakeTranslation (
+CGFloat tx,
+CGFloat ty
+);
+
+CGAffineTransform CGAffineTransformTranslate (
+CGAffineTransform t,
+CGFloat tx,
+CGFloat ty
+);
+</code></pre>
+</div>
+
+<p>旋转效果</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>CGAffineTransform CGAffineTransformMakeRotation (
+CGFloat angle
+);
+
+CGAffineTransform CGAffineTransformRotate (
+CGAffineTransform t,
+CGFloat angle
+);
+</code></pre>
+</div>
+
+<p>缩放效果</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>CGAffineTransform CGAffineTransformMakeScale (
+CGFloat sx,
+CGFloat sy
+);
+
+CGAffineTransform CGAffineTransformScale (
+CGAffineTransform t,
+CGFloat sx,
+CGFloat sy
+);
+</code></pre>
+</div>
+
+<p>反转效果</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>CGAffineTransform CGAffineTransformInvert (
+CGAffineTransform t
+);
+</code></pre>
+</div>
+
+<p>只对局部产生效果</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>CGRect CGRectApplyAffineTransform (
+CGRect rect,
+CGAffineTransform t
+);
+</code></pre>
+</div>
+
+<p>判断两个AffineTrans是否相等</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>bool CGAffineTransformEqualToTransform (
+CGAffineTransform t1,
+CGAffineTransform t2
+);
+</code></pre>
+</div>
+
+<p>获得Affine Transform</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>CGAffineTransform CGContextGetUserSpaceToDeviceSpaceTransform (
+CGContextRef c
+);
+</code></pre>
+</div>
+
+<p>下面的函数只起到查看的效果，比如看一下这个用户空间的点，转换到设备空间去坐标是多少</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>CGPoint CGContextConvertPointToDeviceSpace (
+CGContextRef c,
+CGPoint point
+);
+
+CGPoint CGContextConvertPointToUserSpace (
+CGContextRef c,
+CGPoint point
+);
+
+CGSize CGContextConvertSizeToDeviceSpace (
+CGContextRef c,
+CGSize size
+);
+
+CGSize CGContextConvertSizeToUserSpace (
+CGContextRef c,
+CGSize size
+);
+
+CGRect CGContextConvertRectToDeviceSpace (
+CGContextRef c,
+CGRect rect
+);
+
+CGRect CGContextConvertRectToUserSpace (
+CGContextRef c,
+CGRect rect
+);
+</code></pre>
+</div>
+
+<p>CTM真正的数学行为
+这个转换矩阵其实是一个 3×3的 举证
+如下图</p>
+
+<p>下面举例说明几个转换运算的数学实现
+x y 是原先点的坐标
+下面是从用户坐标转换到设备坐标的计算公式</p>
+
+<p>下面是一个identity matrix，就是输入什么坐标，出来什么坐标，没有转换</p>
+
+<p>最终的计算结果是 x=x，y=y，</p>
+
+<p>可以用函数判断这个矩阵是不是一个 identity matrix
+bool CGAffineTransformIsIdentity (
+CGAffineTransform t
+);</p>
+
+
+  </section>
+</article>
+
+<section class="read-more">
+   
+   
+   <div class="read-more-item">
+       <span class="read-more-item-dim">最近的文章</span>
+       <h2 class="post-list__post-title post-title"><a href="/2015/12/UIView%E7%9A%84%E4%B8%80%E4%BA%9B%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%93/" title="link to UIView的一些方法总结">UIView的一些方法总结</a></h2>
+       <p class="excerpt">#UIView的一些方法总结###layoutSubviews在以下情况下会被调用：1. init初始化不会触发layoutsubViews但是是用initWithFrame 进行初始化时，当rect的值不为CGRectZero时,也会触发2. addSubview也会触发layoutSubviews3. 设置view的frame灰触发layoutSubViews，前提是frame的值是设置前后发生了变化4. 滚动UIScrollView会触发layoutSubviews5. 旋转屏幕会触...&hellip;</p>
+       <div class="post-list__meta"><time datetime="2015-12-07 14:23:32 +0800" class="post-list__meta--date date">2015-12-07</time> &#8226; <span class="post-list__meta--tags tags">Blog</span><a class="btn-border-small" href=/2015/12/UIView%E7%9A%84%E4%B8%80%E4%BA%9B%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%93/>继续阅读</a></div>
+   </div>
+   
+   
+   
+   
+   <div class="read-more-item">
+       <span class="read-more-item-dim">更早的文章</span>
+       <h2 class="post-list__post-title post-title"><a href="/2015/12/%E4%BD%BF%E7%94%A8UIStoryBoard%E7%BB%99UITableView%E6%B7%BB%E5%8A%A0HeadView/" title="link to 使用UIStoryBoard给UITableView添加HeadView">使用UIStoryBoard给UITableView添加HeadView</a></h2>
+       <p class="excerpt">#使用UIStoryBoard给UITableView添加HeadView###使用UIStoryBoard给UITableView添加HeadView可以直接拖动一个UITableViewController 上去，默认就会有一个prototype cell. 如果UITableViewController 不能满足你的需要，也可以使用UIViewController + UITableView 的组合。步骤：      在UIViewController 上拖动一个UITableVie...&hellip;</p>
+       <div class="post-list__meta"><time datetime="2015-12-03 15:28:32 +0800" class="post-list__meta--date date">2015-12-03</time> &#8226; <span class="post-list__meta--tags tags">Blog</span><a class="btn-border-small" href=/2015/12/%E4%BD%BF%E7%94%A8UIStoryBoard%E7%BB%99UITableView%E6%B7%BB%E5%8A%A0HeadView/>继续阅读</a></div>
+   </div>
+   
+</section>
+
+<section class="post-comments">
+  
+    <div id="disqus_thread"></div>
+    <script>
+    
+    var disqus_config = function () {
+        this.page.url = "http://vno.onevcat.com/2015/12/CGAffineTransform%E7%9B%B8%E5%85%B3%E5%87%BD%E6%95%B0/";
+        this.page.identifier = "/2015/12/CGAffineTransform%E7%9B%B8%E5%85%B3%E5%87%BD%E6%95%B0/";
+    };
+
+    var disqus_shortname = 'halfrostsfield';
+    
+    (function() { // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        })();
+    </script>
+    <noscript>要查看<a href="http://disqus.com/?ref_noscript"> Disqus </a>评论，请启用 JavaScript</noscript>
+    
+  
+  
+  
+  
+</section>
+
+
+            <section class="footer">
+    <footer>
+      <br>
+      <br>
+    	<span class="footer__copyright">本站点采用<a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">知识共享 署名-非商业性使用-相同方式共享 4.0 国际 许可协议</a></span>
+        <span class="footer__copyright">由 <a href="https://jekyllrb.com">Jekyll</a> 于 2016-06-24 生成，感谢<a href="https://pages.github.com"> GitHub Pages</a> 强力驱动</span>
+        <span class="footer__copyright">本站由 <a href="http://yufei.ren">@halfrost</a> 创建，采用 <a href="https://github.com/onevcat/vno-jekyll">Vno - Jekyll</a> 作为主题，您可以在 GitHub 找到<a href="https://github.com/onevcat/OneV-s-Den">本站源码</a> - &copy; 2016</span>
+    </footer>
+</section>
+
+        </div>
+    </div>
+    
+    <script type="text/javascript" src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+
+<script type="text/javascript" src="/js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+<script type="text/javascript" src="/js/main.js"></script>
+
+
+
+    
+  </body>
+
+</html>

@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <title>UIView的一些方法总结</title>
+  <meta name="description" content="#UIView的一些方法总结">
+  <meta name="author" content="Wei Wang">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="UIView的一些方法总结">
+  <meta name="twitter:description" content="#UIView的一些方法总结">
+
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="UIView的一些方法总结">
+  <meta property="og:description" content="#UIView的一些方法总结">
+
+  <link rel="icon" type="image/ico" href="/assets/images/favicon.ico" />
+  <link href="/assets/images/favicon.ico" rel="shortcut icon" type="image/ico">
+
+  <link rel="stylesheet" href="/css/main.css">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <link rel="canonical" href="http://vno.onevcat.com/2015/12/UIView%E7%9A%84%E4%B8%80%E4%BA%9B%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%93/">
+  <link rel="alternate" type="application/rss+xml" title="上善若水，人淡如菊" href="http://vno.onevcat.com/feed.xml">
+
+  <meta name="google-site-verification" content="1-1ZlHoRvM0T2FqPbW2S-qLgYXN6rsn52kErlMPd_gw" />
+
+</head>
+
+
+  <body>
+
+    <span class="mobile btn-mobile-menu">
+        <i class="fa fa-list btn-mobile-menu__icon"></i>
+        <i class="fa fa-angle-up btn-mobile-close__icon hidden"></i>
+    </span>
+    
+    <header class="panel-cover panel-cover--collapsed" style="background-image: url('/assets/images/background-cover.jpg')">
+  <div class="panel-main">
+
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        <a href="/#blog" title="前往 上善若水，人淡如菊 的主页" class="blog-button"><img src="/assets/images/avatar.jpg" width="80" alt="上善若水，人淡如菊 logo" class="panel-cover__logo logo" /></a>
+        <h1 class="panel-cover__title panel-title"><a href="/#blog" title="link to homepage for 上善若水，人淡如菊" class="blog-button">上善若水，人淡如菊</a></h1>
+        
+        <span class="panel-cover__subtitle panel-subtitle">上善若水，人淡如菊</span>
+        
+        <hr class="panel-cover__divider" />
+        <p class="panel-cover__description">嗨，我是任玉飞 (@Raphcel)，一名走在iOS开发路上的从业者，努力成为一个全栈工程师，爱好唱歌，以及所有与音乐有关的事情。目前在北京工作。吾笃信：认真你就赢了。</p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+        
+        
+        
+        <div class="navigation-wrapper">
+          <div>
+            <nav class="cover-navigation cover-navigation--primary">
+              <ul class="navigation">
+                <li class="navigation__item"><a href="/#blog" title="Visit blog" class="blog-button">博客</a></li>
+                
+                  <li class="navigation__item"><a href="http://about.yufei.ren" target="_blank" title="关于">关于</a></li>
+                
+              </ul>
+            </nav>
+          </div>
+          
+          <div><nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+    
+    <!-- jianshu-->
+    <li class="navigation__item">
+      <a href="http://www.jianshu.com/users/d8f57dd98c59/latest_articles" title="@ 的简书" target="_blank">
+        <i class='social fa fa-book'></i>
+        <span class="label">jianshu</span>
+      </a>
+    </li>
+    
+
+  
+  <!-- Weibo -->
+  <li class="navigation__item">
+    <a href="http://weibo.com/ryf8023" title="@ 的微博" target="_blank">
+      <i class='social fa fa-weibo'></i>
+      <span class="label">Weibo</span>
+    </a>
+  </li>
+  
+
+  
+  <!-- Github -->
+  <li class="navigation__item">
+    <a href="https://github.com/renyufei8023" title="@ 的 Github" target="_blank">
+      <i class='social fa fa-github'></i>
+      <span class="label">Github</span>
+    </a>
+  </li>
+  
+
+  
+
+  
+
+  <!-- RSS -->
+  <li class="navigation__item">
+    <a href="/feed.xml" rel="author" title="RSS" target="_blank">
+      <i class='social fa fa-rss'></i>
+      <span class="label">RSS</span>
+    </a>
+  </li>
+
+  
+  <!-- Email -->
+  <li class="navigation__item">
+    <a href="mailto:renyufei8023@gamil.com" title="Contact me">
+      <i class='social fa fa-envelope'></i>
+      <span class="label">Email</span>
+    </a>
+  </li>
+  
+
+  </ul>
+</nav>
+</div>
+        </div>
+      </div>
+    </div>
+    
+    
+    <div class="panel-cover--overlay cover-black"></div>
+    
+  </div>
+</header>
+
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner">
+            <article class="post-container post-container--single" itemscope itemtype="http://schema.org/BlogPosting">
+  <header class="post-header">
+    <div class="post-meta">
+      <time datetime="2015-12-07 14:23:32 +0800" itemprop="datePublished" class="post-meta__date date">2015-12-07</time> &#8226; <span class="post-meta__tags tags">Blog</span>
+    </div>
+    <h1 class="post-title">UIView的一些方法总结</h1>
+  </header>
+
+  <section class="post">
+    <p>#UIView的一些方法总结</p>
+
+<p>###layoutSubviews在以下情况下会被调用：
+1. init初始化不会触发layoutsubViews但是是用initWithFrame 进行初始化时，当rect的值不为CGRectZero时,也会触发
+2. addSubview也会触发layoutSubviews
+3. 设置view的frame灰触发layoutSubViews，前提是frame的值是设置前后发生了变化
+4. 滚动UIScrollView会触发layoutSubviews
+5. 旋转屏幕会触发父UIView上的layoutSubviews事件
+6. 改变一个UIView的大小的时候也会触发父UIView上的layoutSubviews</p>
+
+<p>###刷新子对象布局
+* -layoutSubviews方法：这个方法，默认没有做任何事情，需要子类进行重写
+* -setNeedsLayout方法：标记为需要重新布局，一部调用layoutIfNeeded刷新布局，不立即刷新，但layoutSubviews一定会被调用（配合layoutIfNeeded使用）
+* -layoutIfNeeded方法：如果有需要刷新的标记，立即调用layoutSubviews进行布局（如果没有标记，不会调用layoutSubviews）
+* 如果要立即刷新，要先调用[view setNeedsLayout]，把标记设为需要布局，然后马上调用[view layoutIfNeeded]，实现布局
+* setNeedsDisplay调用drawRect方法来实现view的绘制，而setNeedsLayout则调用layoutSubView来实现view中subView的重新布局</p>
+
+<p>###重绘
+* -drawRect:(CGRect)rect方法：重写此方法，执行重绘任务
+* -setNeedsDisplay方法：标记为需要重绘，异步调用drawRect
+* -setNeedsDisplayInRect:(CGRect)invalidRect方法：标记为需要局部重绘
+* sizeToFit会自动调用sizeThatFits方法
+* sizeToFit不应该在子类中被重写，应该重写sizeThatFits
+* sizeThatFits传入的参数是receiver当前的size，返回一个适合的size
+* sizeToFit可以被手动直接调用
+* sizeToFit和sizeThatFits方法都没有递归，对subviews也不负责，只负责自己</p>
+
+<p>###layoutSubviews对subviews重新布局
+* layoutSubviews方法调用先于drawRect
+* setNeedsLayout在receiver标上一个需要被重新布局的标记，在系统runloop的下一个周期自动调用layoutSubviews
+* layoutIfNeeded方法如其名，UIKit会判断该receiver是否需要layout.根据Apple官方文档,layoutIfNeeded方法应该是这样的，layoutIfNeeded遍历的不是superview链，应该是subviews链
+* drawRect是对receiver的重绘，能获得context
+* setNeedDisplay在receiver标上一个需要被重新绘图的标记，在下一个draw周期自动重绘，iphone device的刷新频率是60hz，也就是1/60秒后重绘</p>
+
+
+  </section>
+</article>
+
+<section class="read-more">
+   
+   
+   <div class="read-more-item">
+       <span class="read-more-item-dim">最近的文章</span>
+       <h2 class="post-list__post-title post-title"><a href="/2016/04/Swift%E5%AE%9E%E7%8E%B0%E4%BA%8C%E7%BB%B4%E7%A0%81%E6%89%AB%E6%8F%8F%E4%B8%8E%E7%94%9F%E6%88%90/" title="link to Swift实现二维码扫描与生成">Swift实现二维码扫描与生成</a></h2>
+       <p class="excerpt">#Swift实现二维码扫描与生成## **第三方框架**  ZXing Android使用多      ZBar iOS使用多    提示：以上两个框架都是老牌二维码框架，不过都不支持 64 位  目前在 iOS 开发中普遍使用苹果的 AVFoundation 框架，但是不支持图片识别功能  AVFoundation 只支持通过摄像头扫描识别## **识别原理**g)## **代码实现**  拍摄会话/// 拍摄会话，是扫描的桥梁lazy var session: AVCaptureSes...&hellip;</p>
+       <div class="post-list__meta"><time datetime="2016-04-29 15:56:32 +0800" class="post-list__meta--date date">2016-04-29</time> &#8226; <span class="post-list__meta--tags tags">Blog</span><a class="btn-border-small" href=/2016/04/Swift%E5%AE%9E%E7%8E%B0%E4%BA%8C%E7%BB%B4%E7%A0%81%E6%89%AB%E6%8F%8F%E4%B8%8E%E7%94%9F%E6%88%90/>继续阅读</a></div>
+   </div>
+   
+   
+   
+   
+   <div class="read-more-item">
+       <span class="read-more-item-dim">更早的文章</span>
+       <h2 class="post-list__post-title post-title"><a href="/2015/12/CGAffineTransform%E7%9B%B8%E5%85%B3%E5%87%BD%E6%95%B0/" title="link to CGAffineTransform相关函数">CGAffineTransform相关函数</a></h2>
+       <p class="excerpt">#CGAffineTransform相关函数###CGAffineTransform相关函数* CGAffineTransformMakeTranslation(CGFloat tx,  CGFloat ty);是改变位置的，* CGAffineTransformRotate(CGAffineTransform t,  CGFloat angle)旋转，需要传入一个transform和一个角度* CGAffineTransformMakeRotation(CGFloat angle)旋转的...&hellip;</p>
+       <div class="post-list__meta"><time datetime="2015-12-07 14:23:32 +0800" class="post-list__meta--date date">2015-12-07</time> &#8226; <span class="post-list__meta--tags tags">Blog</span><a class="btn-border-small" href=/2015/12/CGAffineTransform%E7%9B%B8%E5%85%B3%E5%87%BD%E6%95%B0/>继续阅读</a></div>
+   </div>
+   
+</section>
+
+<section class="post-comments">
+  
+    <div id="disqus_thread"></div>
+    <script>
+    
+    var disqus_config = function () {
+        this.page.url = "http://vno.onevcat.com/2015/12/UIView%E7%9A%84%E4%B8%80%E4%BA%9B%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%93/";
+        this.page.identifier = "/2015/12/UIView%E7%9A%84%E4%B8%80%E4%BA%9B%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%93/";
+    };
+
+    var disqus_shortname = 'halfrostsfield';
+    
+    (function() { // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        })();
+    </script>
+    <noscript>要查看<a href="http://disqus.com/?ref_noscript"> Disqus </a>评论，请启用 JavaScript</noscript>
+    
+  
+  
+  
+  
+</section>
+
+
+            <section class="footer">
+    <footer>
+      <br>
+      <br>
+    	<span class="footer__copyright">本站点采用<a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">知识共享 署名-非商业性使用-相同方式共享 4.0 国际 许可协议</a></span>
+        <span class="footer__copyright">由 <a href="https://jekyllrb.com">Jekyll</a> 于 2016-06-24 生成，感谢<a href="https://pages.github.com"> GitHub Pages</a> 强力驱动</span>
+        <span class="footer__copyright">本站由 <a href="http://yufei.ren">@halfrost</a> 创建，采用 <a href="https://github.com/onevcat/vno-jekyll">Vno - Jekyll</a> 作为主题，您可以在 GitHub 找到<a href="https://github.com/onevcat/OneV-s-Den">本站源码</a> - &copy; 2016</span>
+    </footer>
+</section>
+
+        </div>
+    </div>
+    
+    <script type="text/javascript" src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+
+<script type="text/javascript" src="/js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+<script type="text/javascript" src="/js/main.js"></script>
+
+
+
+    
+  </body>
+
+</html>

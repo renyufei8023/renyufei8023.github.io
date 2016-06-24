@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <title>iOS开发中常用的宏定义</title>
+  <meta name="description" content="#iOS开发中常用的宏定义####尺寸宏	#define StatusBar_HEIGHT 20">
+  <meta name="author" content="Wei Wang">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="iOS开发中常用的宏定义">
+  <meta name="twitter:description" content="#iOS开发中常用的宏定义####尺寸宏	#define StatusBar_HEIGHT 20">
+
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="iOS开发中常用的宏定义">
+  <meta property="og:description" content="#iOS开发中常用的宏定义####尺寸宏	#define StatusBar_HEIGHT 20">
+
+  <link rel="icon" type="image/ico" href="/assets/images/favicon.ico" />
+  <link href="/assets/images/favicon.ico" rel="shortcut icon" type="image/ico">
+
+  <link rel="stylesheet" href="/css/main.css">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <link rel="canonical" href="http://vno.onevcat.com/2016/05/iOS%E5%BC%80%E5%8F%91%E4%B8%AD%E5%B8%B8%E7%94%A8%E7%9A%84%E5%AE%8F%E5%AE%9A%E4%B9%89/">
+  <link rel="alternate" type="application/rss+xml" title="上善若水，人淡如菊" href="http://vno.onevcat.com/feed.xml">
+
+  <meta name="google-site-verification" content="1-1ZlHoRvM0T2FqPbW2S-qLgYXN6rsn52kErlMPd_gw" />
+
+</head>
+
+
+  <body>
+
+    <span class="mobile btn-mobile-menu">
+        <i class="fa fa-list btn-mobile-menu__icon"></i>
+        <i class="fa fa-angle-up btn-mobile-close__icon hidden"></i>
+    </span>
+    
+    <header class="panel-cover panel-cover--collapsed" style="background-image: url('/assets/images/background-cover.jpg')">
+  <div class="panel-main">
+
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        <a href="/#blog" title="前往 上善若水，人淡如菊 的主页" class="blog-button"><img src="/assets/images/avatar.jpg" width="80" alt="上善若水，人淡如菊 logo" class="panel-cover__logo logo" /></a>
+        <h1 class="panel-cover__title panel-title"><a href="/#blog" title="link to homepage for 上善若水，人淡如菊" class="blog-button">上善若水，人淡如菊</a></h1>
+        
+        <span class="panel-cover__subtitle panel-subtitle">上善若水，人淡如菊</span>
+        
+        <hr class="panel-cover__divider" />
+        <p class="panel-cover__description">嗨，我是任玉飞 (@Raphcel)，一名走在iOS开发路上的从业者，努力成为一个全栈工程师，爱好唱歌，以及所有与音乐有关的事情。目前在北京工作。吾笃信：认真你就赢了。</p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+        
+        
+        
+        <div class="navigation-wrapper">
+          <div>
+            <nav class="cover-navigation cover-navigation--primary">
+              <ul class="navigation">
+                <li class="navigation__item"><a href="/#blog" title="Visit blog" class="blog-button">博客</a></li>
+                
+                  <li class="navigation__item"><a href="http://about.yufei.ren" target="_blank" title="关于">关于</a></li>
+                
+              </ul>
+            </nav>
+          </div>
+          
+          <div><nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+    
+    <!-- jianshu-->
+    <li class="navigation__item">
+      <a href="http://www.jianshu.com/users/d8f57dd98c59/latest_articles" title="@ 的简书" target="_blank">
+        <i class='social fa fa-book'></i>
+        <span class="label">jianshu</span>
+      </a>
+    </li>
+    
+
+  
+  <!-- Weibo -->
+  <li class="navigation__item">
+    <a href="http://weibo.com/ryf8023" title="@ 的微博" target="_blank">
+      <i class='social fa fa-weibo'></i>
+      <span class="label">Weibo</span>
+    </a>
+  </li>
+  
+
+  
+  <!-- Github -->
+  <li class="navigation__item">
+    <a href="https://github.com/renyufei8023" title="@ 的 Github" target="_blank">
+      <i class='social fa fa-github'></i>
+      <span class="label">Github</span>
+    </a>
+  </li>
+  
+
+  
+
+  
+
+  <!-- RSS -->
+  <li class="navigation__item">
+    <a href="/feed.xml" rel="author" title="RSS" target="_blank">
+      <i class='social fa fa-rss'></i>
+      <span class="label">RSS</span>
+    </a>
+  </li>
+
+  
+  <!-- Email -->
+  <li class="navigation__item">
+    <a href="mailto:renyufei8023@gamil.com" title="Contact me">
+      <i class='social fa fa-envelope'></i>
+      <span class="label">Email</span>
+    </a>
+  </li>
+  
+
+  </ul>
+</nav>
+</div>
+        </div>
+      </div>
+    </div>
+    
+    
+    <div class="panel-cover--overlay cover-black"></div>
+    
+  </div>
+</header>
+
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner">
+            <article class="post-container post-container--single" itemscope itemtype="http://schema.org/BlogPosting">
+  <header class="post-header">
+    <div class="post-meta">
+      <time datetime="2016-05-26 17:40:32 +0800" itemprop="datePublished" class="post-meta__date date">2016-05-26</time> &#8226; <span class="post-meta__tags tags">Blog</span>
+    </div>
+    <h1 class="post-title">iOS开发中常用的宏定义</h1>
+  </header>
+
+  <section class="post">
+    <p>#iOS开发中常用的宏定义
+####尺寸宏
+	#define StatusBar_HEIGHT 20</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>#define NavigationBar_HEIGHT 44
+
+#define NavigationBarIcon 20
+
+#define TabBar_HEIGHT 49
+
+#define TabBarIcon 30
+
+#define SCREEN_WIDTH ([UIScreen mainScreen].bounds.size.width)
+
+#define SCREEN_HEIGHT ([UIScreen mainScreen].bounds.size.height) 
+</code></pre>
+</div>
+
+<p>####打印宏</p>
+
+<ul>
+  <li>
+    <p>替换NSLog来使用，debug模式下可以打印很多方法名，行信息。</p>
+
+    <div class="highlighter-rouge"><pre class="highlight"><code>  #ifdef DEBUG
+  #   define DLog(fmt, ...) NSLog((@"%s [Line %d] " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__);
+  #else  
+  #   define DLog(...)  
+  #endif
+</code></pre>
+    </div>
+  </li>
+  <li>
+    <p>直接替换NSLog</p>
+
+    <div class="highlighter-rouge"><pre class="highlight"><code>  #if DEBUG  
+  #define NSLog(FORMAT, ...) 	fprintf(stderr,"\nfunction:%s line:%d content:%s\n", __FUNCTION__, __LINE__, [[NSString stringWithFormat:FORMAT, ##__VA_ARGS__] UTF8String]);  
+  #else  
+  #define NSLog(FORMAT, ...) nil  
+  #endif
+</code></pre>
+    </div>
+  </li>
+  <li>
+    <p>DEBUG  模式下打印日志,当前行以及弹出一个警告</p>
+
+    <div class="highlighter-rouge"><pre class="highlight"><code>  #ifdef DEBUG
+  #   define ULog(fmt, ...)  { UIAlertView *alert = [[UIAlertView alloc] initWithTitle:[NSString stringWithFormat:@"%s\n [Line %d] ", __PRETTY_FUNCTION__, __LINE__] message:[NSString stringWithFormat:fmt, ##__VA_ARGS__]  delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil]; [alert show]; }
+  #else
+  #   define ULog(...)
+  #endif
+</code></pre>
+    </div>
+  </li>
+</ul>
+
+<p>####系统宏
+* 获取版本</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>	#define IOS_VERSION [[[UIDevice currentDevice] systemVersion] floatValue]
+	#define CurrentSystemVersion [[UIDevice currentDevice] systemVersion]
+</code></pre>
+</div>
+
+<ul>
+  <li>
+    <p>获取当前语言</p>
+
+    <div class="highlighter-rouge"><pre class="highlight"><code>  #define CurrentLanguage ([[NSLocale preferredLanguages] objectAtIndex:0])
+</code></pre>
+    </div>
+  </li>
+  <li>
+    <p>判断是真机还是模拟器</p>
+
+    <div class="highlighter-rouge"><pre class="highlight"><code>  #if TARGET_OS_IPHONE  
+  //iPhone Device  
+  #endif  
+  
+  #if TARGET_IPHONE_SIMULATOR  
+  //iPhone Simulator  
+  #endif
+</code></pre>
+    </div>
+  </li>
+  <li>
+    <p>检查系统版本</p>
+
+    <div class="highlighter-rouge"><pre class="highlight"><code>  #define SYSTEM_VERSION_EQUAL_TO(v)                  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedSame)
+  #define SYSTEM_VERSION_GREATER_THAN(v)              ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedDescending)
+  #define SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(v)  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
+  #define SYSTEM_VERSION_LESS_THAN(v)                 ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedAscending)
+  #define SYSTEM_VERSION_LESS_THAN_OR_EQUAL_TO(v)     ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedDescending)
+</code></pre>
+    </div>
+  </li>
+  <li>
+    <p>内存宏</p>
+
+    <div class="highlighter-rouge"><pre class="highlight"><code>  //使用ARC和不使用ARC
+  #if __has_feature(objc_arc)
+  //compiling with ARC
+  #else
+  // compiling without ARC
+  #endif
+
+  #pragma mark - common functions
+  #define RELEASE_SAFELY(__POINTER) { [__POINTER release]; __POINTER = nil; }
+
+  //释放一个对象
+  #define SAFE_DELETE(P) if(P) { [P release], P = nil; }
+
+  #define SAFE_RELEASE(x) [x release];x=nil
+</code></pre>
+    </div>
+  </li>
+  <li>
+    <p>图片宏</p>
+
+    <div class="highlighter-rouge"><pre class="highlight"><code>  //读取本地图片
+  #define LOADIMAGE(file,ext) [UIImage imageWithContentsOfFile:[[NSBundle mainBundle]pathForResource:file ofType:ext]]
+
+  //定义UIImage对象
+  #define IMAGE(A) [UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:A ofType:nil]]
+
+  //定义UIImage对象
+  //#define ImageNamed(_pointer) [UIImage imageNamed:[UIUtil imageName:_pointer]]
+
+  //前两种宏性能高，省内存
+  //第三个没有必要使用，因为我们可以使用Xcode的插件
+</code></pre>
+    </div>
+  </li>
+  <li>
+    <p>颜色宏</p>
+
+    <div class="highlighter-rouge"><pre class="highlight"><code>  // rgb颜色转换（16进制-&gt;10进制）
+  #define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue &amp; 0xFF0000) &gt;&gt; 16))/255.0 green:((float)((rgbValue &amp; 0xFF00) &gt;&gt; 8))/255.0 blue:((float)(rgbValue &amp; 0xFF))/255.0 alpha:1.0]
+
+  //带有RGBA的颜色设置
+  #define COLOR(R, G, B, A) [UIColor colorWithRed:R/255.0 green:G/255.0 blue:B/255.0 alpha:A]
+
+  // 获取RGB颜色
+  #define RGBA(r,g,b,a) [UIColor colorWithRed:r/255.0f green:g/255.0f blue:b/255.0f alpha:a]
+  #define RGB(r,g,b) RGBA(r,g,b,1.0f)
+
+  //背景色
+  #define BACKGROUND_COLOR [UIColor colorWithRed:242.0/255.0 green:236.0/255.0 blue:231.0/255.0 alpha:1.0]
+
+  //清除背景色
+  #define CLEARCOLOR [UIColor clearColor]
+
+  #pragma mark - color functions
+  #define RGBCOLOR(r,g,b) [UIColor colorWithRed:(r)/255.0f green:(g)/255.0f blue:(b)/255.0f alpha:1]
+  #define RGBACOLOR(r,g,b,a) [UIColor colorWithRed:(r)/255.0f green:(g)/255.0f blue:(b)/255.0f alpha:(a)]
+</code></pre>
+    </div>
+  </li>
+  <li>
+    <p>其他宏</p>
+
+    <div class="highlighter-rouge"><pre class="highlight"><code>  //方正黑体简体字体定义
+  #define FONT(F) [UIFont fontWithName:@"FZHTJW--GB1-0" size:F]
+
+  //定义一个API
+  #define APIURL                @"http://xxxxx/"
+  //登陆API
+  #define APILogin              [APIURL stringByAppendingString:@"Login"]
+
+  //设置View的tag属性
+  #define VIEWWITHTAG(_OBJECT, _TAG)    [_OBJECT viewWithTag : _TAG]
+  //程序的本地化,引用国际化的文件
+  #define MyLocal(x, ...) NSLocalizedString(x, nil)
+
+  //G－C－D
+  #define BACK(block) dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), block)
+  #define MAIN(block) dispatch_async(dispatch_get_main_queue(),block)
+
+  //NSUserDefaults 实例化
+  #define USER_DEFAULT [NSUserDefaults standardUserDefaults]
+
+
+  //由角度获取弧度 有弧度获取角度
+  #define degreesToRadian(x) (M_PI * (x) / 180.0)
+  #define radianToDegrees(radian) (radian*180.0)/(M_PI)
+</code></pre>
+    </div>
+  </li>
+  <li>
+    <p>单例宏</p>
+
+    <div class="highlighter-rouge"><pre class="highlight"><code>  #define SYNTHESIZE_SINGLETON_FOR_CLASS(classname) \
+  \
+  static classname *shared##classname = nil; \
+  \
+  + (classname *)shared##classname \
+  { \
+  @synchronized(self) \
+  { \
+  if (shared##classname == nil) \
+  { \
+  shared##classname = [[self alloc] init]; \
+  } \
+  } \
+  \
+  return shared##classname; \
+  } \
+  \
+  + (id)allocWithZone:(NSZone *)zone \
+  { \
+  @synchronized(self) \
+  { \
+  if (shared##classname == nil) \
+  { \
+  shared##classname = [super allocWithZone:zone]; \
+  return shared##classname; \
+  } \
+  } \
+  \
+  return nil; \
+  } \
+  \
+  - (id)copyWithZone:(NSZone *)zone \
+  { \
+  return self; \
+  }
+</code></pre>
+    </div>
+  </li>
+</ul>
+
+
+  </section>
+</article>
+
+<section class="read-more">
+   
+   
+   <div class="read-more-item">
+       <span class="read-more-item-dim">最近的文章</span>
+       <h2 class="post-list__post-title post-title"><a href="/2016/05/SQLite%E8%AF%AD%E5%8F%A5%E4%BB%A5%E5%8F%8AFMDB%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95/" title="link to SQLite语句以及FMDB基本使用方法">SQLite语句以及FMDB基本使用方法</a></h2>
+       <p class="excerpt">#SQLite语句以及FMDB基本使用方法#SQLite###什么是SQLiteSQLite是一款轻型的嵌入式数据库它占用资源非常的低，在嵌入式设备中，可能只需要几百K的内存就够了它的处理速度比Mysql、PostgreSQL这两款著名的数据库都还快###什么是数据库数据库（Database）是按照数据结构来组织、存储和管理数据的仓库数据库可以分为2大种类  关系型数据库（主流）  对象型数据库###数据库是如何存储数据数据库的存储结构和excel很像，以表（table）为单位####数据...&hellip;</p>
+       <div class="post-list__meta"><time datetime="2016-05-30 11:09:32 +0800" class="post-list__meta--date date">2016-05-30</time> &#8226; <span class="post-list__meta--tags tags">Blog</span><a class="btn-border-small" href=/2016/05/SQLite%E8%AF%AD%E5%8F%A5%E4%BB%A5%E5%8F%8AFMDB%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95/>继续阅读</a></div>
+   </div>
+   
+   
+   
+   
+   <div class="read-more-item">
+       <span class="read-more-item-dim">更早的文章</span>
+       <h2 class="post-list__post-title post-title"><a href="/2016/05/iOS%E5%BC%80%E5%8F%91%E6%80%BB%E7%BB%93/" title="link to iOS开发总结">iOS开发总结</a></h2>
+       <p class="excerpt">#iOS开发总结###判断是否是第一次打开应用程序先获取CFBundleShortVersionString这个key，然后从沙盒中取这个key，如果两个相等，则表示不是第一次打开该应用程序，不相等的时候应该把沙盒中中的key保存起来，下次启动时候再进行判断 NSString * key = @"CFBundleShortVersionString";        NSString *currentVersion = [NSBundle mainBundle].infoDictionar...&hellip;</p>
+       <div class="post-list__meta"><time datetime="2016-05-26 17:23:32 +0800" class="post-list__meta--date date">2016-05-26</time> &#8226; <span class="post-list__meta--tags tags">Blog</span><a class="btn-border-small" href=/2016/05/iOS%E5%BC%80%E5%8F%91%E6%80%BB%E7%BB%93/>继续阅读</a></div>
+   </div>
+   
+</section>
+
+<section class="post-comments">
+  
+    <div id="disqus_thread"></div>
+    <script>
+    
+    var disqus_config = function () {
+        this.page.url = "http://vno.onevcat.com/2016/05/iOS%E5%BC%80%E5%8F%91%E4%B8%AD%E5%B8%B8%E7%94%A8%E7%9A%84%E5%AE%8F%E5%AE%9A%E4%B9%89/";
+        this.page.identifier = "/2016/05/iOS%E5%BC%80%E5%8F%91%E4%B8%AD%E5%B8%B8%E7%94%A8%E7%9A%84%E5%AE%8F%E5%AE%9A%E4%B9%89/";
+    };
+
+    var disqus_shortname = 'halfrostsfield';
+    
+    (function() { // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        })();
+    </script>
+    <noscript>要查看<a href="http://disqus.com/?ref_noscript"> Disqus </a>评论，请启用 JavaScript</noscript>
+    
+  
+  
+  
+  
+</section>
+
+
+            <section class="footer">
+    <footer>
+      <br>
+      <br>
+    	<span class="footer__copyright">本站点采用<a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">知识共享 署名-非商业性使用-相同方式共享 4.0 国际 许可协议</a></span>
+        <span class="footer__copyright">由 <a href="https://jekyllrb.com">Jekyll</a> 于 2016-06-24 生成，感谢<a href="https://pages.github.com"> GitHub Pages</a> 强力驱动</span>
+        <span class="footer__copyright">本站由 <a href="http://yufei.ren">@halfrost</a> 创建，采用 <a href="https://github.com/onevcat/vno-jekyll">Vno - Jekyll</a> 作为主题，您可以在 GitHub 找到<a href="https://github.com/onevcat/OneV-s-Den">本站源码</a> - &copy; 2016</span>
+    </footer>
+</section>
+
+        </div>
+    </div>
+    
+    <script type="text/javascript" src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+
+<script type="text/javascript" src="/js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+<script type="text/javascript" src="/js/main.js"></script>
+
+
+
+    
+  </body>
+
+</html>

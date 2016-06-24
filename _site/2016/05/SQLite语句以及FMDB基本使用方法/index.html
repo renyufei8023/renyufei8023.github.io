@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <title>SQLite语句以及FMDB基本使用方法</title>
+  <meta name="description" content="#SQLite语句以及FMDB基本使用方法#SQLite###什么是SQLiteSQLite是一款轻型的嵌入式数据库它占用资源非常的低，在嵌入式设备中，可能只需要几百K的内存就够了它的处理速度比Mysql、PostgreSQL这两款著名的数据库都还快###什么是数据库数据库（Database）是按照数据结构来组织...">
+  <meta name="author" content="Wei Wang">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="SQLite语句以及FMDB基本使用方法">
+  <meta name="twitter:description" content="#SQLite语句以及FMDB基本使用方法#SQLite###什么是SQLiteSQLite是一款轻型的嵌入式数据库它占用资源非常的低，在嵌入式设备中，可能只需要几百K的内存就够了它的处理速度比Mysql、PostgreSQL这两款著名的数据库都还快###什么是数据库数据库（Database）是按照数据结构来组织...">
+
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="SQLite语句以及FMDB基本使用方法">
+  <meta property="og:description" content="#SQLite语句以及FMDB基本使用方法#SQLite###什么是SQLiteSQLite是一款轻型的嵌入式数据库它占用资源非常的低，在嵌入式设备中，可能只需要几百K的内存就够了它的处理速度比Mysql、PostgreSQL这两款著名的数据库都还快###什么是数据库数据库（Database）是按照数据结构来组织...">
+
+  <link rel="icon" type="image/ico" href="/assets/images/favicon.ico" />
+  <link href="/assets/images/favicon.ico" rel="shortcut icon" type="image/ico">
+
+  <link rel="stylesheet" href="/css/main.css">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <link rel="canonical" href="http://vno.onevcat.com/2016/05/SQLite%E8%AF%AD%E5%8F%A5%E4%BB%A5%E5%8F%8AFMDB%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95/">
+  <link rel="alternate" type="application/rss+xml" title="上善若水，人淡如菊" href="http://vno.onevcat.com/feed.xml">
+
+  <meta name="google-site-verification" content="1-1ZlHoRvM0T2FqPbW2S-qLgYXN6rsn52kErlMPd_gw" />
+
+</head>
+
+
+  <body>
+
+    <span class="mobile btn-mobile-menu">
+        <i class="fa fa-list btn-mobile-menu__icon"></i>
+        <i class="fa fa-angle-up btn-mobile-close__icon hidden"></i>
+    </span>
+    
+    <header class="panel-cover panel-cover--collapsed" style="background-image: url('/assets/images/background-cover.jpg')">
+  <div class="panel-main">
+
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        <a href="/#blog" title="前往 上善若水，人淡如菊 的主页" class="blog-button"><img src="/assets/images/avatar.jpg" width="80" alt="上善若水，人淡如菊 logo" class="panel-cover__logo logo" /></a>
+        <h1 class="panel-cover__title panel-title"><a href="/#blog" title="link to homepage for 上善若水，人淡如菊" class="blog-button">上善若水，人淡如菊</a></h1>
+        
+        <span class="panel-cover__subtitle panel-subtitle">上善若水，人淡如菊</span>
+        
+        <hr class="panel-cover__divider" />
+        <p class="panel-cover__description">嗨，我是任玉飞 (@Raphcel)，一名走在iOS开发路上的从业者，努力成为一个全栈工程师，爱好唱歌，以及所有与音乐有关的事情。目前在北京工作。吾笃信：认真你就赢了。</p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+        
+        
+        
+        <div class="navigation-wrapper">
+          <div>
+            <nav class="cover-navigation cover-navigation--primary">
+              <ul class="navigation">
+                <li class="navigation__item"><a href="/#blog" title="Visit blog" class="blog-button">博客</a></li>
+                
+                  <li class="navigation__item"><a href="http://about.yufei.ren" target="_blank" title="关于">关于</a></li>
+                
+              </ul>
+            </nav>
+          </div>
+          
+          <div><nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+    
+    <!-- jianshu-->
+    <li class="navigation__item">
+      <a href="http://www.jianshu.com/users/d8f57dd98c59/latest_articles" title="@ 的简书" target="_blank">
+        <i class='social fa fa-book'></i>
+        <span class="label">jianshu</span>
+      </a>
+    </li>
+    
+
+  
+  <!-- Weibo -->
+  <li class="navigation__item">
+    <a href="http://weibo.com/ryf8023" title="@ 的微博" target="_blank">
+      <i class='social fa fa-weibo'></i>
+      <span class="label">Weibo</span>
+    </a>
+  </li>
+  
+
+  
+  <!-- Github -->
+  <li class="navigation__item">
+    <a href="https://github.com/renyufei8023" title="@ 的 Github" target="_blank">
+      <i class='social fa fa-github'></i>
+      <span class="label">Github</span>
+    </a>
+  </li>
+  
+
+  
+
+  
+
+  <!-- RSS -->
+  <li class="navigation__item">
+    <a href="/feed.xml" rel="author" title="RSS" target="_blank">
+      <i class='social fa fa-rss'></i>
+      <span class="label">RSS</span>
+    </a>
+  </li>
+
+  
+  <!-- Email -->
+  <li class="navigation__item">
+    <a href="mailto:renyufei8023@gamil.com" title="Contact me">
+      <i class='social fa fa-envelope'></i>
+      <span class="label">Email</span>
+    </a>
+  </li>
+  
+
+  </ul>
+</nav>
+</div>
+        </div>
+      </div>
+    </div>
+    
+    
+    <div class="panel-cover--overlay cover-black"></div>
+    
+  </div>
+</header>
+
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner">
+            <article class="post-container post-container--single" itemscope itemtype="http://schema.org/BlogPosting">
+  <header class="post-header">
+    <div class="post-meta">
+      <time datetime="2016-05-30 11:09:32 +0800" itemprop="datePublished" class="post-meta__date date">2016-05-30</time> &#8226; <span class="post-meta__tags tags">Blog</span>
+    </div>
+    <h1 class="post-title">SQLite语句以及FMDB基本使用方法</h1>
+  </header>
+
+  <section class="post">
+    <p>#SQLite语句以及FMDB基本使用方法
+#SQLite
+###什么是SQLite
+SQLite是一款轻型的嵌入式数据库
+它占用资源非常的低，在嵌入式设备中，可能只需要几百K的内存就够了
+它的处理速度比Mysql、PostgreSQL这两款著名的数据库都还快
+###什么是数据库
+数据库（Database）是按照数据结构来组织、存储和管理数据的仓库
+数据库可以分为2大种类</p>
+
+<ul>
+  <li>关系型数据库（主流）</li>
+  <li>对象型数据库</li>
+</ul>
+
+<p>###数据库是如何存储数据
+数据库的存储结构和excel很像，以表（table）为单位
+####数据库存储数据的步骤
+1. 新建一张表(table)
+2. 添加多个字段（column，列，属性）
+3. 添加多行记录（row，record，每行存放多个字段对应的值）
+###SQL语句
+- 什么是SQL
+ - SQL（structured query language）：结构化查询语言
+ - SQL是一种对关系型数据库中的数据进行定义和操作的语言
+ - SQL语言简洁，语法简单，好学好用
+- 什么是SQL语句
+ - 使用SQL语言编写出来的句子\代码，就是SQL语句
+ - 在程序运行过程中，要想操作（增删改查，CRUD）数据库中的数据，必须使用SQL语句
+- SQL语句的特点
+ - 不区分大小写
+ - 每条语句都必须以分号 ; 结尾
+- SQL常见关键字
+ - select、insert、update、delete、from、create、where、desc、order、by、group、table、alter、view、index等等
+- 数据库中不可以使用关键字来命名表、字段</p>
+
+<p>###SQL语句的种类
+- 数据定义语句（DDL：Data Definition Language）
+ - 包括create和drop等操作
+ - 在数据库中创建新表或删除表(create table或 drop table)
+- 数据操作语句（DML：Data Manipulation Language）
+ - 包括insert、update、delete等操作
+ - 上面的3种操作分别用于添加、修改、删除表中的数据
+- 数据查询语句（DQL：Data Query Language）
+ - 可以用于查询获得表中的数据
+ - 关键字select是DQL（也是所有SQL）用得最多的操作
+ - 其他DQL常用的关键字有where，order by，group by和having</p>
+
+<p>####创表</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>格式
+create table 表名 (字段名1 字段类, 字段名2 字段类型2,型1…) ;
+create table if not exists 表名 (字段名1 字段类型1, 字段名2 字段类型2, …) ;
+
+示例
+create table t_student (id integer, name text, age inetger, score real) ;
+
+</code></pre>
+</div>
+<p>####删表</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>格式
+drop table 表名 ;
+drop table if exists 表名 ;
+
+示例
+drop table t_student ;
+
+</code></pre>
+</div>
+<p>####字段类型
+- SQLite将数据划分为一下几种存储类型
+ - integer : 整型值
+ - real : 浮点值
+ - text : 文本字符串
+ - blob : 二进制数据（比如文件）
+- 实际上SQLite是没有类型的
+ - 就算声明为integer类型，还是能存储字符串文本（主键除外）
+ - 建表时声明啥类型或者不声明类型都可以，也就意味着创表语句可以这么写：
+create table t_student(name, age);</p>
+
+<p>为了保持良好的编程规范、方便程序员之间的交流，编写建表语句的时候最好加上每个字段的具体类型</p>
+
+<p>####插入数据</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>格式
+insert into 表名 (字段1, 字段2, …) values (字段1的值, 字段2的值, …) ;
+
+示例
+insert into t_student (name, age) values (‘mj’, 10) ;
+
+注意
+数据库中的字符串内容应该用单引号 ’ 括住
+
+</code></pre>
+</div>
+<p>####更新数据</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>格式
+update 表名 set 字段1 = 字段1的值, 字段2 = 字段2的值, … ; 
+
+示例
+update t_student set name = ‘jack’, age = 20 ; 
+
+注意
+上面的示例会将t_student表中所有记录的name都改为jack，age都改为20
+
+</code></pre>
+</div>
+<p>####删除数据</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>格式
+delete from 表名 ;
+
+示例
+delete from t_student ;
+
+注意
+上面的示例会将t_student表中所有记录都删掉
+
+</code></pre>
+</div>
+
+<p>####条件语句
+如果只想更新或者删除某些固定的记录，那就必须在DML语句后加上一些条件</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>条件语句的常见格式
+where 字段 = 某个值 ;   // 不能用两个 =
+where 字段 is 某个值 ;   // is 相当于 = 
+where 字段 != 某个值 ; 
+where 字段 is not 某个值 ;   // is not 相当于 != 
+where 字段 &gt; 某个值 ; 
+where 字段1 = 某个值 and 字段2 &gt; 某个值 ;  // and相当于C语言中的 &amp;&amp;
+where 字段1 = 某个值 or 字段2 = 某个值 ;  //  or 相当于C语言中的 ||
+
+</code></pre>
+</div>
+<p>####DQL语句</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>格式
+select 字段1, 字段2, … from 表名 ;
+select * from 表名;   //  查询所有的字段
+
+示例
+select name, age from t_student ;
+select * from t_student ;
+select * from t_student where age &gt; 10 ;  //  条件查询
+
+</code></pre>
+</div>
+<p>####起别名</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>格式(字段和表都可以起别名)
+select 字段1 别名 , 字段2 别名 , … from 表名 别名 ; 
+select 字段1 别名, 字段2 as 别名, … from 表名 as 别名 ;
+select 别名.字段1, 别名.字段2, … from 表名 别名 ;
+
+示例
+select name myname, age myage from t_student ;
+给name起个叫做myname的别名，给age起个叫做myage的别名
+
+select s.name, s.age from t_student s ;
+给t_student表起个别名叫做s，利用s来引用表中的字段
+
+</code></pre>
+</div>
+
+<p>####计算记录中的数量</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>格式
+select count (字段) from 表名 ;
+select count ( * ) from 表名 ;
+
+示例
+select count (age) from t_student ;
+select count ( * ) from t_student where score &gt;= 60;
+
+</code></pre>
+</div>
+
+<p>####排序</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>查询出来的结果可以用order by进行排序
+select * from t_student order by 字段 ;
+select * from t_student order by age ;
+
+默认是按照升序排序（由小到大），也可以变为降序（由大到小）
+select * from t_student order by age desc ;  //降序
+select * from t_student order by age asc ;   // 升序（默认）
+
+也可以用多个字段进行排序
+select * from t_student order by age asc, height desc ;
+先按照年龄排序（升序），年龄相等就按照身高排序（降序）
+
+</code></pre>
+</div>
+<p>####limit
+使用limit可以精确地控制查询结果的数量，比如每次只查询10条数据</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>格式
+select * from 表名 limit 数值1, 数值2 ;
+
+示例
+select * from t_student limit 4, 8 ;
+可以理解为：跳过最前面4条语句，然后取8条记录
+
+</code></pre>
+</div>
+<p>limit常用来做分页查询，比如每页固定显示5条数据，那么应该这样取数据</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>第1页：limit 0, 5
+第2页：limit 5, 5
+第3页：limit 10, 5
+…
+第n页：limit 5*(n-1), 5
+
+</code></pre>
+</div>
+<p>###约束
+####简单约束
+建表时可以给特定的字段设置一些约束条件，常见的约束有
+- not null ：规定字段的值不能为null
+- unique ：规定字段的值必须唯一
+- default ：指定字段的默认值</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>create table t_student (id integer, name text not null unique, age integer not null default 1) ;
+name字段不能为null，并且唯一
+age字段不能为null，并且默认为1
+
+</code></pre>
+</div>
+<p>####主键约束
+如果t_student表中就name和age两个字段，而且有些记录的name和age字段的值都一样时，那么就没法区分这些数据，造成数据库的记录不唯一，这样就不方便管理数据
+良好的数据库编程规范应该要保证每条记录的唯一性，为此，增加了主键约束。也就是说，每张表都必须有一个主键，用来标识记录的唯一性
+- 什么是主键
+ - 主键（Primary Key，简称PK）用来唯一地标识某一条记录
+ - 例如t_student可以增加一个id字段作为主键，相当于人的身份证
+ - 主键可以是一个字段或多个字段
+#####主键的设计原则
+1. 主键应当是对用户没有意义的</p>
+
+<ol>
+  <li>
+    <p>永远也不要更新主键</p>
+  </li>
+  <li>
+    <p>主键不应包含动态变化的数据</p>
+  </li>
+  <li>
+    <p>主键应当由计算机自动生成
+#####主键的声明</p>
+  </li>
+</ol>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>在创表的时候用primary key声明一个主键
+create table t_student (id integer primary key, name text, age integer) ;
+integer类型的id作为t_student表的主键
+
+主键字段
+只要声明为primary key，就说明是一个主键字段
+主键字段默认就包含了not null 和 unique 两个约束
+
+如果想要让主键自动增长（必须是integer类型），应该增加autoincrement
+create table t_student (id integer primary key autoincrement, name text, age integer) ;
+
+</code></pre>
+</div>
+
+<p>####外键约束
+利用外键约束可以用来建立表与表之间的联系，外键的一般情况是：一张表的某个字段，引用着另一张表的主键字段</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>新建一个外键
+create table t_student (id integer primary key autoincrement, name text, age integer, class_id integer, constraint fk_student_class foreign key (class_id) references t_class (id));
+t_student表中有一个叫做fk_t_student_class_id_t_class_id的外键
+这个外键的作用是用t_student表中的class_id字段引用t_class表的id字段
+
+</code></pre>
+</div>
+<p>###表连接查询
+- 什么是表连接查询
+ - 需要联合多张表才能查到想要的数据</p>
+
+<ul>
+  <li>表连接的类型
+ - 内连接：inner join 或者 join  （显示的是左右表都有完整字段值的记录）
+ - 左外连接：left outer join （保证左表数据的完整性）</li>
+</ul>
+
+<p><strong>##SQLite3</strong>
+使用SQLite3，需要添加libsqlite3.dylib和导入主头文件
+###创建，打开，关闭数据库</p>
+
+<div class="language-objc highlighter-rouge"><pre class="highlight"><code><span class="err">创建或打开数据库</span>
+<span class="c1">// path是数据库文件的存放路径
+</span><span class="n">sqlite3</span> <span class="o">*</span><span class="n">db</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+<span class="kt">int</span> <span class="n">result</span> <span class="o">=</span> <span class="n">sqlite3_open</span><span class="p">([</span><span class="n">path</span> <span class="nf">UTF8String</span><span class="p">],</span> <span class="o">&amp;</span><span class="n">db</span><span class="p">);</span><span class="err"> </span>
+
+<span class="err">代码解析：</span>
+<span class="n">sqlite3_open</span><span class="p">()</span><span class="err">将根据文件路径打开数据库，如果不存在，则会创建一个新的数据库。如果</span><span class="n">result</span><span class="err">等于常量</span><span class="n">SQLITE_OK</span><span class="err">，则表示成功打开数据库</span>
+<span class="n">sqlite3</span> <span class="o">*</span><span class="n">db</span><span class="err">：一个打开的数据库实例</span>
+<span class="err">数据库文件的路径必须以</span><span class="n">C</span><span class="err">字符串</span><span class="p">(</span><span class="err">而非</span><span class="n">NSString</span><span class="p">)</span><span class="err">传入</span>
+
+<span class="err">关闭数据库：</span><span class="n">sqlite3_close</span><span class="p">(</span><span class="n">db</span><span class="p">);</span>
+
+</code></pre>
+</div>
+<p>###执行不返回数据的SQL语句</p>
+
+<div class="language-objc highlighter-rouge"><pre class="highlight"><code><span class="err">执行创表语句</span>
+<span class="kt">char</span> <span class="o">*</span><span class="n">errorMsg</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span><span class="err"> </span> <span class="c1">// 用来存储错误信息
+</span><span class="kt">char</span> <span class="o">*</span><span class="n">sql</span> <span class="o">=</span> <span class="s">"create table if not exists t_person(id integer primary key autoincrement, name text, age integer);"</span><span class="p">;</span>
+<span class="kt">int</span> <span class="n">result</span> <span class="o">=</span> <span class="n">sqlite3_exec</span><span class="p">(</span><span class="n">db</span><span class="p">,</span> <span class="n">sql</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">errorMsg</span><span class="p">);</span>
+
+<span class="err">代码解析：</span>
+<span class="n">sqlite3_exec</span><span class="p">()</span><span class="err">可以执行任何</span><span class="n">SQL</span><span class="err">语句，比如创表、更新、插入和删除操作。但是一般不用它执行查询语句，因为它不会返回查询到的数据</span>
+<span class="n">sqlite3_exec</span><span class="p">()</span><span class="err">还可以执行的语句：</span>
+<span class="err">开启事务：</span><span class="n">begin</span> <span class="n">transaction</span><span class="p">;</span>
+<span class="err">回滚事务：</span><span class="n">rollback</span><span class="p">;</span>
+<span class="err">提交事务：</span><span class="n">commit</span><span class="p">;</span>
+
+</code></pre>
+</div>
+<p>###带占位符插入数据</p>
+
+<div class="language-objc highlighter-rouge"><pre class="highlight"><code><span class="kt">char</span> <span class="o">*</span><span class="n">sql</span> <span class="o">=</span> <span class="s">"insert into t_person(name, age) values(?, ?);"</span><span class="p">;</span>
+<span class="n">sqlite3_stmt</span> <span class="o">*</span><span class="n">stmt</span><span class="p">;</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">sqlite3_prepare_v2</span><span class="p">(</span><span class="n">db</span><span class="p">,</span> <span class="n">sql</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">stmt</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">)</span> <span class="o">==</span> <span class="n">SQLITE_OK</span><span class="p">)</span> <span class="p">{</span>
+<span class="err"> </span> <span class="err"> </span> <span class="n">sqlite3_bind_text</span><span class="p">(</span><span class="n">stmt</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="s">"母鸡"</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">);</span>
+<span class="err"> </span> <span class="err"> </span> <span class="n">sqlite3_bind_int</span><span class="p">(</span><span class="n">stmt</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">27</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">sqlite3_step</span><span class="p">(</span><span class="n">stmt</span><span class="p">)</span> <span class="o">!=</span> <span class="n">SQLITE_DONE</span><span class="p">)</span> <span class="p">{</span>
+<span class="err"> </span> <span class="err"> </span> <span class="n">NSLog</span><span class="p">(</span><span class="s">@"插入数据错误"</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="n">sqlite3_finalize</span><span class="p">(</span><span class="n">stmt</span><span class="p">);</span>
+
+<span class="err">代码解析：</span>
+<span class="n">sqlite3_prepare_v2</span><span class="p">()</span><span class="err">返回值等于</span><span class="n">SQLITE_OK</span><span class="err">，说明</span><span class="n">SQL</span><span class="err">语句已经准备成功，没有语法问题</span>
+
+<span class="n">sqlite3_bind_text</span><span class="p">()</span><span class="err">：大部分绑定函数都只有</span><span class="mi">3</span><span class="err">个参数</span>
+<span class="err">第</span><span class="mi">1</span><span class="err">个参数是</span><span class="n">sqlite3_stmt</span> <span class="o">*</span><span class="err">类型</span>
+<span class="err">第</span><span class="mi">2</span><span class="err">个参数指占位符的位置，第一个占位符的位置是</span><span class="mi">1</span><span class="err">，不是</span><span class="mi">0</span>
+<span class="err">第</span><span class="mi">3</span><span class="err">个参数指占位符要绑定的值</span>
+<span class="err">第</span><span class="mi">4</span><span class="err">个参数指在第</span><span class="mi">3</span><span class="err">个参数中所传递数据的长度，对于</span><span class="n">C</span><span class="err">字符串，可以传递</span><span class="o">-</span><span class="mi">1</span><span class="err">代替字符串的长度</span>
+<span class="err">第</span><span class="mi">5</span><span class="err">个参数是一个可选的函数回调，一般用于在语句执行后完成内存清理工作</span>
+<span class="n">sqlite_step</span><span class="p">()</span><span class="err">：执行</span><span class="n">SQL</span><span class="err">语句，返回</span><span class="n">SQLITE_DONE</span><span class="err">代表成功执行完毕</span>
+<span class="n">sqlite_finalize</span><span class="p">()</span><span class="err">：销毁</span><span class="n">sqlite3_stmt</span> <span class="o">*</span><span class="err">对象</span>
+
+</code></pre>
+</div>
+<p>###查询数据</p>
+
+<div class="language-objc highlighter-rouge"><pre class="highlight"><code><span class="kt">char</span> <span class="o">*</span><span class="n">sql</span> <span class="o">=</span> <span class="s">"select id,name,age from t_person;"</span><span class="p">;</span>
+<span class="n">sqlite3_stmt</span> <span class="o">*</span><span class="n">stmt</span><span class="p">;</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">sqlite3_prepare_v2</span><span class="p">(</span><span class="n">db</span><span class="p">,</span> <span class="n">sql</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">stmt</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">)</span> <span class="o">==</span> <span class="n">SQLITE_OK</span><span class="p">)</span> <span class="p">{</span>
+<span class="err"> </span> <span class="err"> </span> <span class="k">while</span> <span class="p">(</span><span class="n">sqlite3_step</span><span class="p">(</span><span class="n">stmt</span><span class="p">)</span> <span class="o">==</span> <span class="n">SQLITE_ROW</span><span class="p">)</span> <span class="p">{</span>
+<span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="kt">int</span> <span class="n">_id</span> <span class="o">=</span> <span class="n">sqlite3_column_int</span><span class="p">(</span><span class="n">stmt</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+<span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="kt">char</span> <span class="o">*</span><span class="n">_name</span> <span class="o">=</span> <span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="p">)</span><span class="n">sqlite3_column_text</span><span class="p">(</span><span class="n">stmt</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+<span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="n">NSString</span> <span class="o">*</span><span class="n">name</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSString</span> <span class="nf">stringWithUTF8String</span><span class="p">:</span><span class="n">_name</span><span class="p">];</span>
+<span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="kt">int</span> <span class="n">_age</span> <span class="o">=</span> <span class="n">sqlite3_column_int</span><span class="p">(</span><span class="n">stmt</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span>
+<span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="n">NSLog</span><span class="p">(</span><span class="s">@"id=%i, name=%@, age=%i"</span><span class="p">,</span> <span class="n">_id</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">_age</span><span class="p">);</span>
+<span class="err"> </span> <span class="err"> </span> <span class="p">}</span>
+<span class="p">}</span>
+<span class="n">sqlite3_finalize</span><span class="p">(</span><span class="n">stmt</span><span class="p">);</span>
+<span class="err">代码解析</span>
+<span class="n">sqlite3_step</span><span class="p">()</span><span class="err">返回</span><span class="n">SQLITE_ROW</span><span class="err">代表遍历到一条新记录</span>
+<span class="n">sqlite3_column_</span><span class="o">*</span><span class="p">()</span><span class="err">用于获取每个字段对应的值，第</span><span class="mi">2</span><span class="err">个参数是字段的索引，从</span><span class="mi">0</span><span class="err">开始</span>
+
+</code></pre>
+</div>
+<p><strong>#FMDB</strong>
+###FMDB核心类
+- FMDatabase
+ - 一个FMDatabase对象就代表一个单独的SQLite数据库
+ - 用来执行SQL语句</p>
+
+<ul>
+  <li>
+    <p>FMResultSet
+ - 使用FMDatabase执行查询后的结果集</p>
+  </li>
+  <li>
+    <p>FMDatabaseQueue
+ - 用于在多线程中执行多个查询或更新，它是线程安全的
+###打开数据库
+通过指定SQLite数据库文件路径来创建FMDatabase对象</p>
+  </li>
+</ul>
+
+<div class="language-objc highlighter-rouge"><pre class="highlight"><code><span class="n">FMDatabase</span> <span class="o">*</span><span class="n">db</span> <span class="o">=</span> <span class="p">[</span><span class="n">FMDatabase</span> <span class="nf">databaseWithPath</span><span class="p">:</span><span class="n">path</span><span class="p">];</span>
+<span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="p">[</span><span class="n">db</span> <span class="nf">open</span><span class="p">])</span> <span class="p">{</span>
+<span class="err"> </span> <span class="err"> </span> <span class="n">NSLog</span><span class="p">(</span><span class="s">@"数据库打开失败！"</span><span class="p">);</span>
+<span class="p">}</span>
+
+</code></pre>
+</div>
+<p>文件路径有三种情况
+- 具体文件路径
+ - 如果不存在会自动创建
+- 空字符串@””
+ - 会在临时目录创建一个空的数据库
+ - 当FMDatabase连接关闭时，数据库文件也被删除
+- nil
+ - 会创建一个内存中临时数据库，当FMDatabase连接关闭时，数据库会被销毁</p>
+
+<p>###执行更新
+在FMDB中，除查询以外的所有操作，都称为“更新”，create、drop、insert、update、delete等
+使用executeUpdate:方法执行更新</p>
+
+<div class="language-objc highlighter-rouge"><pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="n">BOOL</span><span class="p">)</span><span class="nf">executeUpdate</span><span class="p">:(</span><span class="n">NSString</span><span class="o">*</span><span class="p">)</span><span class="nv">sql</span><span class="p">,</span> <span class="p">...</span>
+<span class="k">-</span> <span class="p">(</span><span class="n">BOOL</span><span class="p">)</span><span class="nf">executeUpdateWithFormat</span><span class="p">:(</span><span class="n">NSString</span><span class="o">*</span><span class="p">)</span><span class="nv">format</span><span class="p">,</span> <span class="p">...</span>
+<span class="k">-</span> <span class="p">(</span><span class="n">BOOL</span><span class="p">)</span><span class="nf">executeUpdate</span><span class="p">:(</span><span class="n">NSString</span><span class="o">*</span><span class="p">)</span><span class="nv">sql</span> <span class="nf">withArgumentsInArray</span><span class="p">:(</span><span class="n">NSArray</span> <span class="o">*</span><span class="p">)</span><span class="nv">arguments</span>
+
+<span class="p">[</span><span class="n">db</span> <span class="nf">executeUpdate</span><span class="p">:</span><span class="s">@"UPDATE t_student SET age = ? WHERE name = ?;"</span><span class="p">,</span> <span class="mi">@20</span><span class="p">,</span> <span class="s">@"Jack"</span><span class="p">]</span>
+
+</code></pre>
+</div>
+<p> 
+ ###执行查询
+ 
+```objc
+查询方法
+- (FMResultSet <em>)executeQuery:(NSString</em>)sql, …
+- (FMResultSet <em>)executeQueryWithFormat:(NSString</em>)format, …
+- (FMResultSet *)executeQuery:(NSString *)sql withArgumentsInArray:(NSArray *)arguments</p>
+
+<p>示例
+// 查询数据
+FMResultSet *rs = [db executeQuery:@”SELECT * FROM t_student”];</p>
+
+<p>// 遍历结果集
+while ([rs next]) {
+    NSString *name = [rs stringForColumn:@”name”];
+    int age = [rs intForColumn:@”age”];
+    double score = [rs doubleForColumn:@”score”];
+}</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>###FMDatabaseQueue
+FMDatabase这个类是线程不安全的，如果在多个线程中同时使用一个FMDatabase实例，会造成数据混乱等问题，为了保证线程安全，FMDB提供方便快捷的FMDatabaseQueue类
+
+```objc
+FMDatabaseQueue的创建
+FMDatabaseQueue *queue = [FMDatabaseQueue databaseQueueWithPath:path];
+
+简单使用
+[queue inDatabase:^(FMDatabase *db) {
+    [db executeUpdate:@"INSERT INTO t_student(name) VALUES (?)", @"Jack"];
+    [db executeUpdate:@"INSERT INTO t_student(name) VALUES (?)", @"Rose"];
+    [db executeUpdate:@"INSERT INTO t_student(name) VALUES (?)", @"Jim"];
+    
+    FMResultSet *rs = [db executeQuery:@"select * from t_student"];
+    while ([rs next]) {
+        // …
+    }
+}];
+
+使用事务
+[queue inTransaction:^(FMDatabase *db, BOOL *rollback) {
+    [db executeUpdate:@"INSERT INTO t_student(name) VALUES (?)", @"Jack"];
+    [db executeUpdate:@"INSERT INTO t_student(name) VALUES (?)", @"Rose"];
+    [db executeUpdate:@"INSERT INTO t_student(name) VALUES (?)", @"Jim"];
+    
+    FMResultSet *rs = [db executeQuery:@"select * from t_student"];
+    while ([rs next]) {
+        // …
+    }
+}];
+
+事务回滚
+*rollback = YES;
+
+</code></pre>
+</div>
+
+
+  </section>
+</article>
+
+<section class="read-more">
+   
+   
+   <div class="read-more-item">
+       <span class="read-more-item-dim">最近的文章</span>
+       <h2 class="post-list__post-title post-title"><a href="/2016/05/iOS%E5%BC%80%E5%8F%91-%E4%BA%8B%E4%BB%B6%E4%BC%A0%E9%80%92%E4%BB%A5%E5%8F%8A%E5%93%8D%E5%BA%94%E8%80%85%E9%93%BE%E6%9D%A1/" title="link to iOS开发-事件传递以及响应者链条">iOS开发-事件传递以及响应者链条</a></h2>
+       <p class="excerpt">#iOS开发-事件传递以及响应者链条在iOS中凡是继承自UIResponder的对象都能够接收并处理事件。UIResponder一般分为三种事件，触摸事件，加速计事件以及远程控制事件。触摸事件- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event;- (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event;- (void)touchesEnded:...&hellip;</p>
+       <div class="post-list__meta"><time datetime="2016-05-31 23:24:32 +0800" class="post-list__meta--date date">2016-05-31</time> &#8226; <span class="post-list__meta--tags tags">Blog</span><a class="btn-border-small" href=/2016/05/iOS%E5%BC%80%E5%8F%91-%E4%BA%8B%E4%BB%B6%E4%BC%A0%E9%80%92%E4%BB%A5%E5%8F%8A%E5%93%8D%E5%BA%94%E8%80%85%E9%93%BE%E6%9D%A1/>继续阅读</a></div>
+   </div>
+   
+   
+   
+   
+   <div class="read-more-item">
+       <span class="read-more-item-dim">更早的文章</span>
+       <h2 class="post-list__post-title post-title"><a href="/2016/05/iOS%E5%BC%80%E5%8F%91%E4%B8%AD%E5%B8%B8%E7%94%A8%E7%9A%84%E5%AE%8F%E5%AE%9A%E4%B9%89/" title="link to iOS开发中常用的宏定义">iOS开发中常用的宏定义</a></h2>
+       <p class="excerpt">#iOS开发中常用的宏定义####尺寸宏	#define StatusBar_HEIGHT 20#define NavigationBar_HEIGHT 44#define NavigationBarIcon 20#define TabBar_HEIGHT 49#define TabBarIcon 30#define SCREEN_WIDTH ([UIScreen mainScreen].bounds.size.width)#define SCREEN_HEIGHT ([UIScreen ...&hellip;</p>
+       <div class="post-list__meta"><time datetime="2016-05-26 17:40:32 +0800" class="post-list__meta--date date">2016-05-26</time> &#8226; <span class="post-list__meta--tags tags">Blog</span><a class="btn-border-small" href=/2016/05/iOS%E5%BC%80%E5%8F%91%E4%B8%AD%E5%B8%B8%E7%94%A8%E7%9A%84%E5%AE%8F%E5%AE%9A%E4%B9%89/>继续阅读</a></div>
+   </div>
+   
+</section>
+
+<section class="post-comments">
+  
+    <div id="disqus_thread"></div>
+    <script>
+    
+    var disqus_config = function () {
+        this.page.url = "http://vno.onevcat.com/2016/05/SQLite%E8%AF%AD%E5%8F%A5%E4%BB%A5%E5%8F%8AFMDB%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95/";
+        this.page.identifier = "/2016/05/SQLite%E8%AF%AD%E5%8F%A5%E4%BB%A5%E5%8F%8AFMDB%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95/";
+    };
+
+    var disqus_shortname = 'halfrostsfield';
+    
+    (function() { // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        })();
+    </script>
+    <noscript>要查看<a href="http://disqus.com/?ref_noscript"> Disqus </a>评论，请启用 JavaScript</noscript>
+    
+  
+  
+  
+  
+</section>
+
+
+            <section class="footer">
+    <footer>
+      <br>
+      <br>
+    	<span class="footer__copyright">本站点采用<a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">知识共享 署名-非商业性使用-相同方式共享 4.0 国际 许可协议</a></span>
+        <span class="footer__copyright">由 <a href="https://jekyllrb.com">Jekyll</a> 于 2016-06-24 生成，感谢<a href="https://pages.github.com"> GitHub Pages</a> 强力驱动</span>
+        <span class="footer__copyright">本站由 <a href="http://yufei.ren">@halfrost</a> 创建，采用 <a href="https://github.com/onevcat/vno-jekyll">Vno - Jekyll</a> 作为主题，您可以在 GitHub 找到<a href="https://github.com/onevcat/OneV-s-Den">本站源码</a> - &copy; 2016</span>
+    </footer>
+</section>
+
+        </div>
+    </div>
+    
+    <script type="text/javascript" src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+
+<script type="text/javascript" src="/js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+<script type="text/javascript" src="/js/main.js"></script>
+
+
+
+    
+  </body>
+
+</html>
