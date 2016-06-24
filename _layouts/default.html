@@ -5,25 +5,19 @@
 
   <body>
 
+
+
     <span class="mobile btn-mobile-menu">
         <i class="fa fa-list btn-mobile-menu__icon"></i>
         <i class="fa fa-angle-up btn-mobile-close__icon hidden"></i>
     </span>
     
-    {% include side-panel.html %}
 
+    {% include side-panel.html %}
     <div class="content-wrapper">
         <div class="content-wrapper__inner">
             {{ content }}
-            {% include footer.html %}
-        </div>
-    </div>
-    
-    {% include external.html %}
-    
-  </body>
-
-<!-- 多说评论框 start -->
+                        <!-- 多说评论框 start -->
     <div class="ds-thread" data-thread-key={{ page.id }} data-title={{ page.title }}data-url=your web site/{{ page.url }}></div>
 <!-- 多说评论框 end -->
 <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
@@ -39,4 +33,13 @@ var duoshuoQuery = {short_name:"renyufei8023"};
     })();
     </script>
 <!-- 多说公共JS代码 end -->
+            {% include footer.html %}
+        </div>
+    </div>
+    
+    {% include external.html %}
+    
+
+  </body>
+
 </html>
