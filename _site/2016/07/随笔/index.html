@@ -6,17 +6,17 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <title>使用UIStoryBoard给UITableView添加HeadView</title>
-  <meta name="description" content="#使用UIStoryBoard给UITableView添加HeadView">
+  <title>生活随笔</title>
+  <meta name="description" content="最近一个星期有点浮躁，基本上没有怎么学习，看电视看电影基本上也没有，大部分时间都在发呆中度过了,几天之前我更新了一下qq个性签名，我以为没人关注呢，好在今天晚上有人问我怎么回事。">
   <meta name="author" content="Wei Wang">
 
   <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="使用UIStoryBoard给UITableView添加HeadView">
-  <meta name="twitter:description" content="#使用UIStoryBoard给UITableView添加HeadView">
+  <meta name="twitter:title" content="生活随笔">
+  <meta name="twitter:description" content="最近一个星期有点浮躁，基本上没有怎么学习，看电视看电影基本上也没有，大部分时间都在发呆中度过了,几天之前我更新了一下qq个性签名，我以为没人关注呢，好在今天晚上有人问我怎么回事。">
 
   <meta property="og:type" content="article">
-  <meta property="og:title" content="使用UIStoryBoard给UITableView添加HeadView">
-  <meta property="og:description" content="#使用UIStoryBoard给UITableView添加HeadView">
+  <meta property="og:title" content="生活随笔">
+  <meta property="og:description" content="最近一个星期有点浮躁，基本上没有怎么学习，看电视看电影基本上也没有，大部分时间都在发呆中度过了,几天之前我更新了一下qq个性签名，我以为没人关注呢，好在今天晚上有人问我怎么回事。">
 
   <link rel="icon" type="image/ico" href="/assets/images/favicon.ico" />
   <link href="/assets/images/favicon.ico" rel="shortcut icon" type="image/ico">
@@ -24,7 +24,7 @@
   <link rel="stylesheet" href="/css/main.css">
   <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 
-  <link rel="canonical" href="http://vno.onevcat.com/2015/12/%E4%BD%BF%E7%94%A8UIStoryBoard%E7%BB%99UITableView%E6%B7%BB%E5%8A%A0HeadView/">
+  <link rel="canonical" href="http://vno.onevcat.com/2016/07/%E9%9A%8F%E7%AC%94/">
   <link rel="alternate" type="application/rss+xml" title="上善若水，人淡如菊" href="http://vno.onevcat.com/feed.xml">
 
   <meta name="google-site-verification" content="1-1ZlHoRvM0T2FqPbW2S-qLgYXN6rsn52kErlMPd_gw" />
@@ -144,27 +144,25 @@
             <article class="post-container post-container--single" itemscope itemtype="http://schema.org/BlogPosting">
   <header class="post-header">
     <div class="post-meta">
-      <time datetime="2015-12-03 15:28:32 +0800" itemprop="datePublished" class="post-meta__date date">2015-12-03</time> &#8226; <span class="post-meta__tags tags">Blog</span>
+      <time datetime="2016-07-02 23:14:32 +0800" itemprop="datePublished" class="post-meta__date date">2016-07-02</time> &#8226; <span class="post-meta__tags tags">Blog</span>
     </div>
-    <h1 class="post-title">使用UIStoryBoard给UITableView添加HeadView</h1>
+    <h1 class="post-title">生活随笔</h1>
   </header>
 
   <section class="post">
-    <p>#使用UIStoryBoard给UITableView添加HeadView</p>
+    <p>最近一个星期有点浮躁，基本上没有怎么学习，看电视看电影基本上也没有，大部分时间都在发呆中度过了,几天之前我更新了一下qq个性签名，我以为没人关注呢，好在今天晚上有人问我怎么回事。</p>
 
-<p>###使用UIStoryBoard给UITableView添加HeadView
-可以直接拖动一个UITableViewController 上去，默认就会有一个prototype cell. 如果UITableViewController 不能满足你的需要，也可以使用UIViewController + UITableView 的组合。步骤：</p>
+<p>这周二和一个朋友吃饭，聊了很多很多，好久没有一起吃饭了，上次已然是两个多月以前了，这次吃饭总共花了三个小时左右，喝了七瓶酒，之前从未喝过那么多，他比我小一岁，但是思想要比我成熟的多，知足者常乐这句话放在他身上真的比较合适，他一个北京野鸡大学毕业的，混到现在其实也挺好的。他对于工作，感情等方面认识还是比较清楚的。我说我已经不知道喜欢一个人是什么感觉了，他说他对爱情还是充满希望的，就算之前受过很深的伤，他依然相信未来有个人等着他，那个人是值得他去爱的，是专属于他的。我觉得可能就是这样的。</p>
 
-<ol>
-  <li>
-    <p>在UIViewController 上拖动一个UITableView。看起来像这样
-[<img src="http://img.bbs.csdn.net/upload/201504/14/1428973805_630689.png" alt="alt text" title="title" /></p>
-  </li>
-  <li>再拖一个UITableViewCell 到 UITableView 
-[<img src="http://upload-images.jianshu.io/upload_images/301240-7e2dffc1c73c29f4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Alt text" /></li>
-  <li>拖一个UIView放到prototype cell的上面，即headerview 
-[<img src="http://upload-images.jianshu.io/upload_images/301240-dbb05731a98bf952.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Alt text" />]</li>
-</ol>
+<p>今天晚上看了最新的一期《极限挑战》，后来他们都化了妆都是老年人了，王迅走路遇到跳广场舞的一群老年人，然后就加入进去了，看到这一幕我竟然有点向往这样的日子，可能是我已经不喜欢在帝都的生活了，就想去一个小城市过着安稳的日子，可以一起上班，下班的时候我去接她，每天晚上下班以后我给她做饭(或者她给我做，哈哈哈)，吃完饭之后我可以牵着她的手去外面街上溜达溜达，我们养一条狗，每天都去外面遛狗。希望这个可以早点实现。</p>
+
+<p>我现在好像和以前上学的时候不一样了，现在懒得去和别人(女的)聊天，每天最多的就是和一个好基友天天的扯淡。记得上大学的时候好友最近联系列表里面都是女的，那时候可以堪称情感大师了，不管是感情方面的还是其他的她们都会问问我的意见，然而我现在的情商低的他妈的吓人。。。以致于我现在还是单身(哈哈哈哈),还有可能就是我们都已经长大了，有些事情不想再向别人说，只想埋在自己的心里面。</p>
+
+<p>关于喜欢这件事情我真想问问我自己，到底还会不会喜欢人了，上次基友问我，我他妈的回答的都是明星，而且都是男明星。。。我也是醉了，我想我还是会喜欢人的，只是感觉不是非常的强烈，就像上次朋友让我看前前女友照片，我竟然说是她的闺蜜(她养了好几条狗，还把萨姆耶给卖了。。。)，我喜欢她这件事已经好几个人知道了，但是我不知道怎么去试着联系她，如果真的在一起的话那么又是异地恋。现在的我比之前已经成熟的很多了，很多事情都会考虑很多方面。</p>
+
+<p>记得上次给家里面打电话时上个周日，然而这还没有一个星期的时间，我妈妈就给我打电话，电话打不通，然后就让我妹妹用qq给我语音，她说她想我了，我说:”以前上学的时候一个月还不打一次电话，那时候也没有说过想我”。我觉得可能是他们怕我在外面吃苦吧，上次回家是五一的时候，这才两个月没回去，我妈就想让我回家玩两天，是不是我还没有长大。等考了科目二之后就回家一趟，还真的有点想家了呢。</p>
+
+<p>最后还有好基友要回来了，这件事应该算是最高兴的事了吧，终于可以换一种环境了，不管是工作还是住的地方，或许离找到女朋友也不远了。</p>
 
 
   </section>
@@ -173,21 +171,13 @@
 <section class="read-more">
    
    
-   <div class="read-more-item">
-       <span class="read-more-item-dim">最近的文章</span>
-       <h2 class="post-list__post-title post-title"><a href="/2015/12/CGAffineTransform%E7%9B%B8%E5%85%B3%E5%87%BD%E6%95%B0/" title="link to CGAffineTransform相关函数">CGAffineTransform相关函数</a></h2>
-       <p class="excerpt">#CGAffineTransform相关函数###CGAffineTransform相关函数* CGAffineTransformMakeTranslation(CGFloat tx,  CGFloat ty);是改变位置的，* CGAffineTransformRotate(CGAffineTransform t,  CGFloat angle)旋转，需要传入一个transform和一个角度* CGAffineTransformMakeRotation(CGFloat angle)旋转的...&hellip;</p>
-       <div class="post-list__meta"><time datetime="2015-12-07 14:23:32 +0800" class="post-list__meta--date date">2015-12-07</time> &#8226; <span class="post-list__meta--tags tags">Blog</span><a class="btn-border-small" href=/2015/12/CGAffineTransform%E7%9B%B8%E5%85%B3%E5%87%BD%E6%95%B0/>继续阅读</a></div>
-   </div>
-   
-   
    
    
    <div class="read-more-item">
        <span class="read-more-item-dim">更早的文章</span>
-       <h2 class="post-list__post-title post-title"><a href="/2015/11/UIImage%E8%BD%AC%E6%8D%A2NSData%E7%84%B6%E5%90%8E%E8%BD%AC%E6%8D%A2NSString%E7%9A%84%E6%97%B6%E5%80%99%E4%B8%BAnil%E7%9A%84%E9%97%AE%E9%A2%98/" title="link to UIImage转换NSData然后转换NSString的时候为nil的问题">UIImage转换NSData然后转换NSString的时候为nil的问题</a></h2>
-       <p class="excerpt">#UIImage转换NSData然后转换NSString的时候为nil的问题今天在项目当中需要把UIImage转换成NSString，然后和普通的POST请求一样，把代码上传到服务器上面，刚开始后台返回success，然后让php人员看了下是否成功了，然后他那边显示是没有的。于是我自己打断点调试看了下，转换后的字符串为nil，后来经过搜索说是编码的问题，然后换了一种编码也还是不行，最后找到了这个方法，虽说不是什么技术性问题，但也有记录下的必要，以免以后忘记。//图片转字符串  -(NSSt...&hellip;</p>
-       <div class="post-list__meta"><time datetime="2015-11-10 20:57:32 +0800" class="post-list__meta--date date">2015-11-10</time> &#8226; <span class="post-list__meta--tags tags">Blog</span><a class="btn-border-small" href=/2015/11/UIImage%E8%BD%AC%E6%8D%A2NSData%E7%84%B6%E5%90%8E%E8%BD%AC%E6%8D%A2NSString%E7%9A%84%E6%97%B6%E5%80%99%E4%B8%BAnil%E7%9A%84%E9%97%AE%E9%A2%98/>继续阅读</a></div>
+       <h2 class="post-list__post-title post-title"><a href="/2016/06/%E4%BB%BB%E7%8E%89%E9%A3%9E/" title="link to 平行宇宙">平行宇宙</a></h2>
+       <p class="excerpt">我梦见我轻盈自由的腾空     随后画面切到我背着你遨游    你眼睛开始闪烁点点星光    可能是美梦来的太突然了吧     那时候在一起的时间很多     只不过珍惜的意义还没搞懂    虽然说 如今已然分开很久    有时候还是不经意想你的笑容   深爱过 所以没有再联络     不回头 因为勉强的笑很难受    深爱过 真心感谢你陪我度过   那几年 苦中有甜的生活    床头柜躺着一本老旧相册   也就是闲极的时候才翻一翻   还养着你走时留下的小狗   长大后它心事重重不太活泼...&hellip;</p>
+       <div class="post-list__meta"><time datetime="2016-06-27 13:07:32 +0800" class="post-list__meta--date date">2016-06-27</time> &#8226; <span class="post-list__meta--tags tags">Blog</span><a class="btn-border-small" href=/2016/06/%E4%BB%BB%E7%8E%89%E9%A3%9E/>继续阅读</a></div>
    </div>
    
 </section>
@@ -196,7 +186,7 @@
 
 
                         <!-- 多说评论框 start -->
-    <div class="ds-thread" data-thread-key=/2015/12/使用UIStoryBoard给UITableView添加HeadView data-title=使用UIStoryBoard给UITableView添加HeadViewdata-url=your web site//2015/12/%E4%BD%BF%E7%94%A8UIStoryBoard%E7%BB%99UITableView%E6%B7%BB%E5%8A%A0HeadView/></div>
+    <div class="ds-thread" data-thread-key=/2016/07/随笔 data-title=生活随笔data-url=your web site//2016/07/%E9%9A%8F%E7%AC%94/></div>
 <!-- 多说评论框 end -->
 <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 <script type="text/javascript">
