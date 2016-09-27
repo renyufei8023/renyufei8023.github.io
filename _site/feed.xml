@@ -5,8 +5,8 @@
     <description>嗨，我是任玉飞 (@Raphcel)，一名走在iOS开发路上的从业者，努力成为一个全栈工程师，爱好唱歌，以及所有与音乐有关的事情。目前在北京工作。吾笃信：认真你就赢了。</description>
     <link>http://vno.onevcat.com/</link>
     <atom:link href="http://vno.onevcat.com/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Tue, 27 Sep 2016 17:46:05 +0800</pubDate>
-    <lastBuildDate>Tue, 27 Sep 2016 17:46:05 +0800</lastBuildDate>
+    <pubDate>Tue, 27 Sep 2016 17:48:56 +0800</pubDate>
+    <lastBuildDate>Tue, 27 Sep 2016 17:48:56 +0800</lastBuildDate>
     <generator>Jekyll v3.1.6</generator>
     
       <item>
@@ -433,85 +433,79 @@ thread.threadPriority = 1.0; ```
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-&lt;p&gt;（3）相关代码
-```objc
-//提供一个static修饰的全局变量，强引用着已经实例化的单例对象实例
-static XMGTools *_instance;&lt;/p&gt;
+&lt;p&gt;（3）相关代码&lt;/p&gt;
 
-&lt;p&gt;//类方法，返回一个单例对象
-+(instancetype)shareTools
-{
-     //注意：这里建议使用self,而不是直接使用类名Tools（考虑继承）&lt;/p&gt;
+&lt;div class=&quot;language-objc highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;//提供一个static修饰的全局变量，强引用着已经实例化的单例对象实例
+&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;XMGTools&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;_instance&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;return [[self alloc]init]; }
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;span class=&quot;c1&quot;&gt;//类方法，返回一个单例对象
+&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;instancetype&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;shareTools&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+     &lt;span class=&quot;c1&quot;&gt;//注意：这里建议使用self,而不是直接使用类名Tools（考虑继承）
+&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;self&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;alloc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;init&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
 
-&lt;p&gt;//保证永远只分配一次存储空间
-+(instancetype)allocWithZone:(struct _NSZone *)zone
-{
-    //使用GCD中的一次性代码
+&lt;span class=&quot;c1&quot;&gt;//保证永远只分配一次存储空间
+&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;instancetype&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;allocWithZone&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;struct&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_NSZone&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;zone&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;//使用GCD中的一次性代码
 //    static dispatch_once_t onceToken;
 //    dispatch_once(&amp;amp;onceToken, ^{
 //        _instance = [super allocWithZone:zone];
-//    });&lt;/p&gt;
+//    });
+&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;//使用加锁的方式，保证只分配一次存储空间
+&lt;/span&gt;    &lt;span class=&quot;k&quot;&gt;@synchronized&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;_instance&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;nil&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;_instance&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;super&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;allocWithZone&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;zone&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_instance&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;//使用加锁的方式，保证只分配一次存储空间
-@synchronized(self) {
-    if (_instance == nil) {
-        _instance = [super allocWithZone:zone];
-    }
-}
-return _instance; }
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;span class=&quot;c1&quot;&gt;//让代码更加的严谨
+&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;nonnull&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;copyWithZone&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;nullable&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;NSZone&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;zone&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;//    return [[self class] allocWithZone:zone];
+&lt;/span&gt;    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_instance&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
 
-&lt;p&gt;//让代码更加的严谨
--(nonnull id)copyWithZone:(nullable NSZone *)zone
-{
-//    return [[self class] allocWithZone:zone];
-    return _instance;
-}&lt;/p&gt;
+&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;nonnull&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;mutableCopyWithZone&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;nullable&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;NSZone&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;zone&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_instance&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
 
-&lt;p&gt;-(nonnull id)mutableCopyWithZone:(nullable NSZone *)zone
-{
-    return _instance;
-}&lt;/p&gt;
-
-&lt;p&gt;//在MRC环境下，如果用户retain了一次，那么直接返回instance变量，不对引用计数器+1
+&lt;span class=&quot;c1&quot;&gt;//在MRC环境下，如果用户retain了一次，那么直接返回instance变量，不对引用计数器+1
 //如果用户release了一次，那么什么都不做，因为单例模式在整个程序运行过程中都拥有且只有一份，程序退出之后被释放，所以不需要对引用计数器操作
--(oneway void)release
-{
-}&lt;/p&gt;
+&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;oneway&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;release&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
 
-&lt;p&gt;-(instancetype)retain
-{
-    return _instance;
-}&lt;/p&gt;
+&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;instancetype&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;retain&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_instance&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
 
-&lt;p&gt;//惯用法，有经验的程序员通过打印retainCount这个值可以猜到这是一个单例
--(NSUInteger)retainCount
-{
-    return MAXFLOAT;
-}&lt;/p&gt;
+&lt;span class=&quot;c1&quot;&gt;//惯用法，有经验的程序员通过打印retainCount这个值可以猜到这是一个单例
+&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;NSUInteger&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;retainCount&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;MAXFLOAT&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;- 1.4 通用版本
-
-（1）有意思的对话
-
-    01 问:写一份单例代码在ARC和MRC环境下都适用？
-    答：可以使用条件编译来判断当前项目环境是ARC还是MRC
-    02 问:条件编译的代码呢，么么哒？
-```objc
-//答：条件编译
-#if __has_feature(objc_arc)
-//如果是ARC，那么就执行这里的代码1
-#else
-//如果不是ARC，那么就执行代理的代码2
-#endif
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;03 问：在项目里面往往需要实现很多的单例，比如下载、网络请求、音乐播放等等，弱弱的问一句单例可以用继承吗？
+
+&lt;ul&gt;
+  &lt;li&gt;1.4 通用版本&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;（1）有意思的对话&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;01 问:写一份单例代码在ARC和MRC环境下都适用？
+答：可以使用条件编译来判断当前项目环境是ARC还是MRC
+02 问:条件编译的代码呢，么么哒？ ```objc //答：条件编译 #if __has_feature(objc_arc) //如果是ARC，那么就执行这里的代码1 #else //如果不是ARC，那么就执行代理的代码2 #endif ```
+03 问：在项目里面往往需要实现很多的单例，比如下载、网络请求、音乐播放等等，弱弱的问一句单例可以用继承吗？
 答：单例是不可以用继承的，如果想一次写就，四处使用，那么推荐亲使用带参数的宏定义啦！
 04 问：宏定义怎么弄？
 答：这个嘛~~回头看一眼我的代码咯，亲。
@@ -525,8 +519,10 @@ return _instance; }
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-&lt;p&gt;###2.NSOperation
-- 2.1 NSOperation基本使用&lt;/p&gt;
+&lt;h3 id=&quot;nsoperation&quot;&gt;2.NSOperation&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;2.1 NSOperation基本使用&lt;/li&gt;
+&lt;/ul&gt;
 
 &lt;p&gt;（1）相关概念&lt;/p&gt;
 
@@ -543,207 +539,216 @@ return _instance; }
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-&lt;p&gt;（3）相关代码
-```objc
-//  01 NSInvocationOperation
-    //1.封装操作
-    /*
+&lt;p&gt;（3）相关代码&lt;/p&gt;
+
+&lt;div class=&quot;language-objc highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;//  01 NSInvocationOperation
+&lt;/span&gt;    &lt;span class=&quot;c1&quot;&gt;//1.封装操作
+&lt;/span&gt;    &lt;span class=&quot;cm&quot;&gt;/*
      第一个参数：目标对象
      第二个参数：该操作要调用的方法，最多接受一个参数
      第三个参数：调用方法传递的参数，如果方法不接受参数，那么该值传nil
-     */
-    NSInvocationOperation *operation = [[NSInvocationOperation alloc]
-                                        initWithTarget:self selector:@selector(run) object:nil];&lt;/p&gt;
+     */&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;NSInvocationOperation&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;operation&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;NSInvocationOperation&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;alloc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+                                        &lt;span class=&quot;nf&quot;&gt;initWithTarget&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;self&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;selector&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;@selector&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;run&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;object&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;nil&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;//2.启动操作
-[operation start]; -------------------------------------------------
-//  02 NSBlockOperation
-//1.封装操作
-/*
- NSBlockOperation提供了一个类方法，在该类方法中封装操作
- */
-NSBlockOperation *operation = [NSBlockOperation blockOperationWithBlock:^{
-    //在主线程中执行
-    NSLog(@&quot;---download1--%@&quot;,[NSThread currentThread]);
-}];
+    &lt;span class=&quot;c1&quot;&gt;//2.启动操作
+&lt;/span&gt;    &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;operation&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;start&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;-------------------------------------------------&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;//  02 NSBlockOperation
+&lt;/span&gt;    &lt;span class=&quot;c1&quot;&gt;//1.封装操作
+&lt;/span&gt;    &lt;span class=&quot;cm&quot;&gt;/*
+     NSBlockOperation提供了一个类方法，在该类方法中封装操作
+     */&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;NSBlockOperation&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;operation&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;NSBlockOperation&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;blockOperationWithBlock&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;^&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;c1&quot;&gt;//在主线程中执行
+&lt;/span&gt;        &lt;span class=&quot;n&quot;&gt;NSLog&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;@&quot;---download1--%@&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;NSThread&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;currentThread&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]);&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}];&lt;/span&gt;
 
-//2.追加操作，追加的操作在子线程中执行
-[operation addExecutionBlock:^{
-    NSLog(@&quot;---download2--%@&quot;,[NSThread currentThread]);
-}];
+    &lt;span class=&quot;c1&quot;&gt;//2.追加操作，追加的操作在子线程中执行
+&lt;/span&gt;    &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;operation&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;addExecutionBlock&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;^&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;NSLog&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;@&quot;---download2--%@&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;NSThread&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;currentThread&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]);&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}];&lt;/span&gt;
 
-[operation addExecutionBlock:^{
-     NSLog(@&quot;---download3--%@&quot;,[NSThread currentThread]);
-}];
+    &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;operation&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;addExecutionBlock&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;^&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+         &lt;span class=&quot;n&quot;&gt;NSLog&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;@&quot;---download3--%@&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;NSThread&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;currentThread&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]);&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}];&lt;/span&gt;
 
-//3.启动执行操作
-[operation start];
+    &lt;span class=&quot;c1&quot;&gt;//3.启动执行操作
+&lt;/span&gt;    &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;operation&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;start&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+
+&lt;span class=&quot;o&quot;&gt;----------------------------------------------&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;// 03 自定义NSOperation
+&lt;/span&gt;    &lt;span class=&quot;c1&quot;&gt;//如何封装操作？
+&lt;/span&gt;    &lt;span class=&quot;c1&quot;&gt;//自定义的NSOperation,通过重写内部的main方法实现封装操作
+&lt;/span&gt;    &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;main&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;NSLog&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;@&quot;--main--%@&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;NSThread&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;currentThread&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]);&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;c1&quot;&gt;//如何使用？
+&lt;/span&gt;    &lt;span class=&quot;c1&quot;&gt;//1.实例化一个自定义操作对象
+&lt;/span&gt;    &lt;span class=&quot;n&quot;&gt;XMGOperation&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;op&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;XMGOperation&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;alloc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;init&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+
+    &lt;span class=&quot;c1&quot;&gt;//2.执行操作
+&lt;/span&gt;    &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;op&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;start&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-&lt;hr /&gt;
-&lt;p&gt;// 03 自定义NSOperation
-    //如何封装操作？
-    //自定义的NSOperation,通过重写内部的main方法实现封装操作
-    -(void)main
-    {
-        NSLog(@”–main–%@”,[NSThread currentThread]);
-    }&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;//如何使用？
-//1.实例化一个自定义操作对象
-XMGOperation *op = [[XMGOperation alloc]init];
-
-//2.执行操作
-[op start]; ``` - 2.2 NSOperationQueue基本使用
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;ul&gt;
+  &lt;li&gt;2.2 NSOperationQueue基本使用&lt;/li&gt;
+&lt;/ul&gt;
 
 &lt;p&gt;（1）NSOperation中的两种队列&lt;/p&gt;
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;01 主队列 通过mainQueue获得，凡是放到主队列中的任务都将在主线程执行
-02 非主队列 直接alloc init出来的队列。非主队列同时具备了并发和串行的功能，通过设置最大并发数属性来控制任务是并发执行还是串行执行 （2）相关代码 ```objc //自定义NSOperation -(void)customOperation {
-//1.创建队列
-NSOperationQueue *queue = [[NSOperationQueue alloc]init];
-
-//2.封装操作
-//好处：1.信息隐蔽
-//2.代码复用
-
-XMGOperation *op1 = [[XMGOperation alloc]init];
-XMGOperation *op2 = [[XMGOperation alloc]init];
-
-//3.添加操作到队列中
-[queue addOperation:op1];
-[queue addOperation:op2]; }
+02 非主队列 直接alloc init出来的队列。非主队列同时具备了并发和串行的功能，通过设置最大并发数属性来控制任务是并发执行还是串行执行 （2）相关代码
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-&lt;p&gt;//NSBlockOperation
-- (void)block
-{
-    //1.创建队列
-    NSOperationQueue *queue = [[NSOperationQueue alloc]init];&lt;/p&gt;
+&lt;div class=&quot;language-objc highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;//自定义NSOperation
+&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;customOperation&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;//1.创建队列
+&lt;/span&gt;    &lt;span class=&quot;n&quot;&gt;NSOperationQueue&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;queue&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;NSOperationQueue&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;alloc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;init&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;//2.封装操作
-NSBlockOperation *op1 = [NSBlockOperation blockOperationWithBlock:^{
-    NSLog(@&quot;1----%@&quot;,[NSThread currentThread]);
-}];
+    &lt;span class=&quot;c1&quot;&gt;//2.封装操作
+&lt;/span&gt;    &lt;span class=&quot;c1&quot;&gt;//好处：1.信息隐蔽
+&lt;/span&gt;    &lt;span class=&quot;c1&quot;&gt;//2.代码复用
+&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;XMGOperation&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;op1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;XMGOperation&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;alloc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;init&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;XMGOperation&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;op2&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;XMGOperation&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;alloc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;init&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
 
-NSBlockOperation *op2 = [NSBlockOperation blockOperationWithBlock:^{
-    NSLog(@&quot;2----%@&quot;,[NSThread currentThread]);
+    &lt;span class=&quot;c1&quot;&gt;//3.添加操作到队列中
+&lt;/span&gt;    &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;queue&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;addOperation&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;op1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;queue&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;addOperation&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;op2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
 
-}];
+&lt;span class=&quot;c1&quot;&gt;//NSBlockOperation
+&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;block&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;//1.创建队列
+&lt;/span&gt;    &lt;span class=&quot;n&quot;&gt;NSOperationQueue&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;queue&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;NSOperationQueue&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;alloc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;init&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
 
-[op2 addExecutionBlock:^{
-    NSLog(@&quot;3----%@&quot;,[NSThread currentThread]);
-}];
+    &lt;span class=&quot;c1&quot;&gt;//2.封装操作
+&lt;/span&gt;    &lt;span class=&quot;n&quot;&gt;NSBlockOperation&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;op1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;NSBlockOperation&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;blockOperationWithBlock&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;^&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;NSLog&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;@&quot;1----%@&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;NSThread&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;currentThread&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]);&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}];&lt;/span&gt;
 
-[op2 addExecutionBlock:^{
-    NSLog(@&quot;4----%@&quot;,[NSThread currentThread]);
-}];
+    &lt;span class=&quot;n&quot;&gt;NSBlockOperation&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;op2&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;NSBlockOperation&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;blockOperationWithBlock&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;^&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;NSLog&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;@&quot;2----%@&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;NSThread&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;currentThread&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]);&lt;/span&gt;
 
-//3.添加操作到队列中
-[queue addOperation:op1];
-[queue addOperation:op2];
+    &lt;span class=&quot;p&quot;&gt;}];&lt;/span&gt;
 
-//补充：简便方法
-[queue addOperationWithBlock:^{
-    NSLog(@&quot;5----%@&quot;,[NSThread currentThread]);
-}];
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+    &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;op2&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;addExecutionBlock&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;^&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;NSLog&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;@&quot;3----%@&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;NSThread&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;currentThread&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]);&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}];&lt;/span&gt;
 
-&lt;p&gt;}&lt;/p&gt;
+    &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;op2&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;addExecutionBlock&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;^&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;NSLog&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;@&quot;4----%@&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;NSThread&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;currentThread&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]);&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}];&lt;/span&gt;
 
-&lt;p&gt;//NSInvocationOperation
-- (void)invocation
-{
-    /*
+    &lt;span class=&quot;c1&quot;&gt;//3.添加操作到队列中
+&lt;/span&gt;    &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;queue&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;addOperation&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;op1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;queue&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;addOperation&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;op2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+
+    &lt;span class=&quot;c1&quot;&gt;//补充：简便方法
+&lt;/span&gt;    &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;queue&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;addOperationWithBlock&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;^&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;NSLog&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;@&quot;5----%@&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;NSThread&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;currentThread&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]);&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}];&lt;/span&gt;
+
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;//NSInvocationOperation
+&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;invocation&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;cm&quot;&gt;/*
      GCD中的队列：
      串行队列：自己创建的，主队列
-     并发队列：自己创建的，全局并发队列&lt;/p&gt;
+     并发队列：自己创建的，全局并发队列
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; NSOperationQueue
- 主队列：[NSOperationQueue mainqueue];凡事放在主队列中的操作都在主线程中执行
- 非主队列：[[NSOperationQueue alloc]init]，并发和串行，默认是并发执行的
- */
+     NSOperationQueue
+     主队列：[NSOperationQueue mainqueue];凡事放在主队列中的操作都在主线程中执行
+     非主队列：[[NSOperationQueue alloc]init]，并发和串行，默认是并发执行的
+     */&lt;/span&gt;
 
-//1.创建队列
-NSOperationQueue *queue = [[NSOperationQueue alloc]init];
+    &lt;span class=&quot;c1&quot;&gt;//1.创建队列
+&lt;/span&gt;    &lt;span class=&quot;n&quot;&gt;NSOperationQueue&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;queue&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;NSOperationQueue&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;alloc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;init&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
 
-//2.封装操作
-NSInvocationOperation *op1 = [[NSInvocationOperation alloc]initWithTarget:self selector:@selector(download1) object:nil];
+    &lt;span class=&quot;c1&quot;&gt;//2.封装操作
+&lt;/span&gt;    &lt;span class=&quot;n&quot;&gt;NSInvocationOperation&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;op1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;NSInvocationOperation&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;alloc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;initWithTarget&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;self&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;selector&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;@selector&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;download1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;object&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;nil&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
 
-NSInvocationOperation *op2 = [[NSInvocationOperation alloc]initWithTarget:self selector:@selector(download2) object:nil];
-
-
-NSInvocationOperation *op3 = [[NSInvocationOperation alloc]initWithTarget:self selector:@selector(download3) object:nil];
+    &lt;span class=&quot;n&quot;&gt;NSInvocationOperation&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;op2&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;NSInvocationOperation&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;alloc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;initWithTarget&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;self&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;selector&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;@selector&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;download2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;object&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;nil&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
 
 
-//3.把封装好的操作添加到队列中
-[queue addOperation:op1];//[op1 start]
-[queue addOperation:op2];
-[queue addOperation:op3]; }
+    &lt;span class=&quot;n&quot;&gt;NSInvocationOperation&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;op3&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;NSInvocationOperation&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;alloc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;initWithTarget&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;self&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;selector&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;@selector&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;download3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;object&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;nil&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+
+
+    &lt;span class=&quot;c1&quot;&gt;//3.把封装好的操作添加到队列中
+&lt;/span&gt;    &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;queue&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;addOperation&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;op1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;//[op1 start]
+&lt;/span&gt;    &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;queue&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;addOperation&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;op2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;queue&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;addOperation&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;op3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;- 2.3 NSOperation其它用法
+&lt;ul&gt;
+  &lt;li&gt;2.3 NSOperation其它用法&lt;/li&gt;
+&lt;/ul&gt;
 
-（1）设置最大并发数【控制任务并发和串行】
-```objc
-//1.创建队列
-    NSOperationQueue *queue = [[NSOperationQueue alloc]init];
+&lt;p&gt;（1）设置最大并发数【控制任务并发和串行】&lt;/p&gt;
 
-    //2.设置最大并发数
-    //注意点：该属性需要在任务添加到队列中之前进行设置
-    //该属性控制队列是串行执行还是并发执行
-    //如果最大并发数等于1，那么该队列是串行的，如果大于1那么是并行的
-    //系统的最大并发数有个默认的值，为-1，如果该属性设置为0，那么不会执行任何任务
-    queue.maxConcurrentOperationCount = 2;
+&lt;div class=&quot;language-objc highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;//1.创建队列
+&lt;/span&gt;    &lt;span class=&quot;n&quot;&gt;NSOperationQueue&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;queue&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;NSOperationQueue&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;alloc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;init&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+
+    &lt;span class=&quot;c1&quot;&gt;//2.设置最大并发数
+&lt;/span&gt;    &lt;span class=&quot;c1&quot;&gt;//注意点：该属性需要在任务添加到队列中之前进行设置
+&lt;/span&gt;    &lt;span class=&quot;c1&quot;&gt;//该属性控制队列是串行执行还是并发执行
+&lt;/span&gt;    &lt;span class=&quot;c1&quot;&gt;//如果最大并发数等于1，那么该队列是串行的，如果大于1那么是并行的
+&lt;/span&gt;    &lt;span class=&quot;c1&quot;&gt;//系统的最大并发数有个默认的值，为-1，如果该属性设置为0，那么不会执行任何任务
+&lt;/span&gt;    &lt;span class=&quot;n&quot;&gt;queue&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;maxConcurrentOperationCount&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-&lt;p&gt;（2）暂停和恢复以及取消
-```objc
-    //设置暂停和恢复
-    //suspended设置为YES表示暂停，suspended设置为NO表示恢复
-    //暂停表示不继续执行队列中的下一个任务，暂停操作是可以恢复的
-    if (self.queue.isSuspended) {
-        self.queue.suspended = NO;
-    }else
-    {
-        self.queue.suspended = YES;
-    }&lt;/p&gt;
+&lt;p&gt;（2）暂停和恢复以及取消&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;//取消队列里面的所有操作
-//取消之后，当前正在执行的操作的下一个操作将不再执行，而且永远都不在执行，就像后面的所有任务都从队列里面移除了一样
-//取消操作是不可以恢复的
-[self.queue cancelAllOperations];
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;div class=&quot;language-objc highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    &lt;span class=&quot;c1&quot;&gt;//设置暂停和恢复
+&lt;/span&gt;    &lt;span class=&quot;c1&quot;&gt;//suspended设置为YES表示暂停，suspended设置为NO表示恢复
+&lt;/span&gt;    &lt;span class=&quot;c1&quot;&gt;//暂停表示不继续执行队列中的下一个任务，暂停操作是可以恢复的
+&lt;/span&gt;    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;queue&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;isSuspended&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;queue&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;suspended&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;NO&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;queue&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;suspended&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;YES&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
 
-&lt;p&gt;———自定义NSOperation取消操作————————–
--(void)main
-{
-    //耗时操作1
-    for (int i = 0; i&amp;lt;1000; i++) {
-        NSLog(@”任务1-%d–%@”,i,[NSThread currentThread]);
-    }
-    NSLog(@”+++++++++++++++++++++++++++++++++”);&lt;/p&gt;
+    &lt;span class=&quot;c1&quot;&gt;//取消队列里面的所有操作
+&lt;/span&gt;    &lt;span class=&quot;c1&quot;&gt;//取消之后，当前正在执行的操作的下一个操作将不再执行，而且永远都不在执行，就像后面的所有任务都从队列里面移除了一样
+&lt;/span&gt;    &lt;span class=&quot;c1&quot;&gt;//取消操作是不可以恢复的
+&lt;/span&gt;    &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;queue&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;cancelAllOperations&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;//苹果官方建议，每当执行完一次耗时操作之后，就查看一下当前队列是否为取消状态，如果是，那么就直接退出
-//好处是可以提高程序的性能
-if (self.isCancelled) {
-    return;
-}
+&lt;span class=&quot;o&quot;&gt;---------&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;自定义&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;NSOperation&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;取消操作&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;--------------------------&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;main&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;//耗时操作1
+&lt;/span&gt;    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;NSLog&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;@&quot;任务1-%d--%@&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;NSThread&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;currentThread&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]);&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;NSLog&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;@&quot;+++++++++++++++++++++++++++++++++&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
 
-//耗时操作2
-for (int i = 0; i&amp;lt;1000; i++) {
-    NSLog(@&quot;任务1-%d--%@&quot;,i,[NSThread currentThread]);
-}
+    &lt;span class=&quot;c1&quot;&gt;//苹果官方建议，每当执行完一次耗时操作之后，就查看一下当前队列是否为取消状态，如果是，那么就直接退出
+&lt;/span&gt;    &lt;span class=&quot;c1&quot;&gt;//好处是可以提高程序的性能
+&lt;/span&gt;    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;isCancelled&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
 
-NSLog(@&quot;+++++++++++++++++++++++++++++++++&quot;); } ```
+    &lt;span class=&quot;c1&quot;&gt;//耗时操作2
+&lt;/span&gt;    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;NSLog&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;@&quot;任务1-%d--%@&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;NSThread&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;currentThread&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]);&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;n&quot;&gt;NSLog&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;@&quot;+++++++++++++++++++++++++++++++++&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
@@ -751,98 +756,100 @@ NSLog(@&quot;+++++++++++++++++++++++++++++++++&quot;); } ```
   &lt;li&gt;2.4 NSOperation实现线程间通信&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;（1）开子线程下载图片
-```objc
- //1.创建队列
-    NSOperationQueue *queue = [[NSOperationQueue alloc]init];&lt;/p&gt;
+&lt;p&gt;（1）开子线程下载图片&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;//2.使用简便方法封装操作并添加到队列中
-[queue addOperationWithBlock:^{
+&lt;div class=&quot;language-objc highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; &lt;span class=&quot;c1&quot;&gt;//1.创建队列
+&lt;/span&gt;    &lt;span class=&quot;n&quot;&gt;NSOperationQueue&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;queue&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;NSOperationQueue&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;alloc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;init&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
 
-    //3.在该block中下载图片
-    NSURL *url = [NSURL URLWithString:@&quot;http://news.51sheyuan.com/uploads/allimg/111001/133442IB-2.jpg&quot;];
-    NSData *data = [NSData dataWithContentsOfURL:url];
-    UIImage *image = [UIImage imageWithData:data];
-    NSLog(@&quot;下载图片操作--%@&quot;,[NSThread currentThread]);
+    &lt;span class=&quot;c1&quot;&gt;//2.使用简便方法封装操作并添加到队列中
+&lt;/span&gt;    &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;queue&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;addOperationWithBlock&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;^&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
 
-    //4.回到主线程刷新UI
-    [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-        self.imageView.image = image;
-        NSLog(@&quot;刷新UI操作---%@&quot;,[NSThread currentThread]);
-    }];
-}];
+        &lt;span class=&quot;c1&quot;&gt;//3.在该block中下载图片
+&lt;/span&gt;        &lt;span class=&quot;n&quot;&gt;NSURL&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;url&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;NSURL&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;URLWithString&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;@&quot;http://news.51sheyuan.com/uploads/allimg/111001/133442IB-2.jpg&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;NSData&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;NSData&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;dataWithContentsOfURL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;url&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;UIImage&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;image&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;UIImage&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;imageWithData&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;NSLog&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;@&quot;下载图片操作--%@&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;NSThread&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;currentThread&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]);&lt;/span&gt;
+
+        &lt;span class=&quot;c1&quot;&gt;//4.回到主线程刷新UI
+&lt;/span&gt;        &lt;span class=&quot;p&quot;&gt;[[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;NSOperationQueue&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;mainQueue&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;addOperationWithBlock&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;^&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;imageView&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;image&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;image&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;NSLog&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;@&quot;刷新UI操作---%@&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;NSThread&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;currentThread&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]);&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;}];&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}];&lt;/span&gt;
+
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;（2）下载多张图片合成综合案例（设置操作依赖）
-```objc
-//02 综合案例
-- (void)download2
-{
-    NSLog(@&quot;----&quot;);
-    //1.创建队列
-    NSOperationQueue *queue = [[NSOperationQueue alloc]init];
+&lt;p&gt;（2）下载多张图片合成综合案例（设置操作依赖）&lt;/p&gt;
 
-    //2.封装操作下载图片1
-    NSBlockOperation *op1 = [NSBlockOperation blockOperationWithBlock:^{
+&lt;div class=&quot;language-objc highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;//02 综合案例
+&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;download2&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;NSLog&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;@&quot;----&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;//1.创建队列
+&lt;/span&gt;    &lt;span class=&quot;n&quot;&gt;NSOperationQueue&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;queue&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;NSOperationQueue&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;alloc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;init&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
 
-        NSURL *url = [NSURL URLWithString:@&quot;http://h.hiphotos.baidu.com/zhidao/pic/item/6a63f6246b600c3320b14bb3184c510fd8f9a185.jpg&quot;];
-        NSData *data = [NSData dataWithContentsOfURL:url];
+    &lt;span class=&quot;c1&quot;&gt;//2.封装操作下载图片1
+&lt;/span&gt;    &lt;span class=&quot;n&quot;&gt;NSBlockOperation&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;op1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;NSBlockOperation&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;blockOperationWithBlock&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;^&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
 
-        //拿到图片数据
-        self.image1 = [UIImage imageWithData:data];
-    }];
+        &lt;span class=&quot;n&quot;&gt;NSURL&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;url&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;NSURL&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;URLWithString&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;@&quot;http://h.hiphotos.baidu.com/zhidao/pic/item/6a63f6246b600c3320b14bb3184c510fd8f9a185.jpg&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;NSData&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;NSData&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;dataWithContentsOfURL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;url&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+
+        &lt;span class=&quot;c1&quot;&gt;//拿到图片数据
+&lt;/span&gt;        &lt;span class=&quot;n&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;image1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;UIImage&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;imageWithData&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}];&lt;/span&gt;
 
 
-    //3.封装操作下载图片2
-    NSBlockOperation *op2 = [NSBlockOperation blockOperationWithBlock:^{
-        NSURL *url = [NSURL URLWithString:@&quot;http://pic.58pic.com/58pic/13/87/82/27Q58PICYje_1024.jpg&quot;];
-        NSData *data = [NSData dataWithContentsOfURL:url];
+    &lt;span class=&quot;c1&quot;&gt;//3.封装操作下载图片2
+&lt;/span&gt;    &lt;span class=&quot;n&quot;&gt;NSBlockOperation&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;op2&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;NSBlockOperation&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;blockOperationWithBlock&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;^&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;NSURL&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;url&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;NSURL&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;URLWithString&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;@&quot;http://pic.58pic.com/58pic/13/87/82/27Q58PICYje_1024.jpg&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;NSData&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;NSData&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;dataWithContentsOfURL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;url&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
 
-        //拿到图片数据
-        self.image2 = [UIImage imageWithData:data];
-    }];
+        &lt;span class=&quot;c1&quot;&gt;//拿到图片数据
+&lt;/span&gt;        &lt;span class=&quot;n&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;image2&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;UIImage&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;imageWithData&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}];&lt;/span&gt;
 
-    //4.合成图片
-    NSBlockOperation *combine = [NSBlockOperation blockOperationWithBlock:^{
+    &lt;span class=&quot;c1&quot;&gt;//4.合成图片
+&lt;/span&gt;    &lt;span class=&quot;n&quot;&gt;NSBlockOperation&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;combine&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;NSBlockOperation&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;blockOperationWithBlock&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;^&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
 
-        //4.1 开启图形上下文
-        UIGraphicsBeginImageContext(CGSizeMake(200, 200));
+        &lt;span class=&quot;c1&quot;&gt;//4.1 开启图形上下文
+&lt;/span&gt;        &lt;span class=&quot;n&quot;&gt;UIGraphicsBeginImageContext&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;CGSizeMake&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;200&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;200&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;));&lt;/span&gt;
 
-        //4.2 画image1
-        [self.image1 drawInRect:CGRectMake(0, 0, 200, 100)];
+        &lt;span class=&quot;c1&quot;&gt;//4.2 画image1
+&lt;/span&gt;        &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;image1&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;drawInRect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;CGRectMake&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;200&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;100&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)];&lt;/span&gt;
 
-        //4.3 画image2
-        [self.image2 drawInRect:CGRectMake(0, 100, 200, 100)];
+        &lt;span class=&quot;c1&quot;&gt;//4.3 画image2
+&lt;/span&gt;        &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;image2&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;drawInRect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;CGRectMake&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;100&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;200&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;100&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)];&lt;/span&gt;
 
-        //4.4 根据图形上下文拿到图片数据
-        UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
-//        NSLog(@&quot;%@&quot;,image);
+        &lt;span class=&quot;c1&quot;&gt;//4.4 根据图形上下文拿到图片数据
+&lt;/span&gt;        &lt;span class=&quot;n&quot;&gt;UIImage&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;image&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;UIGraphicsGetImageFromCurrentImageContext&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;//        NSLog(@&quot;%@&quot;,image);
+&lt;/span&gt;
+        &lt;span class=&quot;c1&quot;&gt;//4.5 关闭图形上下文
+&lt;/span&gt;        &lt;span class=&quot;n&quot;&gt;UIGraphicsEndImageContext&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
 
-        //4.5 关闭图形上下文
-        UIGraphicsEndImageContext();
+        &lt;span class=&quot;c1&quot;&gt;//7.回到主线程刷新UI
+&lt;/span&gt;        &lt;span class=&quot;p&quot;&gt;[[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;NSOperationQueue&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;mainQueue&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;addOperationWithBlock&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;^&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;imageView&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;image&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;image&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;NSLog&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;@&quot;刷新UI---%@&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;NSThread&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;currentThread&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]);&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;}];&lt;/span&gt;
 
-        //7.回到主线程刷新UI
-        [[NSOperationQueue mainQueue]addOperationWithBlock:^{
-            self.imageView.image = image;
-            NSLog(@&quot;刷新UI---%@&quot;,[NSThread currentThread]);
-        }];
+    &lt;span class=&quot;p&quot;&gt;}];&lt;/span&gt;
 
-    }];
+    &lt;span class=&quot;c1&quot;&gt;//5.设置操作依赖
+&lt;/span&gt;    &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;combine&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;addDependency&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;op1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;combine&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;addDependency&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;op2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
 
-    //5.设置操作依赖
-    [combine addDependency:op1];
-    [combine addDependency:op2];
-
-    //6.添加操作到队列中执行
-    [queue addOperation:op1];
-    [queue addOperation:op2];
-    [queue addOperation:combine];
-    }
+    &lt;span class=&quot;c1&quot;&gt;//6.添加操作到队列中执行
+&lt;/span&gt;    &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;queue&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;addOperation&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;op1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;queue&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;addOperation&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;op2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;queue&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;addOperation&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;combine&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
-&lt;p&gt;###3.多图下载综合示例程序
-（1）涉及知识点&lt;/p&gt;
+
+&lt;h3 id=&quot;section-2&quot;&gt;3.多图下载综合示例程序&lt;/h3&gt;
+&lt;p&gt;（1）涉及知识点&lt;/p&gt;
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;     01 字典转模型
      02 存储数据到沙盒，从沙盒中加载数据
@@ -854,67 +861,64 @@ NSLog(@&quot;+++++++++++++++++++++++++++++++++&quot;); } ```
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-&lt;p&gt;###4.第三方框架&lt;/p&gt;
+&lt;h3 id=&quot;section-3&quot;&gt;4.第三方框架&lt;/h3&gt;
 
-&lt;p&gt;（1）SDWebImage基本使用
-```objc
-    01 设置imageView的图片
-    [cell.imageView sd_setImageWithURL:[NSURL URLWithString:app.icon] placeholderImage:[UIImage imageNamed:@”placehoder”]];&lt;/p&gt;
+&lt;p&gt;（1）SDWebImage基本使用&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;02 设置图片并计算下载进度
-   //下载并设置图片
-/*
- 第一个参数：要下载图片的url地址
- 第二个参数：设置该imageView的占位图片
- 第三个参数：传一个枚举值，告诉程序你下载图片的策略是什么
- 第一个block块：获取当前图片数据的下载进度
-     receivedSize：已经下载完成的数据大小
-     expectedSize：该文件的数据总大小
- 第二个block块：当图片下载完成之后执行该block中的代码
-     image:下载得到的图片数据
-     error:下载出现的错误信息
-     SDImageCacheType：图片的缓存策略（不缓存，内存缓存，沙盒缓存）
-     imageURL：下载的图片的url地址
- */
-[cell.imageView sd_setImageWithURL:[NSURL URLWithString:app.icon] placeholderImage:[UIImage imageNamed:@&quot;placehoder&quot;] options:SDWebImageRetryFailed progress:^(NSInteger receivedSize, NSInteger expectedSize) {
+&lt;div class=&quot;language-objc highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    &lt;span class=&quot;mo&quot;&gt;01&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;设置&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;imageView&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;的图片&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cell&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;imageView&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;sd_setImageWithURL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;NSURL&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;URLWithString&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;app&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;icon&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;placeholderImage&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;UIImage&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;imageNamed&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;@&quot;placehoder&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]];&lt;/span&gt;
 
-    //计算当前图片的下载进度
-    NSLog(@&quot;%.2f&quot;,1.0 *receivedSize / expectedSize);
+    &lt;span class=&quot;mo&quot;&gt;02&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;设置图片并计算下载进度&lt;/span&gt;
+       &lt;span class=&quot;c1&quot;&gt;//下载并设置图片
+&lt;/span&gt;    &lt;span class=&quot;cm&quot;&gt;/*
+     第一个参数：要下载图片的url地址
+     第二个参数：设置该imageView的占位图片
+     第三个参数：传一个枚举值，告诉程序你下载图片的策略是什么
+     第一个block块：获取当前图片数据的下载进度
+         receivedSize：已经下载完成的数据大小
+         expectedSize：该文件的数据总大小
+     第二个block块：当图片下载完成之后执行该block中的代码
+         image:下载得到的图片数据
+         error:下载出现的错误信息
+         SDImageCacheType：图片的缓存策略（不缓存，内存缓存，沙盒缓存）
+         imageURL：下载的图片的url地址
+     */&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cell&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;imageView&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;sd_setImageWithURL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;NSURL&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;URLWithString&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;app&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;icon&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;placeholderImage&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;UIImage&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;imageNamed&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;@&quot;placehoder&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;options&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;SDWebImageRetryFailed&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;progress&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:^&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;NSInteger&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;receivedSize&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;NSInteger&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;expectedSize&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
 
-} completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+        &lt;span class=&quot;c1&quot;&gt;//计算当前图片的下载进度
+&lt;/span&gt;        &lt;span class=&quot;n&quot;&gt;NSLog&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;@&quot;%.2f&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;receivedSize&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;expectedSize&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
 
-}];
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;completed&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:^&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;UIImage&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;image&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;NSError&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;error&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;SDImageCacheType&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cacheType&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;NSURL&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;imageURL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
 
-03 系统级内存警告如何处理（面试）
-//取消当前正在进行的所有下载操作
-[[SDWebImageManager sharedManager] cancelAll];
+    &lt;span class=&quot;p&quot;&gt;}];&lt;/span&gt;
 
-//清除缓存数据(面试)
-//cleanDisk：删除过期的文件数据，计算当前未过期的已经下载的文件数据的大小，如果发现该数据大小大于我们设置的最大缓存数据大小，那么程序内部会按照按文件数据缓存的时间从远到近删除，知道小于最大缓存数据为止。
+    &lt;span class=&quot;mo&quot;&gt;03&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;系统级内存警告如何处理（面试）&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;//取消当前正在进行的所有下载操作
+&lt;/span&gt;    &lt;span class=&quot;p&quot;&gt;[[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;SDWebImageManager&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;sharedManager&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;cancelAll&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
 
-//clearMemory:直接删除文件，重新创建新的文件夹
-//[[SDWebImageManager sharedManager].imageCache cleanDisk];
-[[SDWebImageManager sharedManager].imageCache clearMemory];
+    &lt;span class=&quot;c1&quot;&gt;//清除缓存数据(面试)
+&lt;/span&gt;    &lt;span class=&quot;c1&quot;&gt;//cleanDisk：删除过期的文件数据，计算当前未过期的已经下载的文件数据的大小，如果发现该数据大小大于我们设置的最大缓存数据大小，那么程序内部会按照按文件数据缓存的时间从远到近删除，知道小于最大缓存数据为止。
+&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;//clearMemory:直接删除文件，重新创建新的文件夹
+&lt;/span&gt;    &lt;span class=&quot;c1&quot;&gt;//[[SDWebImageManager sharedManager].imageCache cleanDisk];
+&lt;/span&gt;    &lt;span class=&quot;p&quot;&gt;[[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;SDWebImageManager&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;sharedManager&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;].&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;imageCache&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;clearMemory&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
 
-04 SDWebImage默认的缓存时间是1周
-05 如何播放gif图片
-/*
-5-1 把用户传入的gif图片-&amp;gt;NSData
-5-2 根据该Data创建一个图片数据源（NSData-&amp;gt;CFImageSourceRef）
-5-3 计算该数据源中一共有多少帧，把每一帧数据取出来放到图片数组中
-5-4 根据得到的数组+计算的动画时间-》可动画的image
-[UIImage animatedImageWithImages:images duration:duration];
-*/
+    &lt;span class=&quot;mo&quot;&gt;04&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;SDWebImage&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;默认的缓存时间是&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;周&lt;/span&gt;
+    &lt;span class=&quot;mo&quot;&gt;05&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;如何播放&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;gif&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;图片&lt;/span&gt;
+    &lt;span class=&quot;cm&quot;&gt;/*
+    5-1 把用户传入的gif图片-&amp;gt;NSData
+    5-2 根据该Data创建一个图片数据源（NSData-&amp;gt;CFImageSourceRef）
+    5-3 计算该数据源中一共有多少帧，把每一帧数据取出来放到图片数组中
+    5-4 根据得到的数组+计算的动画时间-》可动画的image
+    [UIImage animatedImageWithImages:images duration:duration];
+    */&lt;/span&gt;
 
-06 如何判断当前图片类型
-+ (NSString *)sd_contentTypeForImageData:(NSData *)data;
+    &lt;span class=&quot;mo&quot;&gt;06&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;如何判断当前图片类型&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;NSString&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sd_contentTypeForImageData&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;NSData&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
-
-&lt;p&gt;```
-（2）SDWebImage内部结构&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;1.png&quot; alt=&quot;PNG&quot; /&gt;&lt;/p&gt;
 
 </description>
         <pubDate>Tue, 27 Sep 2016 17:25:32 +0800</pubDate>
