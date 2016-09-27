@@ -7,16 +7,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
   <title>多线程</title>
-  <meta name="description" content="###1.基本概念- 1.1 进程">
+  <meta name="description" content="1.基本概念  1.1 进程">
   <meta name="author" content="Wei Wang">
 
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="多线程">
-  <meta name="twitter:description" content="###1.基本概念- 1.1 进程">
+  <meta name="twitter:description" content="1.基本概念  1.1 进程">
 
   <meta property="og:type" content="article">
   <meta property="og:title" content="多线程">
-  <meta property="og:description" content="###1.基本概念- 1.1 进程">
+  <meta property="og:description" content="1.基本概念  1.1 进程">
 
   <link rel="icon" type="image/ico" href="/assets/images/favicon.ico" />
   <link href="/assets/images/favicon.ico" rel="shortcut icon" type="image/ico">
@@ -150,15 +150,16 @@
   </header>
 
   <section class="post">
-    <p>###1.基本概念
-- 1.1 进程</p>
-
-<div class="highlighter-rouge"><pre class="highlight"><code>进程是指在系统中正在运行的一个应用程序。每个进程之间是独立的，每个进程均运行在其专用且受保护的内存空间内。
-</code></pre>
-</div>
-
+    <h3 id="section">1.基本概念</h3>
 <ul>
-  <li>1.2 线程</li>
+  <li>
+    <p>1.1 进程</p>
+
+    <p>进程是指在系统中正在运行的一个应用程序。每个进程之间是独立的，每个进程均运行在其专用且受保护的内存空间内。</p>
+  </li>
+  <li>
+    <p>1.2 线程</p>
+  </li>
 </ul>
 
 <p>（1）基本概念</p>
@@ -258,61 +259,78 @@
 
 <hr />
 
-<p>###2.pthread</p>
+<h3 id="pthread">2.pthread</h3>
 
-<p>（1）pthread的基本使用（需要包含头文件）
-<code class="highlighter-rouge">objc
-    //使用pthread创建线程
-   pthread_t thread;
-    NSString *name = @"wendingding";
-    //使用pthread创建线程
-    //第一个参数：线程对象地址
-    //第二个参数：线程属性
-    //第三个参数：指向函数的执行
-    //第四个参数：传递给该函数的参数
-    pthread_create(&amp;thread, NULL, run, (__bridge void *)(name));
-</code></p>
+<p>（1）pthread的基本使用（需要包含头文件）</p>
+
+<div class="language-objc highlighter-rouge"><pre class="highlight"><code>    <span class="c1">//使用pthread创建线程
+</span>   <span class="n">pthread_t</span> <span class="kr">thread</span><span class="p">;</span>
+    <span class="n">NSString</span> <span class="o">*</span><span class="n">name</span> <span class="o">=</span> <span class="s">@"wendingding"</span><span class="p">;</span>
+    <span class="c1">//使用pthread创建线程
+</span>    <span class="c1">//第一个参数：线程对象地址
+</span>    <span class="c1">//第二个参数：线程属性
+</span>    <span class="c1">//第三个参数：指向函数的执行
+</span>    <span class="c1">//第四个参数：传递给该函数的参数
+</span>    <span class="n">pthread_create</span><span class="p">(</span><span class="o">&amp;</span><span class="kr">thread</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">,</span> <span class="n">run</span><span class="p">,</span> <span class="p">(</span><span class="n">__bridge</span> <span class="kt">void</span> <span class="o">*</span><span class="p">)(</span><span class="n">name</span><span class="p">));</span>
+</code></pre>
+</div>
 
 <hr />
 
-<p>###3.NSThread
-（1）NSThread的基本使用
-```objc
-//第一种创建线程的方式：alloc init.
+<h3 id="nsthread">3.NSThread</h3>
+<p>（1）NSThread的基本使用</p>
+
+<div class="language-objc highlighter-rouge"><pre class="highlight"><code><span class="c1">//第一种创建线程的方式：alloc init.
 //特点：需要手动开启线程，可以拿到线程对象进行详细设置
-    //创建线程
-    /*
+</span>    <span class="c1">//创建线程
+</span>    <span class="cm">/*
      第一个参数：目标对象
      第二个参数：选择器，线程启动要调用哪个方法
      第三个参数：前面方法要接收的参数（最多只能接收一个参数，没有则传nil）
-     */
-    NSThread *thread = [[NSThread alloc]initWithTarget:self selector:@selector(run:) object:@”wendingding”];
-     //启动线程
-    [thread start];</p>
+     */</span>
+    <span class="n">NSThread</span> <span class="o">*</span><span class="kr">thread</span> <span class="o">=</span> <span class="p">[[</span><span class="n">NSThread</span> <span class="nf">alloc</span><span class="p">]</span><span class="nf">initWithTarget</span><span class="p">:</span><span class="n">self</span> <span class="nf">selector</span><span class="p">:</span><span class="k">@selector</span><span class="p">(</span><span class="n">run</span><span class="o">:</span><span class="p">)</span> <span class="n">object</span><span class="o">:</span><span class="s">@"wendingding"</span><span class="p">];</span>
+     <span class="c1">//启动线程
+</span>    <span class="p">[</span><span class="kr">thread</span> <span class="nf">start</span><span class="p">];</span>
 
-<p>//第二种创建线程的方式：分离出一条子线程
+<span class="c1">//第二种创建线程的方式：分离出一条子线程
 //特点：自动启动线程，无法对线程进行更详细的设置
-    /*
+</span>    <span class="cm">/*
      第一个参数：线程启动调用的方法
      第二个参数：目标对象
      第三个参数：传递给调用方法的参数
-     */
-    [NSThread detachNewThreadSelector:@selector(run:) toTarget:self withObject:@”我是分离出来的子线程”];</p>
+     */</span>
+    <span class="p">[</span><span class="n">NSThread</span> <span class="nf">detachNewThreadSelector</span><span class="p">:</span><span class="k">@selector</span><span class="p">(</span><span class="nf">run</span><span class="p">:)</span> <span class="n">toTarget</span><span class="o">:</span><span class="n">self</span> <span class="n">withObject</span><span class="o">:</span><span class="s">@"我是分离出来的子线程"</span><span class="p">];</span>
 
-<p>//第三种创建线程的方式：后台线程
+<span class="c1">//第三种创建线程的方式：后台线程
 //特点：自动启动县城，无法进行更详细设置
-[self performSelectorInBackground:@selector(run:) withObject:@”我是后台线程”];
-<code class="highlighter-rouge">
-（2）设置线程的属性
-</code>objc
+</span><span class="p">[</span><span class="n">self</span> <span class="nf">performSelectorInBackground</span><span class="p">:</span><span class="k">@selector</span><span class="p">(</span><span class="nf">run</span><span class="p">:)</span> <span class="n">withObject</span><span class="o">:</span><span class="s">@"我是后台线程"</span><span class="p">];</span>
+</code></pre>
+</div>
+<p>（2）设置线程的属性
+```objc
    //设置线程的属性
     //设置线程的名称
     thread.name = @”线程A”;</p>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>//设置线程的优先级,注意线程优先级的取值范围为0.0~1.0之间，1.0表示线程的优先级最高,如果不设置该值，那么理想状态下默认为0.5
-thread.threadPriority = 1.0; ``` （3）线程的状态（了解） ```objc //线程的各种状态：新建-就绪-运行-阻塞-死亡 //常用的控制线程状态的方法 [NSThread exit];//退出当前线程 [NSThread sleepForTimeInterval:2.0];//阻塞线程 [NSThread sleepUntilDate:[NSDate dateWithTimeIntervalSinceNow:2.0]];//阻塞线程 //注意：线程死了不能复生 ``` （4）线程安全
+thread.threadPriority = 1.0; ```
+</code></pre>
+</div>
 
-    01 前提：多个线程访问同一块资源会发生数据安全问题
+<p>（3）线程的状态（了解）</p>
+
+<div class="language-objc highlighter-rouge"><pre class="highlight"><code><span class="c1">//线程的各种状态：新建-就绪-运行-阻塞-死亡
+//常用的控制线程状态的方法
+</span><span class="p">[</span><span class="n">NSThread</span> <span class="nf">exit</span><span class="p">];</span><span class="c1">//退出当前线程
+</span><span class="p">[</span><span class="n">NSThread</span> <span class="nf">sleepForTimeInterval</span><span class="p">:</span><span class="mi">2</span><span class="p">.</span><span class="mi">0</span><span class="p">];</span><span class="c1">//阻塞线程
+</span><span class="p">[</span><span class="n">NSThread</span> <span class="nf">sleepUntilDate</span><span class="p">:[</span><span class="n">NSDate</span> <span class="nf">dateWithTimeIntervalSinceNow</span><span class="p">:</span><span class="mi">2</span><span class="p">.</span><span class="mi">0</span><span class="p">]];</span><span class="c1">//阻塞线程
+//注意：线程死了不能复生
+</span></code></pre>
+</div>
+
+<p>（4）线程安全</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>    01 前提：多个线程访问同一块资源会发生数据安全问题
     02 解决方案：加互斥锁
     03 相关代码：@synchronized(self){}
     04 专业术语-线程同步
@@ -320,52 +338,59 @@ thread.threadPriority = 1.0; ``` （3）线程的状态（了解） ```objc //�
 </code></pre>
 </div>
 
-<p>（5）线程间通信
-```objc
--(void)touchesBegan:(nonnull NSSet&lt;UITouch *&gt; *)touches withEvent:(nullable UIEvent *)event
-{
-//    [self download2];</p>
+<p>（5）线程间通信</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>//开启一条子线程来下载图片
-[NSThread detachNewThreadSelector:@selector(downloadImage) toTarget:self withObject:nil]; }
+<div class="language-objc highlighter-rouge"><pre class="highlight"><code><span class="k">-</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">touchesBegan</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n">NSSet</span><span class="o">&lt;</span><span class="n">UITouch</span> <span class="o">*&gt;</span> <span class="o">*</span><span class="p">)</span><span class="nv">touches</span> <span class="nf">withEvent</span><span class="p">:(</span><span class="n">nullable</span> <span class="n">UIEvent</span> <span class="o">*</span><span class="p">)</span><span class="nv">event</span>
+<span class="p">{</span>
+<span class="c1">//    [self download2];
+</span>
+    <span class="c1">//开启一条子线程来下载图片
+</span>    <span class="p">[</span><span class="n">NSThread</span> <span class="nf">detachNewThreadSelector</span><span class="p">:</span><span class="k">@selector</span><span class="p">(</span><span class="n">downloadImage</span><span class="p">)</span> <span class="nf">toTarget</span><span class="p">:</span><span class="n">self</span> <span class="n">withObject</span><span class="o">:</span><span class="nb">nil</span><span class="p">];</span>
+<span class="p">}</span>
+
+<span class="k">-</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">downloadImage</span>
+<span class="p">{</span>
+    <span class="c1">//1.确定要下载网络图片的url地址，一个url唯一对应着网络上的一个资源
+</span>    <span class="n">NSURL</span> <span class="o">*</span><span class="n">url</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSURL</span> <span class="nf">URLWithString</span><span class="p">:</span><span class="s">@"http://p6.qhimg.com/t01d2954e2799c461ab.jpg"</span><span class="p">];</span>
+
+    <span class="c1">//2.根据url地址下载图片数据到本地（二进制数据
+</span>    <span class="n">NSData</span> <span class="o">*</span><span class="n">data</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSData</span> <span class="nf">dataWithContentsOfURL</span><span class="p">:</span><span class="n">url</span><span class="p">];</span>
+
+    <span class="c1">//3.把下载到本地的二进制数据转换成图片
+</span>    <span class="n">UIImage</span> <span class="o">*</span><span class="n">image</span> <span class="o">=</span> <span class="p">[</span><span class="n">UIImage</span> <span class="nf">imageWithData</span><span class="p">:</span><span class="n">data</span><span class="p">];</span>
+
+    <span class="c1">//4.回到主线程刷新UI
+</span>    <span class="c1">//4.1 第一种方式
+//    [self performSelectorOnMainThread:@selector(showImage:) withObject:image waitUntilDone:YES];
+</span>
+    <span class="c1">//4.2 第二种方式
+//    [self.imageView performSelectorOnMainThread:@selector(setImage:) withObject:image waitUntilDone:YES];
+</span>
+    <span class="c1">//4.3 第三种方式
+</span>    <span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">imageView</span> <span class="nf">performSelector</span><span class="p">:</span><span class="k">@selector</span><span class="p">(</span><span class="nf">setImage</span><span class="p">:)</span> <span class="n">onThread</span><span class="o">:</span><span class="p">[</span><span class="n">NSThread</span> <span class="nf">mainThread</span><span class="p">]</span> <span class="n">withObject</span><span class="o">:</span><span class="n">image</span> <span class="n">waitUntilDone</span><span class="o">:</span><span class="nb">YES</span><span class="p">];</span>
+<span class="p">}</span>
 </code></pre>
 </div>
 
-<p>-(void)downloadImage
-{
-    //1.确定要下载网络图片的url地址，一个url唯一对应着网络上的一个资源
-    NSURL *url = [NSURL URLWithString:@”http://p6.qhimg.com/t01d2954e2799c461ab.jpg”];</p>
+<p>（6）如何计算代码段的执行时间</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>//2.根据url地址下载图片数据到本地（二进制数据
-NSData *data = [NSData dataWithContentsOfURL:url];
+<div class="language-objc highlighter-rouge"><pre class="highlight"><code><span class="c1">//第一种方法
+</span>    <span class="n">NSDate</span> <span class="o">*</span><span class="n">start</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSDate</span> <span class="nf">date</span><span class="p">];</span>
+    <span class="c1">//2.根据url地址下载图片数据到本地（二进制数据）
+</span>    <span class="n">NSData</span> <span class="o">*</span><span class="n">data</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSData</span> <span class="nf">dataWithContentsOfURL</span><span class="p">:</span><span class="n">url</span><span class="p">];</span>
 
-//3.把下载到本地的二进制数据转换成图片
-UIImage *image = [UIImage imageWithData:data];
+    <span class="n">NSDate</span> <span class="o">*</span><span class="n">end</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSDate</span> <span class="nf">date</span><span class="p">];</span>
+    <span class="n">NSLog</span><span class="p">(</span><span class="s">@"第二步操作花费的时间为%f"</span><span class="p">,[</span><span class="n">end</span> <span class="nf">timeIntervalSinceDate</span><span class="p">:</span><span class="n">start</span><span class="p">]);</span>
 
-//4.回到主线程刷新UI
-//4.1 第一种方式 //    [self performSelectorOnMainThread:@selector(showImage:) withObject:image waitUntilDone:YES];
+<span class="c1">//第二种方法
+</span>    <span class="n">CFTimeInterval</span> <span class="n">start</span> <span class="o">=</span> <span class="n">CFAbsoluteTimeGetCurrent</span><span class="p">();</span>
+    <span class="n">NSData</span> <span class="o">*</span><span class="n">data</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSData</span> <span class="nf">dataWithContentsOfURL</span><span class="p">:</span><span class="n">url</span><span class="p">];</span>
 
-//4.2 第二种方式 //    [self.imageView performSelectorOnMainThread:@selector(setImage:) withObject:image waitUntilDone:YES];
-
-//4.3 第三种方式
-[self.imageView performSelector:@selector(setImage:) onThread:[NSThread mainThread] withObject:image waitUntilDone:YES]; } ``` （6）如何计算代码段的执行时间 ```objc //第一种方法
-NSDate *start = [NSDate date];
-//2.根据url地址下载图片数据到本地（二进制数据）
-NSData *data = [NSData dataWithContentsOfURL:url];
-
-NSDate *end = [NSDate date];
-NSLog(@"第二步操作花费的时间为%f",[end timeIntervalSinceDate:start]);
+    <span class="n">CFTimeInterval</span> <span class="n">end</span> <span class="o">=</span> <span class="n">CFAbsoluteTimeGetCurrent</span><span class="p">();</span>
+    <span class="n">NSLog</span><span class="p">(</span><span class="s">@"第二步操作花费的时间为%f"</span><span class="p">,</span><span class="n">end</span> <span class="o">-</span> <span class="n">start</span><span class="p">);</span>
 </code></pre>
 </div>
-
-<p>//第二种方法
-    CFTimeInterval start = CFAbsoluteTimeGetCurrent();
-    NSData *data = [NSData dataWithContentsOfURL:url];</p>
-
-<div class="highlighter-rouge"><pre class="highlight"><code>CFTimeInterval end = CFAbsoluteTimeGetCurrent();
-NSLog(@"第二步操作花费的时间为%f",end - start); ``` ###4.GCD
-</code></pre>
-</div>
+<p>### 4.GCD</p>
 
 <p>（1）GCD基本知识</p>
 
@@ -450,7 +475,7 @@ NSLog(@"第二步操作花费的时间为%f",end - start); ``` ###4.GCD
 </code></pre>
 </div>
 
-<h3 id="section">1.单例模式</h3>
+<h3 id="section-1">1.单例模式</h3>
 <ul>
   <li>1.1 概念相关</li>
 </ul>

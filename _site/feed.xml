@@ -5,21 +5,22 @@
     <description>嗨，我是任玉飞 (@Raphcel)，一名走在iOS开发路上的从业者，努力成为一个全栈工程师，爱好唱歌，以及所有与音乐有关的事情。目前在北京工作。吾笃信：认真你就赢了。</description>
     <link>http://vno.onevcat.com/</link>
     <atom:link href="http://vno.onevcat.com/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Tue, 27 Sep 2016 17:43:25 +0800</pubDate>
-    <lastBuildDate>Tue, 27 Sep 2016 17:43:25 +0800</lastBuildDate>
+    <pubDate>Tue, 27 Sep 2016 17:46:05 +0800</pubDate>
+    <lastBuildDate>Tue, 27 Sep 2016 17:46:05 +0800</lastBuildDate>
     <generator>Jekyll v3.1.6</generator>
     
       <item>
         <title>多线程</title>
-        <description>&lt;p&gt;###1.基本概念
-- 1.1 进程&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;进程是指在系统中正在运行的一个应用程序。每个进程之间是独立的，每个进程均运行在其专用且受保护的内存空间内。
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
+        <description>&lt;h3 id=&quot;section&quot;&gt;1.基本概念&lt;/h3&gt;
 &lt;ul&gt;
-  &lt;li&gt;1.2 线程&lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;1.1 进程&lt;/p&gt;
+
+    &lt;p&gt;进程是指在系统中正在运行的一个应用程序。每个进程之间是独立的，每个进程均运行在其专用且受保护的内存空间内。&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;1.2 线程&lt;/p&gt;
+  &lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;（1）基本概念&lt;/p&gt;
@@ -119,61 +120,78 @@
 
 &lt;hr /&gt;
 
-&lt;p&gt;###2.pthread&lt;/p&gt;
+&lt;h3 id=&quot;pthread&quot;&gt;2.pthread&lt;/h3&gt;
 
-&lt;p&gt;（1）pthread的基本使用（需要包含头文件）
-&lt;code class=&quot;highlighter-rouge&quot;&gt;objc
-    //使用pthread创建线程
-   pthread_t thread;
-    NSString *name = @&quot;wendingding&quot;;
-    //使用pthread创建线程
-    //第一个参数：线程对象地址
-    //第二个参数：线程属性
-    //第三个参数：指向函数的执行
-    //第四个参数：传递给该函数的参数
-    pthread_create(&amp;amp;thread, NULL, run, (__bridge void *)(name));
-&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;（1）pthread的基本使用（需要包含头文件）&lt;/p&gt;
+
+&lt;div class=&quot;language-objc highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    &lt;span class=&quot;c1&quot;&gt;//使用pthread创建线程
+&lt;/span&gt;   &lt;span class=&quot;n&quot;&gt;pthread_t&lt;/span&gt; &lt;span class=&quot;kr&quot;&gt;thread&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;NSString&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;name&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;@&quot;wendingding&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;//使用pthread创建线程
+&lt;/span&gt;    &lt;span class=&quot;c1&quot;&gt;//第一个参数：线程对象地址
+&lt;/span&gt;    &lt;span class=&quot;c1&quot;&gt;//第二个参数：线程属性
+&lt;/span&gt;    &lt;span class=&quot;c1&quot;&gt;//第三个参数：指向函数的执行
+&lt;/span&gt;    &lt;span class=&quot;c1&quot;&gt;//第四个参数：传递给该函数的参数
+&lt;/span&gt;    &lt;span class=&quot;n&quot;&gt;pthread_create&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;kr&quot;&gt;thread&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;NULL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;run&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;__bridge&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;));&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 
 &lt;hr /&gt;
 
-&lt;p&gt;###3.NSThread
-（1）NSThread的基本使用
-```objc
-//第一种创建线程的方式：alloc init.
+&lt;h3 id=&quot;nsthread&quot;&gt;3.NSThread&lt;/h3&gt;
+&lt;p&gt;（1）NSThread的基本使用&lt;/p&gt;
+
+&lt;div class=&quot;language-objc highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;//第一种创建线程的方式：alloc init.
 //特点：需要手动开启线程，可以拿到线程对象进行详细设置
-    //创建线程
-    /*
+&lt;/span&gt;    &lt;span class=&quot;c1&quot;&gt;//创建线程
+&lt;/span&gt;    &lt;span class=&quot;cm&quot;&gt;/*
      第一个参数：目标对象
      第二个参数：选择器，线程启动要调用哪个方法
      第三个参数：前面方法要接收的参数（最多只能接收一个参数，没有则传nil）
-     */
-    NSThread *thread = [[NSThread alloc]initWithTarget:self selector:@selector(run:) object:@”wendingding”];
-     //启动线程
-    [thread start];&lt;/p&gt;
+     */&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;NSThread&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;kr&quot;&gt;thread&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;NSThread&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;alloc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;initWithTarget&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;self&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;selector&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;@selector&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;run&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;object&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;@&quot;wendingding&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+     &lt;span class=&quot;c1&quot;&gt;//启动线程
+&lt;/span&gt;    &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;kr&quot;&gt;thread&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;start&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
 
-&lt;p&gt;//第二种创建线程的方式：分离出一条子线程
+&lt;span class=&quot;c1&quot;&gt;//第二种创建线程的方式：分离出一条子线程
 //特点：自动启动线程，无法对线程进行更详细的设置
-    /*
+&lt;/span&gt;    &lt;span class=&quot;cm&quot;&gt;/*
      第一个参数：线程启动调用的方法
      第二个参数：目标对象
      第三个参数：传递给调用方法的参数
-     */
-    [NSThread detachNewThreadSelector:@selector(run:) toTarget:self withObject:@”我是分离出来的子线程”];&lt;/p&gt;
+     */&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;NSThread&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;detachNewThreadSelector&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;@selector&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;run&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;toTarget&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;self&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;withObject&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;@&quot;我是分离出来的子线程&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
 
-&lt;p&gt;//第三种创建线程的方式：后台线程
+&lt;span class=&quot;c1&quot;&gt;//第三种创建线程的方式：后台线程
 //特点：自动启动县城，无法进行更详细设置
-[self performSelectorInBackground:@selector(run:) withObject:@”我是后台线程”];
-&lt;code class=&quot;highlighter-rouge&quot;&gt;
-（2）设置线程的属性
-&lt;/code&gt;objc
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;self&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;performSelectorInBackground&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;@selector&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;run&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;withObject&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;@&quot;我是后台线程&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;（2）设置线程的属性
+```objc
    //设置线程的属性
     //设置线程的名称
     thread.name = @”线程A”;&lt;/p&gt;
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;//设置线程的优先级,注意线程优先级的取值范围为0.0~1.0之间，1.0表示线程的优先级最高,如果不设置该值，那么理想状态下默认为0.5
-thread.threadPriority = 1.0; ``` （3）线程的状态（了解） ```objc //线程的各种状态：新建-就绪-运行-阻塞-死亡 //常用的控制线程状态的方法 [NSThread exit];//退出当前线程 [NSThread sleepForTimeInterval:2.0];//阻塞线程 [NSThread sleepUntilDate:[NSDate dateWithTimeIntervalSinceNow:2.0]];//阻塞线程 //注意：线程死了不能复生 ``` （4）线程安全
+thread.threadPriority = 1.0; ```
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 
-    01 前提：多个线程访问同一块资源会发生数据安全问题
+&lt;p&gt;（3）线程的状态（了解）&lt;/p&gt;
+
+&lt;div class=&quot;language-objc highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;//线程的各种状态：新建-就绪-运行-阻塞-死亡
+//常用的控制线程状态的方法
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;NSThread&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;exit&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;//退出当前线程
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;NSThread&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;sleepForTimeInterval&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;//阻塞线程
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;NSThread&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;sleepUntilDate&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;NSDate&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;dateWithTimeIntervalSinceNow&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]];&lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;//阻塞线程
+//注意：线程死了不能复生
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;（4）线程安全&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    01 前提：多个线程访问同一块资源会发生数据安全问题
     02 解决方案：加互斥锁
     03 相关代码：@synchronized(self){}
     04 专业术语-线程同步
@@ -181,52 +199,59 @@ thread.threadPriority = 1.0; ``` （3）线程的状态（了解） ```objc //�
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-&lt;p&gt;（5）线程间通信
-```objc
--(void)touchesBegan:(nonnull NSSet&amp;lt;UITouch *&amp;gt; *)touches withEvent:(nullable UIEvent *)event
-{
-//    [self download2];&lt;/p&gt;
+&lt;p&gt;（5）线程间通信&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;//开启一条子线程来下载图片
-[NSThread detachNewThreadSelector:@selector(downloadImage) toTarget:self withObject:nil]; }
+&lt;div class=&quot;language-objc highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;touchesBegan&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;nonnull&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;NSSet&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;UITouch&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&amp;gt;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;touches&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;withEvent&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;nullable&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;UIEvent&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;event&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;//    [self download2];
+&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;//开启一条子线程来下载图片
+&lt;/span&gt;    &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;NSThread&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;detachNewThreadSelector&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;@selector&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;downloadImage&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;toTarget&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;self&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;withObject&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;nil&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;downloadImage&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;//1.确定要下载网络图片的url地址，一个url唯一对应着网络上的一个资源
+&lt;/span&gt;    &lt;span class=&quot;n&quot;&gt;NSURL&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;url&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;NSURL&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;URLWithString&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;@&quot;http://p6.qhimg.com/t01d2954e2799c461ab.jpg&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+
+    &lt;span class=&quot;c1&quot;&gt;//2.根据url地址下载图片数据到本地（二进制数据
+&lt;/span&gt;    &lt;span class=&quot;n&quot;&gt;NSData&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;NSData&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;dataWithContentsOfURL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;url&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+
+    &lt;span class=&quot;c1&quot;&gt;//3.把下载到本地的二进制数据转换成图片
+&lt;/span&gt;    &lt;span class=&quot;n&quot;&gt;UIImage&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;image&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;UIImage&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;imageWithData&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+
+    &lt;span class=&quot;c1&quot;&gt;//4.回到主线程刷新UI
+&lt;/span&gt;    &lt;span class=&quot;c1&quot;&gt;//4.1 第一种方式
+//    [self performSelectorOnMainThread:@selector(showImage:) withObject:image waitUntilDone:YES];
+&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;//4.2 第二种方式
+//    [self.imageView performSelectorOnMainThread:@selector(setImage:) withObject:image waitUntilDone:YES];
+&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;//4.3 第三种方式
+&lt;/span&gt;    &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;imageView&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;performSelector&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;@selector&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;setImage&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;onThread&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;NSThread&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;mainThread&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;withObject&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;image&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;waitUntilDone&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;YES&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-&lt;p&gt;-(void)downloadImage
-{
-    //1.确定要下载网络图片的url地址，一个url唯一对应着网络上的一个资源
-    NSURL *url = [NSURL URLWithString:@”http://p6.qhimg.com/t01d2954e2799c461ab.jpg”];&lt;/p&gt;
+&lt;p&gt;（6）如何计算代码段的执行时间&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;//2.根据url地址下载图片数据到本地（二进制数据
-NSData *data = [NSData dataWithContentsOfURL:url];
+&lt;div class=&quot;language-objc highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;//第一种方法
+&lt;/span&gt;    &lt;span class=&quot;n&quot;&gt;NSDate&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;start&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;NSDate&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;date&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;//2.根据url地址下载图片数据到本地（二进制数据）
+&lt;/span&gt;    &lt;span class=&quot;n&quot;&gt;NSData&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;NSData&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;dataWithContentsOfURL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;url&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
 
-//3.把下载到本地的二进制数据转换成图片
-UIImage *image = [UIImage imageWithData:data];
+    &lt;span class=&quot;n&quot;&gt;NSDate&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;end&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;NSDate&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;date&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;NSLog&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;@&quot;第二步操作花费的时间为%f&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;end&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;timeIntervalSinceDate&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;start&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]);&lt;/span&gt;
 
-//4.回到主线程刷新UI
-//4.1 第一种方式 //    [self performSelectorOnMainThread:@selector(showImage:) withObject:image waitUntilDone:YES];
+&lt;span class=&quot;c1&quot;&gt;//第二种方法
+&lt;/span&gt;    &lt;span class=&quot;n&quot;&gt;CFTimeInterval&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;start&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;CFAbsoluteTimeGetCurrent&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;NSData&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;NSData&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;dataWithContentsOfURL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;url&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
 
-//4.2 第二种方式 //    [self.imageView performSelectorOnMainThread:@selector(setImage:) withObject:image waitUntilDone:YES];
-
-//4.3 第三种方式
-[self.imageView performSelector:@selector(setImage:) onThread:[NSThread mainThread] withObject:image waitUntilDone:YES]; } ``` （6）如何计算代码段的执行时间 ```objc //第一种方法
-NSDate *start = [NSDate date];
-//2.根据url地址下载图片数据到本地（二进制数据）
-NSData *data = [NSData dataWithContentsOfURL:url];
-
-NSDate *end = [NSDate date];
-NSLog(@&quot;第二步操作花费的时间为%f&quot;,[end timeIntervalSinceDate:start]);
+    &lt;span class=&quot;n&quot;&gt;CFTimeInterval&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;end&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;CFAbsoluteTimeGetCurrent&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;NSLog&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;@&quot;第二步操作花费的时间为%f&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;end&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;start&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
-
-&lt;p&gt;//第二种方法
-    CFTimeInterval start = CFAbsoluteTimeGetCurrent();
-    NSData *data = [NSData dataWithContentsOfURL:url];&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;CFTimeInterval end = CFAbsoluteTimeGetCurrent();
-NSLog(@&quot;第二步操作花费的时间为%f&quot;,end - start); ``` ###4.GCD
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;p&gt;### 4.GCD&lt;/p&gt;
 
 &lt;p&gt;（1）GCD基本知识&lt;/p&gt;
 
@@ -311,7 +336,7 @@ NSLog(@&quot;第二步操作花费的时间为%f&quot;,end - start); ``` ###4.GC
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-&lt;h3 id=&quot;section&quot;&gt;1.单例模式&lt;/h3&gt;
+&lt;h3 id=&quot;section-1&quot;&gt;1.单例模式&lt;/h3&gt;
 &lt;ul&gt;
   &lt;li&gt;1.1 概念相关&lt;/li&gt;
 &lt;/ul&gt;
