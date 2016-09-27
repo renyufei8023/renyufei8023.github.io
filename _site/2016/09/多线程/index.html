@@ -1070,9 +1070,9 @@ thread.threadPriority = 1.0; ```
    
    <div class="read-more-item">
        <span class="read-more-item-dim">更早的文章</span>
-       <h2 class="post-list__post-title post-title"><a href="/2016/07/Runloop/" title="link to 看了YY写的RunLoop自己写了一点总结">看了YY写的RunLoop自己写了一点总结</a></h2>
-       <p class="excerpt">###Runloop一般来说，一个线程一次只能执行一个任务，，执行完成之后线程就会退出，如果想让这个线程能随时处理事件而且不能退出，那么这里就需要一个循环时间了，其实Runloop就是一个while(1)的死循环，其实他是有条件的，但是这个条件一直都不会成立而已，伪代码实现如下function loop() {    initialize();    do {        var message = get_next_message();        process_message(m...&hellip;</p>
-       <div class="post-list__meta"><time datetime="2016-07-12 23:14:32 +0800" class="post-list__meta--date date">2016-07-12</time> &#8226; <span class="post-list__meta--tags tags">Blog</span><a class="btn-border-small" href=/2016/07/Runloop/>继续阅读</a></div>
+       <h2 class="post-list__post-title post-title"><a href="/2016/09/RunLoop%E4%BB%A5%E5%8F%8A%E7%BD%91%E7%BB%9C/" title="link to RunLoop以及网络">RunLoop以及网络</a></h2>
+       <p class="excerpt">####补充1-1 关于GCD中的创建和释放在iOS6.0之前，在GCD中每当使用带creat单词的函数创建对象之后，都应该对其进行一次release操作。在iOS6.0之后，GCD被纳入到了ARC的内存管理机制中，在使用GCD的时候我们就像对待普通OC对象一样对待GCD,因此不再需要我们调用release方法。1-2 GCD中设置队列的优先级    01 使用create函数创建出来的队列不论是串行队列还是并发队列，，其执行任务线程的优先级都是默认优先级。    02 可以通过set_t...&hellip;</p>
+       <div class="post-list__meta"><time datetime="2016-09-27 17:25:32 +0800" class="post-list__meta--date date">2016-09-27</time> &#8226; <span class="post-list__meta--tags tags">Blog</span><a class="btn-border-small" href=/2016/09/RunLoop%E4%BB%A5%E5%8F%8A%E7%BD%91%E7%BB%9C/>继续阅读</a></div>
    </div>
    
 </section>

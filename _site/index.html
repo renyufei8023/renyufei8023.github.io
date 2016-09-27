@@ -153,6 +153,13 @@
     </li>
     
     <li>
+      <h2 class="post-list__post-title post-title"><a href="/2016/09/RunLoop%E4%BB%A5%E5%8F%8A%E7%BD%91%E7%BB%9C/" title="访问 RunLoop以及网络">RunLoop以及网络</a></h2>
+      <p class="excerpt">####补充1-1 关于GCD中的创建和释放在iOS6.0之前，在GCD中每当使用带creat单词的函数创建对象之后，都应该对其进行一次release操作。在iOS6.0之后，GCD被纳入到了ARC的内存管理机制中，在使用GCD的时候我们就像对待普通OC对象一样对待GCD,因此不再需要我们调用release方法。1-2 GCD中设置队列的优先级    01 使用create函数创建出来的队列不论是串行队列还是并发队列，，其执行任务线程的优先级都是默认优先级。    02 可以通过set_t...&hellip;</p>
+      <div class="post-list__meta"><time datetime="2016-09-27 17:25:32 +0800" class="post-list__meta--date date">2016-09-27</time> &#8226; <span class="post-list__meta--tags tags">Blog</span><a class="btn-border-small" href=/2016/09/RunLoop%E4%BB%A5%E5%8F%8A%E7%BD%91%E7%BB%9C/>继续阅读</a></div>
+      <hr class="post-list__divider" />
+    </li>
+    
+    <li>
       <h2 class="post-list__post-title post-title"><a href="/2016/07/Runloop/" title="访问 看了YY写的RunLoop自己写了一点总结">看了YY写的RunLoop自己写了一点总结</a></h2>
       <p class="excerpt">###Runloop一般来说，一个线程一次只能执行一个任务，，执行完成之后线程就会退出，如果想让这个线程能随时处理事件而且不能退出，那么这里就需要一个循环时间了，其实Runloop就是一个while(1)的死循环，其实他是有条件的，但是这个条件一直都不会成立而已，伪代码实现如下function loop() {    initialize();    do {        var message = get_next_message();        process_message(m...&hellip;</p>
       <div class="post-list__meta"><time datetime="2016-07-12 23:14:32 +0800" class="post-list__meta--date date">2016-07-12</time> &#8226; <span class="post-list__meta--tags tags">Blog</span><a class="btn-border-small" href=/2016/07/Runloop/>继续阅读</a></div>
@@ -205,13 +212,6 @@
       <h2 class="post-list__post-title post-title"><a href="/2016/05/ReactiveCocoa%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95/" title="访问 ReactiveCocoa基本用法">ReactiveCocoa基本用法</a></h2>
       <p class="excerpt">#ReactiveCocoa基本用法1.ReactiveCocoa简介ReactiveCocoa（简称为RAC）,是由Github开源的一个应用于iOS和OS开发的新框架,Cocoa是苹果整套框架的简称，因此很多苹果框架喜欢以Cocoa结尾。2.ReactiveCocoa作用在我们iOS开发过程中，经常会响应某些事件来处理某些业务逻辑，例如按钮的点击，上下拉刷新，网络请求，属性的变化（通过KVO）或者用户位置的变化（通过CoreLocation）。但是这些事件都用不同的方式来处理，比如ac...&hellip;</p>
       <div class="post-list__meta"><time datetime="2016-05-26 14:31:32 +0800" class="post-list__meta--date date">2016-05-26</time> &#8226; <span class="post-list__meta--tags tags">Blog</span><a class="btn-border-small" href=/2016/05/ReactiveCocoa%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95/>继续阅读</a></div>
-      <hr class="post-list__divider" />
-    </li>
-    
-    <li>
-      <h2 class="post-list__post-title post-title"><a href="/2016/05/iOS%E4%B8%ADblock%E7%9A%84%E4%B8%80%E4%BA%9B%E6%80%BB%E7%BB%93%E4%BB%A5%E5%8F%8A__block%E6%98%AF%E6%80%8E%E4%B9%88%E5%AE%9E%E7%8E%B0%E7%9A%84/" title="访问 iOS中block的一些总结以及__block是怎么实现的">iOS中block的一些总结以及__block是怎么实现的</a></h2>
-      <p class="excerpt">#iOS中block的一些总结以及__block是怎么实现的#Block###Block概述Block它是C语言级别和运行时方面的一个特征。Block封装了一段代码逻辑，也用{}括起，和标准C语言中的函数/函数指针很相似，此外就是blokc能够对定义环境中的变量可以引用到。这一点和其它各种语言中所说的“闭包”是非常类似的概念。在iOS中，block有很多应用场景，比如对代码封装作为参数传递。这在使用dispatch并发（Operation中也有BlockOperation）和complet...&hellip;</p>
-      <div class="post-list__meta"><time datetime="2016-05-20 17:23:32 +0800" class="post-list__meta--date date">2016-05-20</time> &#8226; <span class="post-list__meta--tags tags">Blog</span><a class="btn-border-small" href=/2016/05/iOS%E4%B8%ADblock%E7%9A%84%E4%B8%80%E4%BA%9B%E6%80%BB%E7%BB%93%E4%BB%A5%E5%8F%8A__block%E6%98%AF%E6%80%8E%E4%B9%88%E5%AE%9E%E7%8E%B0%E7%9A%84/>继续阅读</a></div>
       <hr class="post-list__divider" />
     </li>
     
