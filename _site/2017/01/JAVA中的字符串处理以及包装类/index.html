@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <title>JAVA中的字符串处理以及包装类</title>
+  <meta name="description" content="JAVA中的字符串处理以及包装类### 字符串把两个字符串中相同的内容给截取出来">
+  <meta name="author" content="Wei Wang">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="JAVA中的字符串处理以及包装类">
+  <meta name="twitter:description" content="JAVA中的字符串处理以及包装类### 字符串把两个字符串中相同的内容给截取出来">
+
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="JAVA中的字符串处理以及包装类">
+  <meta property="og:description" content="JAVA中的字符串处理以及包装类### 字符串把两个字符串中相同的内容给截取出来">
+
+  <link rel="icon" type="image/ico" href="/assets/images/favicon.ico" />
+  <link href="/assets/images/favicon.ico" rel="shortcut icon" type="image/ico">
+
+  <link rel="stylesheet" href="/css/main.css">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <link rel="canonical" href="http://vno.onevcat.com/2017/01/JAVA%E4%B8%AD%E7%9A%84%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%A4%84%E7%90%86%E4%BB%A5%E5%8F%8A%E5%8C%85%E8%A3%85%E7%B1%BB/">
+  <link rel="alternate" type="application/rss+xml" title="上善若水，人淡如菊" href="http://vno.onevcat.com/feed.xml">
+
+  <meta name="google-site-verification" content="1-1ZlHoRvM0T2FqPbW2S-qLgYXN6rsn52kErlMPd_gw" />
+
+</head>
+
+
+  <body>
+
+
+
+    <span class="mobile btn-mobile-menu">
+        <i class="fa fa-list btn-mobile-menu__icon"></i>
+        <i class="fa fa-angle-up btn-mobile-close__icon hidden"></i>
+    </span>
+    
+
+    <header class="panel-cover panel-cover--collapsed" style="background-image: url('/assets/images/background-cover.jpg')">
+  <div class="panel-main">
+
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        <a href="/#blog" title="前往 上善若水，人淡如菊 的主页" class="blog-button"><img src="/assets/images/avatar.jpg" width="80" alt="上善若水，人淡如菊 logo" class="panel-cover__logo logo" /></a>
+        <h1 class="panel-cover__title panel-title"><a href="/#blog" title="link to homepage for 上善若水，人淡如菊" class="blog-button">上善若水，人淡如菊</a></h1>
+        
+        <span class="panel-cover__subtitle panel-subtitle">上善若水，人淡如菊</span>
+        
+        <hr class="panel-cover__divider" />
+        <p class="panel-cover__description">嗨，我是任玉飞 (@Raphcel)，一名走在iOS开发路上的从业者，努力成为一个全栈工程师，爱好唱歌，以及所有与音乐有关的事情。目前在北京工作。吾笃信：认真你就赢了。</p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+        
+        
+        
+        <div class="navigation-wrapper">
+          <div>
+            <nav class="cover-navigation cover-navigation--primary">
+              <ul class="navigation">
+                <li class="navigation__item"><a href="/#blog" title="Visit blog" class="blog-button">博客</a></li>
+                
+                  <li class="navigation__item"><a href="http://about.yufei.ren" target="_blank" title="关于">关于</a></li>
+                
+              </ul>
+            </nav>
+          </div>
+          
+          <div><nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+    
+    <!-- jianshu-->
+    <li class="navigation__item">
+      <a href="http://www.jianshu.com/users/d8f57dd98c59/latest_articles" title="@ 的简书" target="_blank">
+        <i class='social fa fa-book'></i>
+        <span class="label">jianshu</span>
+      </a>
+    </li>
+    
+
+  
+  <!-- Weibo -->
+  <li class="navigation__item">
+    <a href="http://weibo.com/ryf8023" title="@ 的微博" target="_blank">
+      <i class='social fa fa-weibo'></i>
+      <span class="label">Weibo</span>
+    </a>
+  </li>
+  
+
+  
+  <!-- Github -->
+  <li class="navigation__item">
+    <a href="https://github.com/renyufei8023" title="@ 的 Github" target="_blank">
+      <i class='social fa fa-github'></i>
+      <span class="label">Github</span>
+    </a>
+  </li>
+  
+
+  
+
+  
+
+  <!-- RSS -->
+  <li class="navigation__item">
+    <a href="/feed.xml" rel="author" title="RSS" target="_blank">
+      <i class='social fa fa-rss'></i>
+      <span class="label">RSS</span>
+    </a>
+  </li>
+
+  
+  <!-- Email -->
+  <li class="navigation__item">
+    <a href="mailto:renyufei8023@gamil.com" title="Contact me">
+      <i class='social fa fa-envelope'></i>
+      <span class="label">Email</span>
+    </a>
+  </li>
+  
+
+  </ul>
+</nav>
+</div>
+        </div>
+      </div>
+    </div>
+    
+    
+    <div class="panel-cover--overlay cover-black"></div>
+    
+  </div>
+</header>
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner">
+            <article class="post-container post-container--single" itemscope itemtype="http://schema.org/BlogPosting">
+  <header class="post-header">
+    <div class="post-meta">
+      <time datetime="2017-01-11 12:16:32 +0800" itemprop="datePublished" class="post-meta__date date">2017-01-11</time> &#8226; <span class="post-meta__tags tags">Blog</span>
+    </div>
+    <h1 class="post-title">JAVA中的字符串处理以及包装类</h1>
+  </header>
+
+  <section class="post">
+    <h1 id="java">JAVA中的字符串处理以及包装类</h1>
+<p>### 字符串
+把两个字符串中相同的内容给截取出来</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="cm">/*
+     * 作业1：获取两个字符串的最大相同子串。 "asdfitcastghjfghjk" "xcitcastvbnm" 思路：
+     * 1，先明确两个字符串的长短，在长串中判断短串是否存在。 2，存在，已找到，说明短串就是最大的相同的。
+     * 不存在，就将短串按照长度递减的方式，获取短串中的子串并到长串中判断。 3，一旦存在，便结束查找。
+     */</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="n">String</span> <span class="nf">getMaxSubstring</span><span class="o">(</span><span class="n">String</span> <span class="n">s1</span><span class="o">,</span> <span class="n">String</span> <span class="n">s2</span><span class="o">)</span> <span class="o">{</span>
+        
+        <span class="n">String</span> <span class="n">max</span><span class="o">,</span> <span class="n">min</span><span class="o">;</span>
+        <span class="c1">// 明确哪个是长串哪个是短串。</span>
+        <span class="n">max</span> <span class="o">=</span> <span class="o">(</span><span class="n">s1</span><span class="o">.</span><span class="na">length</span><span class="o">()</span> <span class="o">&gt;</span> <span class="n">s2</span><span class="o">.</span><span class="na">length</span><span class="o">())</span> <span class="o">?</span> <span class="n">s1</span> <span class="o">:</span> <span class="n">s2</span><span class="o">;</span>
+        <span class="n">min</span> <span class="o">=</span> <span class="n">max</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">s1</span><span class="o">)</span> <span class="o">?</span> <span class="n">s2</span> <span class="o">:</span> <span class="n">s1</span><span class="o">;</span>
+        
+        <span class="c1">// 验证max和min</span>
+        <span class="c1">// System.out.println("max="+max);</span>
+        <span class="c1">// System.out.println("min="+min);</span>
+        
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">min</span><span class="o">.</span><span class="na">length</span><span class="o">();</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+            <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">start</span> <span class="o">=</span> <span class="mi">0</span><span class="o">,</span> <span class="n">end</span> <span class="o">=</span> <span class="n">min</span><span class="o">.</span><span class="na">length</span><span class="o">()</span> <span class="o">-</span> <span class="n">i</span><span class="o">;</span> <span class="n">end</span> <span class="o">&lt;=</span> <span class="n">min</span><span class="o">.</span><span class="na">length</span><span class="o">();</span> <span class="n">start</span><span class="o">++,</span> <span class="n">end</span><span class="o">++)</span> <span class="o">{</span>
+                <span class="n">String</span> <span class="n">temp</span> <span class="o">=</span> <span class="n">min</span><span class="o">.</span><span class="na">substring</span><span class="o">(</span><span class="n">start</span><span class="o">,</span> <span class="n">end</span><span class="o">);</span>
+                
+                <span class="k">if</span><span class="o">(</span><span class="n">max</span><span class="o">.</span><span class="na">contains</span><span class="o">(</span><span class="n">temp</span><span class="o">)){</span>
+                    <span class="k">return</span> <span class="n">temp</span><span class="o">;</span>
+                <span class="o">}</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+        
+        <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+    <span class="o">}</span>
+</code></pre>
+</div>
+<p>对字符串进行排序的话可以先把字符串转成数组，然后使用数组的<code class="highlighter-rouge">Arrays.sort()</code>方法对字符串数组进行排序呢，然后生成一个新的字符串。</p>
+
+<h3 id="section">包装类</h3>
+
+<p>场景：通过文本框获取用户输入的数字数据，可是得到的都是字符串。 如果想要对字符串中的数字进行运算，必须要将字符串转成数字。&lt;/br&gt;
+Java中提供了相应的解决的对象。 基本数据类型对象包装类：java将基本数据类型值封装成了对象。&lt;/br&gt;
+封装成对象有什么好处？因为可以提供更多的操作基本数值的功能。&lt;/br&gt;
+ byte Byte short Short int Integer long Long float Float double Double boolean Boolean char Character</p>
+
+<p><strong>基本数据类型对象包装类特点： 1，用于在基本数据和字符串之间进行转换。</strong></p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code>
+<span class="c1">// System.out.println(Integer.MAX_VALUE);</span>
+        <span class="c1">// System.out.println(Integer.toBinaryString(-6));//将十进制转成二进制或</span>
+        <span class="c1">// System.out.println(Integer.toHexString(-6));//将十进制转成十六进制或</span>
+        <span class="c1">// System.out.println(Integer.toOctalString(-6));//将十进制转成八进制或</span>
+        
+        <span class="c1">// 1，字符串---&gt;基本数值。 基本数值 (字符串);演示Integer int (string);</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">Integer</span><span class="o">.</span><span class="na">parseInt</span><span class="o">(</span><span class="s">"123"</span><span class="o">)</span> <span class="o">+</span> <span class="mi">2</span><span class="o">);</span><span class="c1">// NumberFormatException:</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">Integer</span><span class="o">.</span><span class="na">parseInt</span><span class="o">(</span><span class="s">"a1"</span><span class="o">,</span> <span class="mi">16</span><span class="o">));</span><span class="c1">// 可以将其他进制转成十进制。</span>
+        <span class="c1">// 2，基本数值----&gt;字符串呢？34+"" String.valueOf(34); Integer.toString(int);</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="mi">34</span> <span class="o">+</span> <span class="mi">5</span><span class="o">);</span>
+        
+
+</code></pre>
+</div>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        
+        <span class="c1">//		int i = 4;</span>
+        <span class="c1">//		Integer i = new Integer(4);</span>
+        <span class="c1">//		JDK1.5以后，有了一个包装类的新特性。目的简化书写，自动装箱，</span>
+        <span class="n">Integer</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">4</span><span class="o">;</span><span class="c1">//自动装箱。Integer i = Integer.valueOf(4);</span>
+        <span class="n">i</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">5</span><span class="o">;</span><span class="c1">//原理;等号右边：将i对象转成基本数值   i.intValue() + 5;//自动拆箱。加法运算后，再次装箱。</span>
+        <span class="c1">//i = Integer.valueOf(i.intValue()+5);</span>
+        
+        
+        
+        <span class="n">Integer</span> <span class="n">a</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Integer</span><span class="o">(</span><span class="mi">3</span><span class="o">);</span>
+        <span class="n">Integer</span> <span class="n">b</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Integer</span><span class="o">(</span><span class="mi">3</span><span class="o">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">a</span><span class="o">==</span><span class="n">b</span><span class="o">);</span><span class="c1">//false</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">a</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">b</span><span class="o">));</span><span class="c1">//true</span>
+        
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"---------------------"</span><span class="o">);</span>
+        <span class="n">Integer</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">128</span><span class="o">;</span>
+        <span class="n">Integer</span> <span class="n">y</span> <span class="o">=</span> <span class="mi">128</span><span class="o">;</span>
+        <span class="c1">//在jdk1.5自动装箱时，如果数值在byte范围之内，不会新创建对象空间而是使用原来已有的空间。</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">x</span><span class="o">==</span><span class="n">y</span><span class="o">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">x</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">y</span><span class="o">));</span>
+        
+        
+    <span class="o">}</span>
+</code></pre>
+</div>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">SPACE</span> <span class="o">=</span> <span class="s">" "</span><span class="o">;</span>
+    
+    <span class="cm">/**
+     * @param args
+     */</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        
+        <span class="cm">/*
+         * 练习：【面试题】： "23 9 -4 18 100 7" 要求对这串数字按照从小到大排序，生成一个数值有序的字符串。 思路：
+         * 1，只有排序会，排序需要数组，数组中就要有元素。
+         * 2，元素在哪里？在字符串里，怎么取出来呢？要获取字符串中的内容，是不是需要String对象。
+         * 3，从字符串获取到数值后存储到一个int数组中。因为要排序。 4，将排完序的数组变成字符串。
+         */</span>
+        
+        <span class="n">String</span> <span class="n">numsString</span> <span class="o">=</span> <span class="s">"23 9 -4 18 100 7"</span><span class="o">;</span>
+        <span class="n">numsString</span> <span class="o">=</span> <span class="n">sortNumberString</span><span class="o">(</span><span class="n">numsString</span><span class="o">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"nums="</span> <span class="o">+</span> <span class="n">numsString</span><span class="o">);</span>
+    <span class="o">}</span>
+    
+    <span class="kd">public</span> <span class="kd">static</span> <span class="n">String</span> <span class="nf">sortNumberString</span><span class="o">(</span><span class="n">String</span> <span class="n">numsString</span><span class="o">)</span> <span class="o">{</span>
+        <span class="c1">// 1,获取字符串中的数字。怎么获取？通过空格进行indexOf的索引，找到其位置，substring截取。看上去就哦了。</span>
+        <span class="c1">// 这个方法好麻烦，这些数值之间的分割符都是 空格。通过空格对字符串分离，分出来的都是数字内容的字符串。</span>
+        <span class="c1">// 一个字符串通过分割变成多个字符串。split();</span>
+        <span class="n">String</span><span class="o">[]</span> <span class="n">strs</span> <span class="o">=</span> <span class="n">numsString</span><span class="o">.</span><span class="na">split</span><span class="o">(</span><span class="n">SPACE</span><span class="o">);</span>
+        
+        <span class="c1">// 2,不能直接对字符串进行大小排序，因为 字符串23 比 字符串9要小，是错误的，必须转成整数值才可以比较。</span>
+        <span class="c1">// 将字符串数组转成int数组。</span>
+        <span class="kt">int</span><span class="o">[]</span> <span class="n">nums</span> <span class="o">=</span> <span class="n">parseIntArray</span><span class="o">(</span><span class="n">strs</span><span class="o">);</span>
+        
+        <span class="c1">// 3,对数组排序。</span>
+        <span class="n">Arrays</span><span class="o">.</span><span class="na">sort</span><span class="o">(</span><span class="n">nums</span><span class="o">);</span>
+        
+        <span class="c1">// 4,将数组转成字符串。</span>
+        <span class="k">return</span> <span class="nf">toString</span><span class="o">(</span><span class="n">nums</span><span class="o">);</span>
+    <span class="o">}</span>
+    
+    <span class="kd">private</span> <span class="kd">static</span> <span class="n">String</span> <span class="nf">toString</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">nums</span><span class="o">)</span> <span class="o">{</span>
+        
+        <span class="n">StringBuilder</span> <span class="n">sb</span> <span class="o">=</span> <span class="k">new</span> <span class="n">StringBuilder</span><span class="o">();</span>
+        
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">nums</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+            <span class="k">if</span><span class="o">(</span><span class="n">i</span><span class="o">!=</span><span class="n">nums</span><span class="o">.</span><span class="na">length</span><span class="o">-</span><span class="mi">1</span><span class="o">){</span>
+                <span class="n">sb</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="n">nums</span><span class="o">[</span><span class="n">i</span><span class="o">]+</span><span class="s">" "</span><span class="o">);</span>
+            <span class="o">}</span><span class="k">else</span><span class="o">{</span>
+                <span class="n">sb</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="n">nums</span><span class="o">[</span><span class="n">i</span><span class="o">]);</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+        
+        <span class="k">return</span> <span class="n">sb</span><span class="o">.</span><span class="na">toString</span><span class="o">();</span>
+    <span class="o">}</span>
+    
+    <span class="c1">// 将字符串数组转成int数组。</span>
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kt">int</span><span class="o">[]</span> <span class="nf">parseIntArray</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">strs</span><span class="o">)</span> <span class="o">{</span>
+        <span class="c1">// 1,定义一个int数组。</span>
+        <span class="kt">int</span><span class="o">[]</span> <span class="n">arr</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="o">[</span><span class="n">strs</span><span class="o">.</span><span class="na">length</span><span class="o">];</span>
+        
+        <span class="c1">// 2,遍历字符串数组，把元素转成int存储到arr中。</span>
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">strs</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+            
+            <span class="n">arr</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">=</span> <span class="n">Integer</span><span class="o">.</span><span class="na">parseInt</span><span class="o">(</span><span class="n">strs</span><span class="o">[</span><span class="n">i</span><span class="o">]);</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="n">arr</span><span class="o">;</span>
+    <span class="o">}</span>
+</code></pre>
+</div>
+
+
+  </section>
+</article>
+
+<section class="read-more">
+   
+   
+   <div class="read-more-item">
+       <span class="read-more-item-dim">最近的文章</span>
+       <h2 class="post-list__post-title post-title"><a href="/2017/01/MySql%E4%B8%80%E4%BA%9B%E8%AF%AD%E5%8F%A5/" title="link to MySql一些语句">MySql一些语句</a></h2>
+       <p class="excerpt">MYSql###1.查询所有数据库show databases使用这个命令可以查看所有的数据库###2.创建数据库create database renyufei创建数据库如果不指定编码的话默认编码就是utf8不过我们可以使用character set utf8我们可以查看默认编码show create database renyufei###3.删除数据库drop database renyufe###4.修改数据库alter database renyufei default char...&hellip;</p>
+       <div class="post-list__meta"><time datetime="2017-01-11 12:16:32 +0800" class="post-list__meta--date date">2017-01-11</time> &#8226; <span class="post-list__meta--tags tags">Blog</span><a class="btn-border-small" href=/2017/01/MySql%E4%B8%80%E4%BA%9B%E8%AF%AD%E5%8F%A5/>继续阅读</a></div>
+   </div>
+   
+   
+   
+   
+   <div class="read-more-item">
+       <span class="read-more-item-dim">更早的文章</span>
+       <h2 class="post-list__post-title post-title"><a href="/2016/09/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" title="link to 多线程">多线程</a></h2>
+       <p class="excerpt">1.基本概念      1.1 进程    进程是指在系统中正在运行的一个应用程序。每个进程之间是独立的，每个进程均运行在其专用且受保护的内存空间内。        1.2 线程  （1）基本概念1个进程要想执行任务，必须得有线程（每1个进程至少要有1条线程），线程是进程的基本执行单元，一个进程（程序）的所有任务都在线程中执行。 （2）线程的串行 1个线程中任务的执行是串行的，如果要在1个线程中执行多个任务，那么只能一个一个地按顺序执行这些任务。也就是说，在同一时间内，1个线程只能执行1个...&hellip;</p>
+       <div class="post-list__meta"><time datetime="2016-09-27 17:25:32 +0800" class="post-list__meta--date date">2016-09-27</time> &#8226; <span class="post-list__meta--tags tags">Blog</span><a class="btn-border-small" href=/2016/09/%E5%A4%9A%E7%BA%BF%E7%A8%8B/>继续阅读</a></div>
+   </div>
+   
+</section>
+
+
+
+
+                        <!-- 多说评论框 start -->
+    <div class="ds-thread" data-thread-key=/2017/01/JAVA中的字符串处理以及包装类 data-title=JAVA中的字符串处理以及包装类data-url=your web site//2017/01/JAVA%E4%B8%AD%E7%9A%84%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%A4%84%E7%90%86%E4%BB%A5%E5%8F%8A%E5%8C%85%E8%A3%85%E7%B1%BB/></div>
+<!-- 多说评论框 end -->
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"renyufei8023"};
+    (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0] 
+         || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+    </script>
+<!-- 多说公共JS代码 end -->
+            <section class="footer">
+    <footer>
+      <br>
+      <br>
+    	<span class="footer__copyright">本站点采用<a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">知识共享 署名-非商业性使用-相同方式共享 4.0 国际 许可协议</a></span>
+        <span class="footer__copyright">由 <a href="https://jekyllrb.com">Jekyll</a> 于 2017-01-12 生成，感谢<a href="https://pages.github.com"> GitHub Pages</a> 强力驱动</span>
+        <span class="footer__copyright">本站由 <a href="http://yufei.ren">@halfrost</a> 创建，采用 <a href="https://github.com/onevcat/vno-jekyll">Vno - Jekyll</a> 作为主题，您可以在 GitHub 找到<a href="https://github.com/onevcat/OneV-s-Den">本站源码</a> - &copy; 2017</span>
+    </footer>
+</section>
+
+        </div>
+    </div>
+    
+    <script type="text/javascript" src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+
+<script type="text/javascript" src="/js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+<script type="text/javascript" src="/js/main.js"></script>
+
+
+
+    
+
+  </body>
+
+</html>

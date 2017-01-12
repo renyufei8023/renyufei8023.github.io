@@ -1,0 +1,1125 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <title>Java中的JDBC</title>
+  <meta name="description" content="JDBC###什么是JDBC使用java代码发送sql语句的技术，就是jdbc技术。###使用jdbc的前提- 需要登录数据库服务器- 需要知道数据库的IP地址- 需要知道数据库服务器的端口号- 需要知道数据库的用户名- 需要知道数据库密码###数据库连接1. 先确定连接数据库的URL，2. 然后使用Driver...">
+  <meta name="author" content="Wei Wang">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Java中的JDBC">
+  <meta name="twitter:description" content="JDBC###什么是JDBC使用java代码发送sql语句的技术，就是jdbc技术。###使用jdbc的前提- 需要登录数据库服务器- 需要知道数据库的IP地址- 需要知道数据库服务器的端口号- 需要知道数据库的用户名- 需要知道数据库密码###数据库连接1. 先确定连接数据库的URL，2. 然后使用Driver...">
+
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Java中的JDBC">
+  <meta property="og:description" content="JDBC###什么是JDBC使用java代码发送sql语句的技术，就是jdbc技术。###使用jdbc的前提- 需要登录数据库服务器- 需要知道数据库的IP地址- 需要知道数据库服务器的端口号- 需要知道数据库的用户名- 需要知道数据库密码###数据库连接1. 先确定连接数据库的URL，2. 然后使用Driver...">
+
+  <link rel="icon" type="image/ico" href="/assets/images/favicon.ico" />
+  <link href="/assets/images/favicon.ico" rel="shortcut icon" type="image/ico">
+
+  <link rel="stylesheet" href="/css/main.css">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <link rel="canonical" href="http://vno.onevcat.com/2017/01/JDBC%E7%9A%84%E7%94%A8%E6%B3%95/">
+  <link rel="alternate" type="application/rss+xml" title="上善若水，人淡如菊" href="http://vno.onevcat.com/feed.xml">
+
+  <meta name="google-site-verification" content="1-1ZlHoRvM0T2FqPbW2S-qLgYXN6rsn52kErlMPd_gw" />
+
+</head>
+
+
+  <body>
+
+
+
+    <span class="mobile btn-mobile-menu">
+        <i class="fa fa-list btn-mobile-menu__icon"></i>
+        <i class="fa fa-angle-up btn-mobile-close__icon hidden"></i>
+    </span>
+    
+
+    <header class="panel-cover panel-cover--collapsed" style="background-image: url('/assets/images/background-cover.jpg')">
+  <div class="panel-main">
+
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        <a href="/#blog" title="前往 上善若水，人淡如菊 的主页" class="blog-button"><img src="/assets/images/avatar.jpg" width="80" alt="上善若水，人淡如菊 logo" class="panel-cover__logo logo" /></a>
+        <h1 class="panel-cover__title panel-title"><a href="/#blog" title="link to homepage for 上善若水，人淡如菊" class="blog-button">上善若水，人淡如菊</a></h1>
+        
+        <span class="panel-cover__subtitle panel-subtitle">上善若水，人淡如菊</span>
+        
+        <hr class="panel-cover__divider" />
+        <p class="panel-cover__description">嗨，我是任玉飞 (@Raphcel)，一名走在iOS开发路上的从业者，努力成为一个全栈工程师，爱好唱歌，以及所有与音乐有关的事情。目前在北京工作。吾笃信：认真你就赢了。</p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+        
+        
+        
+        <div class="navigation-wrapper">
+          <div>
+            <nav class="cover-navigation cover-navigation--primary">
+              <ul class="navigation">
+                <li class="navigation__item"><a href="/#blog" title="Visit blog" class="blog-button">博客</a></li>
+                
+                  <li class="navigation__item"><a href="http://about.yufei.ren" target="_blank" title="关于">关于</a></li>
+                
+              </ul>
+            </nav>
+          </div>
+          
+          <div><nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+    
+    <!-- jianshu-->
+    <li class="navigation__item">
+      <a href="http://www.jianshu.com/users/d8f57dd98c59/latest_articles" title="@ 的简书" target="_blank">
+        <i class='social fa fa-book'></i>
+        <span class="label">jianshu</span>
+      </a>
+    </li>
+    
+
+  
+  <!-- Weibo -->
+  <li class="navigation__item">
+    <a href="http://weibo.com/ryf8023" title="@ 的微博" target="_blank">
+      <i class='social fa fa-weibo'></i>
+      <span class="label">Weibo</span>
+    </a>
+  </li>
+  
+
+  
+  <!-- Github -->
+  <li class="navigation__item">
+    <a href="https://github.com/renyufei8023" title="@ 的 Github" target="_blank">
+      <i class='social fa fa-github'></i>
+      <span class="label">Github</span>
+    </a>
+  </li>
+  
+
+  
+
+  
+
+  <!-- RSS -->
+  <li class="navigation__item">
+    <a href="/feed.xml" rel="author" title="RSS" target="_blank">
+      <i class='social fa fa-rss'></i>
+      <span class="label">RSS</span>
+    </a>
+  </li>
+
+  
+  <!-- Email -->
+  <li class="navigation__item">
+    <a href="mailto:renyufei8023@gamil.com" title="Contact me">
+      <i class='social fa fa-envelope'></i>
+      <span class="label">Email</span>
+    </a>
+  </li>
+  
+
+  </ul>
+</nav>
+</div>
+        </div>
+      </div>
+    </div>
+    
+    
+    <div class="panel-cover--overlay cover-black"></div>
+    
+  </div>
+</header>
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner">
+            <article class="post-container post-container--single" itemscope itemtype="http://schema.org/BlogPosting">
+  <header class="post-header">
+    <div class="post-meta">
+      <time datetime="2017-01-11 13:16:32 +0800" itemprop="datePublished" class="post-meta__date date">2017-01-11</time> &#8226; <span class="post-meta__tags tags">Blog</span>
+    </div>
+    <h1 class="post-title">Java中的JDBC</h1>
+  </header>
+
+  <section class="post">
+    <h1 id="jdbc">JDBC</h1>
+<p>###什么是JDBC
+使用java代码发送sql语句的技术，就是jdbc技术。
+###使用jdbc的前提
+- 需要登录数据库服务器
+- 需要知道数据库的IP地址
+- 需要知道数据库服务器的端口号
+- 需要知道数据库的用户名
+- 需要知道数据库密码
+###数据库连接
+1. 先确定连接数据库的URL，
+2. 然后使用Driver注册驱动，
+3. 注册驱动之后然后再去连接数据库</p>
+
+<p>具体实现代码如下：
+第一种连接方式：</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code>     <span class="c1">//1.创建驱动程序类对象</span>
+		<span class="n">Driver</span> <span class="n">driver</span> <span class="o">=</span> <span class="k">new</span> <span class="n">com</span><span class="o">.</span><span class="na">mysql</span><span class="o">.</span><span class="na">jdbc</span><span class="o">.</span><span class="na">Driver</span><span class="o">();</span> <span class="c1">//新版本</span>
+		<span class="c1">//Driver driver = new org.gjt.mm.mysql.Driver(); //旧版本</span>
+		
+		<span class="c1">//设置用户名和密码</span>
+		<span class="n">Properties</span> <span class="n">props</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Properties</span><span class="o">();</span>
+		<span class="n">props</span><span class="o">.</span><span class="na">setProperty</span><span class="o">(</span><span class="s">"user"</span><span class="o">,</span> <span class="n">user</span><span class="o">);</span>
+		<span class="n">props</span><span class="o">.</span><span class="na">setProperty</span><span class="o">(</span><span class="s">"password"</span><span class="o">,</span> <span class="n">password</span><span class="o">);</span>
+		
+		<span class="c1">//2.连接数据库，返回连接对象</span>
+		<span class="n">Connection</span> <span class="n">conn</span> <span class="o">=</span> <span class="n">driver</span><span class="o">.</span><span class="na">connect</span><span class="o">(</span><span class="n">url</span><span class="o">,</span> <span class="n">props</span><span class="o">);</span>
+		
+		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">conn</span><span class="o">);</span>
+</code></pre>
+</div>
+<p>第二种方式：
+使用驱动管理器类连接数据库(注册了两次，没必要)
+```java
+    Driver driver = new com.mysql.jdbc.Driver();
+		//Driver driver2 = new com.oracle.jdbc.Driver();
+		//1.注册驱动程序(可以注册多个驱动程序)
+		DriverManager.registerDriver(driver);
+		//DriverManager.registerDriver(driver2);</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>	//2.连接到具体的数据库
+	Connection conn = DriverManager.getConnection(url, user, password);
+	System.out.println(conn); ``` 第三种方式: 推荐使用加载驱动程序类  来 注册驱动程序  ```java //Driver driver = new com.mysql.jdbc.Driver();
+	
+	//通过得到字节码对象的方式加载静态代码块，从而注册驱动程序
+	Class.forName("com.mysql.jdbc.Driver");
+	
+	//Driver driver2 = new com.oracle.jdbc.Driver();
+	//1.注册驱动程序(可以注册多个驱动程序)
+	//DriverManager.registerDriver(driver);
+	//DriverManager.registerDriver(driver2);
+	
+	//2.连接到具体的数据库
+	Connection conn = DriverManager.getConnection(url, user, password);
+	System.out.println(conn); ```
+</code></pre>
+</div>
+
+<p>###Statement的执行过程
+<img src="http://7xqmjb.com1.z0.glb.clouddn.com/2017010939872Statment.png" alt="2017010939872Statment.png" /></p>
+
+<p>###JDBC工具类
+通常我们在项目中可以创建一个工具类管理JDBC的工具类，这样就省去我们写一些重复代码了，在这个工具类里面我们可以提供两个方法，一个获取连接，一个关闭。
+我们弄一个<code class="highlighter-rouge">Properties</code>，把数据库的url，用户名，密码都放到这里面，然后通过输入流把它给读取出来。读取的操作我们把它放到<code class="highlighter-rouge">static</code>代码块里面，这样的话就会只加载一次，
+具体实现如下：</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kd">private</span> <span class="kd">static</span> <span class="n">String</span> <span class="n">url</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+	<span class="kd">private</span> <span class="kd">static</span> <span class="n">String</span> <span class="n">user</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+	<span class="kd">private</span> <span class="kd">static</span> <span class="n">String</span> <span class="n">password</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+	<span class="kd">private</span> <span class="kd">static</span> <span class="n">String</span> <span class="n">driverClass</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+	
+	<span class="cm">/**
+	 * 静态代码块中（只加载一次）
+	 */</span>
+	<span class="kd">static</span><span class="o">{</span>
+		<span class="k">try</span> <span class="o">{</span>
+			<span class="c1">//读取db.properties文件</span>
+			<span class="n">Properties</span> <span class="n">props</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Properties</span><span class="o">();</span>
+			<span class="cm">/**
+			 *  . 代表java命令运行的目录
+			 *  在java项目下，. java命令的运行目录从项目的根目录开始
+			 *  在web项目下，  . java命令的而运行目录从tomcat/bin目录开始
+			 *  所以不能使用点.
+			 */</span>
+			<span class="c1">//FileInputStream in = new FileInputStream("./src/db.properties");</span>
+			
+			<span class="cm">/**
+			 * 使用类路径的读取方式
+			 *  / : 斜杠表示classpath的根目录
+			 *     在java项目下，classpath的根目录从bin目录开始
+			 *     在web项目下，classpath的根目录从WEB-INF/classes目录开始
+			 */</span>
+			<span class="n">InputStream</span> <span class="n">in</span> <span class="o">=</span> <span class="n">JdbcUtil</span><span class="o">.</span><span class="na">class</span><span class="o">.</span><span class="na">getResourceAsStream</span><span class="o">(</span><span class="s">"/db.properties"</span><span class="o">);</span>
+			
+			<span class="c1">//加载文件</span>
+			<span class="n">props</span><span class="o">.</span><span class="na">load</span><span class="o">(</span><span class="n">in</span><span class="o">);</span>
+			<span class="c1">//读取信息</span>
+			<span class="n">url</span> <span class="o">=</span> <span class="n">props</span><span class="o">.</span><span class="na">getProperty</span><span class="o">(</span><span class="s">"url"</span><span class="o">);</span>
+			<span class="n">user</span> <span class="o">=</span> <span class="n">props</span><span class="o">.</span><span class="na">getProperty</span><span class="o">(</span><span class="s">"user"</span><span class="o">);</span>
+			<span class="n">password</span> <span class="o">=</span> <span class="n">props</span><span class="o">.</span><span class="na">getProperty</span><span class="o">(</span><span class="s">"password"</span><span class="o">);</span>
+			<span class="n">driverClass</span> <span class="o">=</span> <span class="n">props</span><span class="o">.</span><span class="na">getProperty</span><span class="o">(</span><span class="s">"driverClass"</span><span class="o">);</span>
+			
+			
+			<span class="c1">//注册驱动程序</span>
+			<span class="n">Class</span><span class="o">.</span><span class="na">forName</span><span class="o">(</span><span class="n">driverClass</span><span class="o">);</span>
+		<span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+			<span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+			<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"驱程程序注册出错"</span><span class="o">);</span>
+		<span class="o">}</span>
+	<span class="o">}</span>
+
+	<span class="cm">/**
+	 * 抽取获取连接对象的方法
+	 */</span>
+	<span class="kd">public</span> <span class="kd">static</span> <span class="n">Connection</span> <span class="nf">getConnection</span><span class="o">(){</span>
+		<span class="k">try</span> <span class="o">{</span>
+			<span class="n">Connection</span> <span class="n">conn</span> <span class="o">=</span> <span class="n">DriverManager</span><span class="o">.</span><span class="na">getConnection</span><span class="o">(</span><span class="n">url</span><span class="o">,</span> <span class="n">user</span><span class="o">,</span> <span class="n">password</span><span class="o">);</span>
+			<span class="k">return</span> <span class="n">conn</span><span class="o">;</span>
+		<span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">SQLException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+			<span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+			<span class="k">throw</span> <span class="k">new</span> <span class="nf">RuntimeException</span><span class="o">(</span><span class="n">e</span><span class="o">);</span>
+		<span class="o">}</span>
+	<span class="o">}</span>
+	
+	
+	<span class="cm">/**
+	 * 释放资源的方法
+	 */</span>
+	<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">close</span><span class="o">(</span><span class="n">Connection</span> <span class="n">conn</span><span class="o">,</span><span class="n">Statement</span> <span class="n">stmt</span><span class="o">){</span>
+		<span class="k">if</span><span class="o">(</span><span class="n">stmt</span><span class="o">!=</span><span class="kc">null</span><span class="o">){</span>
+			<span class="k">try</span> <span class="o">{</span>
+				<span class="n">stmt</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+			<span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">SQLException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+				<span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+				<span class="k">throw</span> <span class="k">new</span> <span class="nf">RuntimeException</span><span class="o">(</span><span class="n">e</span><span class="o">);</span>
+			<span class="o">}</span>
+		<span class="o">}</span>
+		<span class="k">if</span><span class="o">(</span><span class="n">conn</span><span class="o">!=</span><span class="kc">null</span><span class="o">){</span>
+			<span class="k">try</span> <span class="o">{</span>
+				<span class="n">conn</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+			<span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">SQLException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+				<span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+				<span class="k">throw</span> <span class="k">new</span> <span class="nf">RuntimeException</span><span class="o">(</span><span class="n">e</span><span class="o">);</span>
+			<span class="o">}</span>
+		<span class="o">}</span>
+	<span class="o">}</span>
+	
+	<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">close</span><span class="o">(</span><span class="n">Connection</span> <span class="n">conn</span><span class="o">,</span><span class="n">Statement</span> <span class="n">stmt</span><span class="o">,</span><span class="n">ResultSet</span> <span class="n">rs</span><span class="o">){</span>
+		<span class="k">if</span><span class="o">(</span><span class="n">rs</span><span class="o">!=</span><span class="kc">null</span><span class="o">)</span>
+			<span class="k">try</span> <span class="o">{</span>
+				<span class="n">rs</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+			<span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">SQLException</span> <span class="n">e1</span><span class="o">)</span> <span class="o">{</span>
+				<span class="n">e1</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+				<span class="k">throw</span> <span class="k">new</span> <span class="nf">RuntimeException</span><span class="o">(</span><span class="n">e1</span><span class="o">);</span>
+			<span class="o">}</span>
+		<span class="k">if</span><span class="o">(</span><span class="n">stmt</span><span class="o">!=</span><span class="kc">null</span><span class="o">){</span>
+			<span class="k">try</span> <span class="o">{</span>
+				<span class="n">stmt</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+			<span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">SQLException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+				<span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+				<span class="k">throw</span> <span class="k">new</span> <span class="nf">RuntimeException</span><span class="o">(</span><span class="n">e</span><span class="o">);</span>
+			<span class="o">}</span>
+		<span class="o">}</span>
+		<span class="k">if</span><span class="o">(</span><span class="n">conn</span><span class="o">!=</span><span class="kc">null</span><span class="o">){</span>
+			<span class="k">try</span> <span class="o">{</span>
+				<span class="n">conn</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+			<span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">SQLException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+				<span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+				<span class="k">throw</span> <span class="k">new</span> <span class="nf">RuntimeException</span><span class="o">(</span><span class="n">e</span><span class="o">);</span>
+			<span class="o">}</span>
+		<span class="o">}</span>
+	<span class="o">}</span>
+</code></pre>
+</div>
+
+<p>###ResulSet</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="err">表示数据库结果集的数据表，通常通过执行查询数据库的语句生成。</span>
+
+<span class="n">ResultSet</span> <span class="err">对象具有指向其当前数据行的光标。最初，光标被置于第一行之前。</span><span class="n">next</span> <span class="err">方法将光标移动到下一行；因为该方法在</span> <span class="n">ResultSet</span> <span class="err">对象没有下一行时返回</span> <span class="kc">false</span><span class="err">，所以可以在</span> <span class="k">while</span> <span class="err">循环中使用它来迭代结果集。</span>
+
+<span class="err">默认的</span> <span class="n">ResultSet</span> <span class="err">对象不可更新，仅有一个向前移动的光标。因此，只能迭代它一次，并且只能按从第一行到最后一行的顺序进行。可以生成可滚动和</span><span class="o">/</span><span class="err">或可更新的</span> <span class="n">ResultSet</span> <span class="err">对象。以下代码片段（其中</span> <span class="n">con</span> <span class="err">为有效的</span> <span class="n">Connection</span> <span class="err">对象）演示了如何生成可滚动且不受其他更新影响的可更新结果集。有关其他选项，请参见</span> <span class="n">ResultSet</span> <span class="err">字段。</span>
+
+
+       <span class="n">Statement</span> <span class="n">stmt</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="na">createStatement</span><span class="o">(</span>
+                                      <span class="n">ResultSet</span><span class="o">.</span><span class="na">TYPE_SCROLL_INSENSITIVE</span><span class="o">,</span>
+                                      <span class="n">ResultSet</span><span class="o">.</span><span class="na">CONCUR_UPDATABLE</span><span class="o">);</span>
+       <span class="n">ResultSet</span> <span class="n">rs</span> <span class="o">=</span> <span class="n">stmt</span><span class="o">.</span><span class="na">executeQuery</span><span class="o">(</span><span class="s">"SELECT a, b FROM TABLE2"</span><span class="o">);</span>
+       <span class="c1">// rs will be scrollable, will not show changes made by others,</span>
+       <span class="c1">// and will be updatable</span>
+
+ 
+<span class="n">ResultSet</span> <span class="err">接口提供用于从当前行获取列值的</span> <span class="err">获取</span> <span class="err">方法（</span> <span class="n">getBoolean</span><span class="err">、</span> <span class="n">getLong</span> <span class="err">等）。可以使用列的索引编号或列的名称获取值。一般情况下，使用列索引较为高效。列从</span> <span class="mi">1</span> <span class="err">开始编号。为了获得最大的可移植性，应该按从左到右的顺序读取每行中的结果集列，每列只能读取一次。</span>
+<span class="err">对于获取方法，</span><span class="n">JDBC</span> <span class="err">驱动程序尝试将底层数据转换为在获取方法中指定的</span> <span class="n">Java</span> <span class="err">类型，并返回适当的</span> <span class="n">Java</span> <span class="err">值。</span><span class="n">JDBC</span> <span class="err">规范有一个表，显示允许的从</span> <span class="n">SQL</span> <span class="err">类型到</span> <span class="n">ResultSet</span> <span class="err">获取方法所使用的</span> <span class="n">Java</span> <span class="err">类型的映射关系。</span>
+
+<span class="err">用作获取方法的输入的列名称不区分大小写。用列名称调用获取方法时，如果多个列具有这一名称，则返回第一个匹配列的值。在生成结果集的</span> <span class="n">SQL</span> <span class="err">查询中使用列名称时，将使用列名称选项。对于没有在查询中显式指定的列，最好使用列编号。如果使用列名称，则程序员应该注意保证名称唯一引用预期的列，这可以使用</span> <span class="n">SQL</span> <span class="n">AS</span> <span class="err">子句确定。</span>
+
+<span class="err">在</span> <span class="n">JDBC</span> <span class="mf">2.0</span> <span class="n">API</span><span class="err">（</span><span class="n">JavaTM</span> <span class="mi">2</span> <span class="n">SDK</span> <span class="err">标准版</span> <span class="mf">1.2</span> <span class="err">版）中，此接口添加了一组更新方法。关于获取方法参数的注释同样适用于更新方法的参数。</span>
+
+<span class="err">可以用以下两种方式使用更新方法：</span>
+
+<span class="err">更新当前行中的列值。在可滚动的</span> <span class="n">ResultSet</span> <span class="err">对象中，可以向前和向后移动光标，将其置于绝对位置或相对于当前行的位置。以下代码片段更新</span> <span class="n">ResultSet</span> <span class="err">对象</span> <span class="n">rs</span> <span class="err">第五行中的</span> <span class="n">NAME</span> <span class="err">列，然后使用方法</span> <span class="n">updateRow</span> <span class="err">更新导出</span> <span class="n">rs</span> <span class="err">的数据源表。</span>
+
+       <span class="n">rs</span><span class="o">.</span><span class="na">absolute</span><span class="o">(</span><span class="mi">5</span><span class="o">);</span> <span class="c1">// moves the cursor to the fifth row of rs</span>
+       <span class="n">rs</span><span class="o">.</span><span class="na">updateString</span><span class="o">(</span><span class="s">"NAME"</span><span class="o">,</span> <span class="s">"AINSWORTH"</span><span class="o">);</span> <span class="c1">// updates the </span>
+          <span class="c1">// NAME column of row 5 to be AINSWORTH</span>
+       <span class="n">rs</span><span class="o">.</span><span class="na">updateRow</span><span class="o">();</span> <span class="c1">// updates the row in the data source</span>
+
+ 
+<span class="err">将列值插入到插入行中。可更新的</span> <span class="n">ResultSet</span> <span class="err">对象具有一个与其关联的特殊行，该行用作构建要插入的行的暂存区域</span> <span class="o">(</span><span class="n">staging</span> <span class="n">area</span><span class="o">)</span><span class="err">。以下代码片段将光标移动到插入行，构建一个三列的行，并使用方法</span> <span class="n">insertRow</span> <span class="err">将其插入到</span> <span class="n">rs</span> <span class="err">和数据源表中。</span>
+
+       <span class="n">rs</span><span class="o">.</span><span class="na">moveToInsertRow</span><span class="o">();</span> <span class="c1">// moves cursor to the insert row</span>
+       <span class="n">rs</span><span class="o">.</span><span class="na">updateString</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="s">"AINSWORTH"</span><span class="o">);</span> <span class="c1">// updates the </span>
+          <span class="c1">// first column of the insert row to be AINSWORTH</span>
+       <span class="n">rs</span><span class="o">.</span><span class="na">updateInt</span><span class="o">(</span><span class="mi">2</span><span class="o">,</span><span class="mi">35</span><span class="o">);</span> <span class="c1">// updates the second column to be 35</span>
+       <span class="n">rs</span><span class="o">.</span><span class="na">updateBoolean</span><span class="o">(</span><span class="mi">3</span><span class="o">,</span> <span class="kc">true</span><span class="o">);</span> <span class="c1">// updates the third column to true</span>
+       <span class="n">rs</span><span class="o">.</span><span class="na">insertRow</span><span class="o">();</span>
+       <span class="n">rs</span><span class="o">.</span><span class="na">moveToCurrentRow</span><span class="o">();</span>
+</code></pre>
+</div>
+<p>###使用JDBC执行DDL语句(创建表)</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="nd">@Test</span>
+	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">test1</span><span class="o">(){</span>
+		<span class="n">Statement</span> <span class="n">stmt</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+		<span class="n">Connection</span> <span class="n">conn</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+		<span class="k">try</span> <span class="o">{</span>
+			<span class="c1">//1.驱动注册程序</span>
+			<span class="n">Class</span><span class="o">.</span><span class="na">forName</span><span class="o">(</span><span class="s">"com.mysql.jdbc.Driver"</span><span class="o">);</span>
+			
+			<span class="c1">//2.获取连接对象</span>
+			<span class="n">conn</span> <span class="o">=</span> <span class="n">DriverManager</span><span class="o">.</span><span class="na">getConnection</span><span class="o">(</span><span class="n">url</span><span class="o">,</span> <span class="n">user</span><span class="o">,</span> <span class="n">password</span><span class="o">);</span>
+			
+			<span class="c1">//3.创建Statement</span>
+			<span class="n">stmt</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="na">createStatement</span><span class="o">();</span>
+			
+			<span class="c1">//4.准备sql</span>
+			<span class="n">String</span> <span class="n">sql</span> <span class="o">=</span> <span class="s">"CREATE TABLE student(id INT PRIMARY KEY AUTO_INCREMENT,NAME VARCHAR(20),gender VARCHAR(2))"</span><span class="o">;</span>
+			
+			<span class="c1">//5.发送sql语句，执行sql语句,得到返回结果</span>
+			<span class="kt">int</span> <span class="n">count</span> <span class="o">=</span> <span class="n">stmt</span><span class="o">.</span><span class="na">executeUpdate</span><span class="o">(</span><span class="n">sql</span><span class="o">);</span>
+			
+			<span class="c1">//6.输出</span>
+			<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"影响了"</span><span class="o">+</span><span class="n">count</span><span class="o">+</span><span class="s">"行！"</span><span class="o">);</span>
+		<span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+			<span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+			<span class="k">throw</span> <span class="k">new</span> <span class="nf">RuntimeException</span><span class="o">(</span><span class="n">e</span><span class="o">);</span>
+		<span class="o">}</span> <span class="k">finally</span><span class="o">{</span>
+			<span class="c1">//7.关闭连接(顺序:后打开的先关闭)</span>
+			<span class="k">if</span><span class="o">(</span><span class="n">stmt</span><span class="o">!=</span><span class="kc">null</span><span class="o">)</span>
+				<span class="k">try</span> <span class="o">{</span>
+					<span class="n">stmt</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+				<span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">SQLException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+					<span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+					<span class="k">throw</span> <span class="k">new</span> <span class="nf">RuntimeException</span><span class="o">(</span><span class="n">e</span><span class="o">);</span>
+				<span class="o">}</span>
+			<span class="k">if</span><span class="o">(</span><span class="n">conn</span><span class="o">!=</span><span class="kc">null</span><span class="o">)</span>
+				<span class="k">try</span> <span class="o">{</span>
+					<span class="n">conn</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+				<span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">SQLException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+					<span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+					<span class="k">throw</span> <span class="k">new</span> <span class="nf">RuntimeException</span><span class="o">(</span><span class="n">e</span><span class="o">);</span>
+				<span class="o">}</span>
+		<span class="o">}</span>		
+	<span class="o">}</span>
+</code></pre>
+</div>
+
+<p>###使用JDBC执行DML语句
+- 增加</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="nd">@Test</span>
+	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">testInsert</span><span class="o">(){</span>
+		<span class="n">Connection</span> <span class="n">conn</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+		<span class="n">Statement</span> <span class="n">stmt</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+		<span class="k">try</span> <span class="o">{</span>
+			<span class="c1">//通过工具类获取连接对象</span>
+			<span class="n">conn</span> <span class="o">=</span> <span class="n">JdbcUtil</span><span class="o">.</span><span class="na">getConnection</span><span class="o">();</span>
+			
+			<span class="c1">//3.创建Statement对象</span>
+			<span class="n">stmt</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="na">createStatement</span><span class="o">();</span>
+			
+			<span class="c1">//4.sql语句</span>
+			<span class="n">String</span> <span class="n">sql</span> <span class="o">=</span> <span class="s">"INSERT INTO student(NAME,gender) VALUES('李四','女')"</span><span class="o">;</span>
+			
+			<span class="c1">//5.执行sql</span>
+			<span class="kt">int</span> <span class="n">count</span> <span class="o">=</span> <span class="n">stmt</span><span class="o">.</span><span class="na">executeUpdate</span><span class="o">(</span><span class="n">sql</span><span class="o">);</span>
+			
+			<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"影响了"</span><span class="o">+</span><span class="n">count</span><span class="o">+</span><span class="s">"行"</span><span class="o">);</span>
+			
+		<span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+			<span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+			<span class="k">throw</span> <span class="k">new</span> <span class="nf">RuntimeException</span><span class="o">(</span><span class="n">e</span><span class="o">);</span>
+		<span class="o">}</span> <span class="k">finally</span><span class="o">{</span>
+			<span class="c1">//关闭资源</span>
+			<span class="cm">/*if(stmt!=null)
+				try {
+					stmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+					throw new RuntimeException(e);
+				}
+			if(conn!=null)
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+					throw new RuntimeException(e);
+				}*/</span>
+			<span class="n">JdbcUtil</span><span class="o">.</span><span class="na">close</span><span class="o">(</span><span class="n">conn</span><span class="o">,</span> <span class="n">stmt</span><span class="o">);</span>
+		<span class="o">}</span>
+	<span class="o">}</span>
+</code></pre>
+</div>
+<ul>
+  <li>修改</li>
+</ul>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="nd">@Test</span>
+	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">testUpdate</span><span class="o">(){</span>
+		<span class="n">Connection</span> <span class="n">conn</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+		<span class="n">Statement</span> <span class="n">stmt</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+		<span class="c1">//模拟用户输入</span>
+		<span class="n">String</span> <span class="n">name</span> <span class="o">=</span> <span class="s">"陈六"</span><span class="o">;</span>
+		<span class="kt">int</span> <span class="n">id</span> <span class="o">=</span> <span class="mi">3</span><span class="o">;</span>
+		<span class="k">try</span> <span class="o">{</span>
+			<span class="cm">/*//1.注册驱动
+			Class.forName("com.mysql.jdbc.Driver");
+			
+			//2.获取连接对象
+			conn = DriverManager.getConnection(url, user, password);*/</span>
+			<span class="c1">//通过工具类获取连接对象</span>
+			<span class="n">conn</span> <span class="o">=</span> <span class="n">JdbcUtil</span><span class="o">.</span><span class="na">getConnection</span><span class="o">();</span>
+			
+			<span class="c1">//3.创建Statement对象</span>
+			<span class="n">stmt</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="na">createStatement</span><span class="o">();</span>
+			
+			<span class="c1">//4.sql语句</span>
+			<span class="n">String</span> <span class="n">sql</span> <span class="o">=</span> <span class="s">"UPDATE student SET NAME='"</span><span class="o">+</span><span class="n">name</span><span class="o">+</span><span class="s">"' WHERE id="</span><span class="o">+</span><span class="n">id</span><span class="o">+</span><span class="s">""</span><span class="o">;</span>
+			
+			<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">sql</span><span class="o">);</span>
+			
+			<span class="c1">//5.执行sql</span>
+			<span class="kt">int</span> <span class="n">count</span> <span class="o">=</span> <span class="n">stmt</span><span class="o">.</span><span class="na">executeUpdate</span><span class="o">(</span><span class="n">sql</span><span class="o">);</span>
+			
+			<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"影响了"</span><span class="o">+</span><span class="n">count</span><span class="o">+</span><span class="s">"行"</span><span class="o">);</span>
+			
+		<span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+			<span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+			<span class="k">throw</span> <span class="k">new</span> <span class="nf">RuntimeException</span><span class="o">(</span><span class="n">e</span><span class="o">);</span>
+		<span class="o">}</span> <span class="k">finally</span><span class="o">{</span>
+			<span class="c1">//关闭资源</span>
+			<span class="cm">/*if(stmt!=null)
+				try {
+					stmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+					throw new RuntimeException(e);
+				}
+			if(conn!=null)
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+					throw new RuntimeException(e);
+				}*/</span>
+			<span class="n">JdbcUtil</span><span class="o">.</span><span class="na">close</span><span class="o">(</span><span class="n">conn</span><span class="o">,</span> <span class="n">stmt</span><span class="o">);</span>
+		<span class="o">}</span>
+	<span class="o">}</span>
+</code></pre>
+</div>
+<ul>
+  <li>删除</li>
+</ul>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="nd">@Test</span>
+	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">testDelete</span><span class="o">(){</span>
+		<span class="n">Connection</span> <span class="n">conn</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+		<span class="n">Statement</span> <span class="n">stmt</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+		<span class="c1">//模拟用户输入</span>
+		<span class="kt">int</span> <span class="n">id</span> <span class="o">=</span> <span class="mi">3</span><span class="o">;</span>
+		<span class="k">try</span> <span class="o">{</span>
+			<span class="cm">/*//1.注册驱动
+			Class.forName("com.mysql.jdbc.Driver");
+			
+			//2.获取连接对象
+			conn = DriverManager.getConnection(url, user, password);*/</span>
+			<span class="c1">//通过工具类获取连接对象</span>
+			<span class="n">conn</span> <span class="o">=</span> <span class="n">JdbcUtil</span><span class="o">.</span><span class="na">getConnection</span><span class="o">();</span>
+			
+			<span class="c1">//3.创建Statement对象</span>
+			<span class="n">stmt</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="na">createStatement</span><span class="o">();</span>
+			
+			<span class="c1">//4.sql语句</span>
+			<span class="n">String</span> <span class="n">sql</span> <span class="o">=</span> <span class="s">"DELETE FROM student WHERE id="</span><span class="o">+</span><span class="n">id</span><span class="o">+</span><span class="s">""</span><span class="o">;</span>
+			
+			<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">sql</span><span class="o">);</span>
+			
+			<span class="c1">//5.执行sql</span>
+			<span class="kt">int</span> <span class="n">count</span> <span class="o">=</span> <span class="n">stmt</span><span class="o">.</span><span class="na">executeUpdate</span><span class="o">(</span><span class="n">sql</span><span class="o">);</span>
+			
+			<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"影响了"</span><span class="o">+</span><span class="n">count</span><span class="o">+</span><span class="s">"行"</span><span class="o">);</span>
+			
+		<span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+			<span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+			<span class="k">throw</span> <span class="k">new</span> <span class="nf">RuntimeException</span><span class="o">(</span><span class="n">e</span><span class="o">);</span>
+		<span class="o">}</span> <span class="k">finally</span><span class="o">{</span>
+			<span class="c1">//关闭资源</span>
+			<span class="cm">/*if(stmt!=null)
+				try {
+					stmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+					throw new RuntimeException(e);
+				}
+			if(conn!=null)
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+					throw new RuntimeException(e);
+				}*/</span>
+			<span class="n">JdbcUtil</span><span class="o">.</span><span class="na">close</span><span class="o">(</span><span class="n">conn</span><span class="o">,</span> <span class="n">stmt</span><span class="o">);</span>
+		<span class="o">}</span>
+	<span class="o">}</span>
+</code></pre>
+</div>
+<p>###使用JDBC执行DQL语句(查询操作)
+我们一般都是使用<code class="highlighter-rouge">executeQuery</code>来获取<code class="highlighter-rouge">ResultSet</code>，<code class="highlighter-rouge">ResultSet</code>的话我们可以通过<code class="highlighter-rouge">列</code>或者是<code class="highlighter-rouge">字段名称</code>来获取数据
+代码如下：</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="nd">@Test</span>
+	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">test1</span><span class="o">(){</span>
+		<span class="n">Connection</span> <span class="n">conn</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+		<span class="n">Statement</span> <span class="n">stmt</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+		<span class="k">try</span><span class="o">{</span>
+			<span class="c1">//获取连接</span>
+			<span class="n">conn</span> <span class="o">=</span> <span class="n">JdbcUtil</span><span class="o">.</span><span class="na">getConnection</span><span class="o">();</span>
+			<span class="c1">//创建Statement</span>
+			<span class="n">stmt</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="na">createStatement</span><span class="o">();</span>
+			<span class="c1">//准备sql</span>
+			<span class="n">String</span> <span class="n">sql</span> <span class="o">=</span> <span class="s">"SELECT * FROM student"</span><span class="o">;</span>
+			<span class="c1">//执行sql</span>
+			<span class="n">ResultSet</span> <span class="n">rs</span> <span class="o">=</span> <span class="n">stmt</span><span class="o">.</span><span class="na">executeQuery</span><span class="o">(</span><span class="n">sql</span><span class="o">);</span>
+			
+			<span class="c1">//移动光标</span>
+			<span class="cm">/*boolean flag = rs.next();
+			
+			flag = rs.next();
+			flag = rs.next();
+			if(flag){
+				//取出列值
+				//索引
+				int id = rs.getInt(1);
+				String name = rs.getString(2);
+				String gender = rs.getString(3);
+				System.out.println(id+","+name+","+gender);
+				
+				//列名称
+				int id = rs.getInt("id");
+				String name = rs.getString("name");
+				String gender = rs.getString("gender");
+				System.out.println(id+","+name+","+gender);
+			}*/</span>
+			
+			<span class="c1">//遍历结果</span>
+			<span class="k">while</span><span class="o">(</span><span class="n">rs</span><span class="o">.</span><span class="na">next</span><span class="o">()){</span>
+				<span class="kt">int</span> <span class="n">id</span> <span class="o">=</span> <span class="n">rs</span><span class="o">.</span><span class="na">getInt</span><span class="o">(</span><span class="s">"id"</span><span class="o">);</span>
+				<span class="n">String</span> <span class="n">name</span> <span class="o">=</span> <span class="n">rs</span><span class="o">.</span><span class="na">getString</span><span class="o">(</span><span class="s">"name"</span><span class="o">);</span>
+				<span class="n">String</span> <span class="n">gender</span> <span class="o">=</span> <span class="n">rs</span><span class="o">.</span><span class="na">getString</span><span class="o">(</span><span class="s">"gender"</span><span class="o">);</span>
+				<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">id</span><span class="o">+</span><span class="s">","</span><span class="o">+</span><span class="n">name</span><span class="o">+</span><span class="s">","</span><span class="o">+</span><span class="n">gender</span><span class="o">);</span>
+			<span class="o">}</span>
+			
+		<span class="o">}</span><span class="k">catch</span><span class="o">(</span><span class="n">Exception</span> <span class="n">e</span><span class="o">){</span>
+			<span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+			<span class="k">throw</span> <span class="k">new</span> <span class="nf">RuntimeException</span><span class="o">(</span><span class="n">e</span><span class="o">);</span>
+		<span class="o">}</span><span class="k">finally</span><span class="o">{</span>
+			<span class="n">JdbcUtil</span><span class="o">.</span><span class="na">close</span><span class="o">(</span><span class="n">conn</span><span class="o">,</span> <span class="n">stmt</span><span class="o">);</span>
+		<span class="o">}</span>
+	<span class="o">}</span>
+</code></pre>
+</div>
+
+<p>###使用预编译执行sql语句
+预编译执行相对于静态的安全性比较高，避免sql注入，提高了安全性，
+- 增加</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="nd">@Test</span>
+	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">testInsert</span><span class="o">()</span> <span class="o">{</span>
+		<span class="n">Connection</span> <span class="n">conn</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+		<span class="n">PreparedStatement</span> <span class="n">stmt</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+		<span class="k">try</span> <span class="o">{</span>
+			<span class="c1">//1.获取连接</span>
+			<span class="n">conn</span> <span class="o">=</span> <span class="n">JdbcUtil</span><span class="o">.</span><span class="na">getConnection</span><span class="o">();</span>
+			
+			<span class="c1">//2.准备预编译的sql</span>
+			<span class="n">String</span> <span class="n">sql</span> <span class="o">=</span> <span class="s">"INSERT INTO student(NAME,gender) VALUES(?,?)"</span><span class="o">;</span> <span class="c1">//?表示一个参数的占位符</span>
+			
+			<span class="c1">//3.执行预编译sql语句(检查语法)</span>
+			<span class="n">stmt</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="na">prepareStatement</span><span class="o">(</span><span class="n">sql</span><span class="o">);</span>
+			
+			<span class="c1">//4.设置参数值</span>
+			<span class="cm">/**
+			 * 参数一： 参数位置  从1开始
+			 */</span>
+			<span class="n">stmt</span><span class="o">.</span><span class="na">setString</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="s">"李四"</span><span class="o">);</span>
+			<span class="n">stmt</span><span class="o">.</span><span class="na">setString</span><span class="o">(</span><span class="mi">2</span><span class="o">,</span> <span class="s">"男"</span><span class="o">);</span>
+			
+			<span class="c1">//5.发送参数，执行sql</span>
+			<span class="kt">int</span> <span class="n">count</span> <span class="o">=</span> <span class="n">stmt</span><span class="o">.</span><span class="na">executeUpdate</span><span class="o">();</span>
+			
+			<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"影响了"</span><span class="o">+</span><span class="n">count</span><span class="o">+</span><span class="s">"行"</span><span class="o">);</span>
+			
+		<span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+			<span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+			<span class="k">throw</span> <span class="k">new</span> <span class="nf">RuntimeException</span><span class="o">(</span><span class="n">e</span><span class="o">);</span>
+		<span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>
+			<span class="n">JdbcUtil</span><span class="o">.</span><span class="na">close</span><span class="o">(</span><span class="n">conn</span><span class="o">,</span> <span class="n">stmt</span><span class="o">);</span>
+		<span class="o">}</span>
+	<span class="o">}</span>
+</code></pre>
+</div>
+<ul>
+  <li>修改</li>
+</ul>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="nd">@Test</span>
+	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">testUpdate</span><span class="o">()</span> <span class="o">{</span>
+		<span class="n">Connection</span> <span class="n">conn</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+		<span class="n">PreparedStatement</span> <span class="n">stmt</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+		<span class="k">try</span> <span class="o">{</span>
+			<span class="c1">//1.获取连接</span>
+			<span class="n">conn</span> <span class="o">=</span> <span class="n">JdbcUtil</span><span class="o">.</span><span class="na">getConnection</span><span class="o">();</span>
+			
+			<span class="c1">//2.准备预编译的sql</span>
+			<span class="n">String</span> <span class="n">sql</span> <span class="o">=</span> <span class="s">"UPDATE student SET NAME=? WHERE id=?"</span><span class="o">;</span> <span class="c1">//?表示一个参数的占位符</span>
+			
+			<span class="c1">//3.执行预编译sql语句(检查语法)</span>
+			<span class="n">stmt</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="na">prepareStatement</span><span class="o">(</span><span class="n">sql</span><span class="o">);</span>
+			
+			<span class="c1">//4.设置参数值</span>
+			<span class="cm">/**
+			 * 参数一： 参数位置  从1开始
+			 */</span>
+			<span class="n">stmt</span><span class="o">.</span><span class="na">setString</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="s">"王五"</span><span class="o">);</span>
+			<span class="n">stmt</span><span class="o">.</span><span class="na">setInt</span><span class="o">(</span><span class="mi">2</span><span class="o">,</span> <span class="mi">9</span><span class="o">);</span>
+			
+			<span class="c1">//5.发送参数，执行sql</span>
+			<span class="kt">int</span> <span class="n">count</span> <span class="o">=</span> <span class="n">stmt</span><span class="o">.</span><span class="na">executeUpdate</span><span class="o">();</span>
+			
+			<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"影响了"</span><span class="o">+</span><span class="n">count</span><span class="o">+</span><span class="s">"行"</span><span class="o">);</span>
+			
+		<span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+			<span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+			<span class="k">throw</span> <span class="k">new</span> <span class="nf">RuntimeException</span><span class="o">(</span><span class="n">e</span><span class="o">);</span>
+		<span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>
+			<span class="n">JdbcUtil</span><span class="o">.</span><span class="na">close</span><span class="o">(</span><span class="n">conn</span><span class="o">,</span> <span class="n">stmt</span><span class="o">);</span>
+		<span class="o">}</span>
+	<span class="o">}</span>
+</code></pre>
+</div>
+<ul>
+  <li>删除</li>
+</ul>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="nd">@Test</span>
+	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">testDelete</span><span class="o">()</span> <span class="o">{</span>
+		<span class="n">Connection</span> <span class="n">conn</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+		<span class="n">PreparedStatement</span> <span class="n">stmt</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+		<span class="k">try</span> <span class="o">{</span>
+			<span class="c1">//1.获取连接</span>
+			<span class="n">conn</span> <span class="o">=</span> <span class="n">JdbcUtil</span><span class="o">.</span><span class="na">getConnection</span><span class="o">();</span>
+			
+			<span class="c1">//2.准备预编译的sql</span>
+			<span class="n">String</span> <span class="n">sql</span> <span class="o">=</span> <span class="s">"DELETE FROM student WHERE id=?"</span><span class="o">;</span> <span class="c1">//?表示一个参数的占位符</span>
+			
+			<span class="c1">//3.执行预编译sql语句(检查语法)</span>
+			<span class="n">stmt</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="na">prepareStatement</span><span class="o">(</span><span class="n">sql</span><span class="o">);</span>
+			
+			<span class="c1">//4.设置参数值</span>
+			<span class="cm">/**
+			 * 参数一： 参数位置  从1开始
+			 */</span>
+			<span class="n">stmt</span><span class="o">.</span><span class="na">setInt</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">9</span><span class="o">);</span>
+			
+			<span class="c1">//5.发送参数，执行sql</span>
+			<span class="kt">int</span> <span class="n">count</span> <span class="o">=</span> <span class="n">stmt</span><span class="o">.</span><span class="na">executeUpdate</span><span class="o">();</span>
+			
+			<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"影响了"</span><span class="o">+</span><span class="n">count</span><span class="o">+</span><span class="s">"行"</span><span class="o">);</span>
+			
+		<span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+			<span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+			<span class="k">throw</span> <span class="k">new</span> <span class="nf">RuntimeException</span><span class="o">(</span><span class="n">e</span><span class="o">);</span>
+		<span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>
+			<span class="n">JdbcUtil</span><span class="o">.</span><span class="na">close</span><span class="o">(</span><span class="n">conn</span><span class="o">,</span> <span class="n">stmt</span><span class="o">);</span>
+		<span class="o">}</span>
+	<span class="o">}</span>
+</code></pre>
+</div>
+<ul>
+  <li>查询</li>
+</ul>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="nd">@Test</span>
+	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">testQuery</span><span class="o">()</span> <span class="o">{</span>
+		<span class="n">Connection</span> <span class="n">conn</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+		<span class="n">PreparedStatement</span> <span class="n">stmt</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+		<span class="n">ResultSet</span> <span class="n">rs</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+		<span class="k">try</span> <span class="o">{</span>
+			<span class="c1">//1.获取连接</span>
+			<span class="n">conn</span> <span class="o">=</span> <span class="n">JdbcUtil</span><span class="o">.</span><span class="na">getConnection</span><span class="o">();</span>
+			
+			<span class="c1">//2.准备预编译的sql</span>
+			<span class="n">String</span> <span class="n">sql</span> <span class="o">=</span> <span class="s">"SELECT * FROM student"</span><span class="o">;</span> 
+			
+			<span class="c1">//3.预编译</span>
+			<span class="n">stmt</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="na">prepareStatement</span><span class="o">(</span><span class="n">sql</span><span class="o">);</span>
+			
+			<span class="c1">//4.执行sql</span>
+			<span class="n">rs</span> <span class="o">=</span> <span class="n">stmt</span><span class="o">.</span><span class="na">executeQuery</span><span class="o">();</span>
+			
+			<span class="c1">//5.遍历rs</span>
+			<span class="k">while</span><span class="o">(</span><span class="n">rs</span><span class="o">.</span><span class="na">next</span><span class="o">()){</span>
+				<span class="kt">int</span> <span class="n">id</span> <span class="o">=</span> <span class="n">rs</span><span class="o">.</span><span class="na">getInt</span><span class="o">(</span><span class="s">"id"</span><span class="o">);</span>
+				<span class="n">String</span> <span class="n">name</span> <span class="o">=</span> <span class="n">rs</span><span class="o">.</span><span class="na">getString</span><span class="o">(</span><span class="s">"name"</span><span class="o">);</span>
+				<span class="n">String</span> <span class="n">gender</span> <span class="o">=</span> <span class="n">rs</span><span class="o">.</span><span class="na">getString</span><span class="o">(</span><span class="s">"gender"</span><span class="o">);</span>
+				<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">id</span><span class="o">+</span><span class="s">","</span><span class="o">+</span><span class="n">name</span><span class="o">+</span><span class="s">","</span><span class="o">+</span><span class="n">gender</span><span class="o">);</span>
+			<span class="o">}</span>
+			
+		<span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+			<span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+			<span class="k">throw</span> <span class="k">new</span> <span class="nf">RuntimeException</span><span class="o">(</span><span class="n">e</span><span class="o">);</span>
+		<span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>
+			<span class="c1">//关闭资源</span>
+			<span class="n">JdbcUtil</span><span class="o">.</span><span class="na">close</span><span class="o">(</span><span class="n">conn</span><span class="o">,</span><span class="n">stmt</span><span class="o">,</span><span class="n">rs</span><span class="o">);</span>
+		<span class="o">}</span>
+	<span class="o">}</span>
+</code></pre>
+</div>
+<p>使用Statement实现sql注入：</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="c1">//模拟用户输入</span>
+	<span class="c1">//private String name = "ericdfdfdfddfd' OR 1=1 -- ";</span>
+	<span class="kd">private</span> <span class="n">String</span> <span class="n">name</span> <span class="o">=</span> <span class="s">"eric"</span><span class="o">;</span>
+	<span class="c1">//private String password = "123456dfdfddfdf";</span>
+	<span class="kd">private</span> <span class="n">String</span> <span class="n">password</span> <span class="o">=</span> <span class="s">"123456"</span><span class="o">;</span>
+
+	<span class="cm">/**
+	 * Statment存在sql被注入的风险
+	 */</span>
+	<span class="nd">@Test</span>
+	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">testByStatement</span><span class="o">(){</span>
+		<span class="n">Connection</span> <span class="n">conn</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+		<span class="n">Statement</span> <span class="n">stmt</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+		<span class="n">ResultSet</span> <span class="n">rs</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+		<span class="k">try</span> <span class="o">{</span>
+			<span class="c1">//获取连接</span>
+			<span class="n">conn</span> <span class="o">=</span> <span class="n">JdbcUtil</span><span class="o">.</span><span class="na">getConnection</span><span class="o">();</span>
+			
+			<span class="c1">//创建Statment</span>
+			<span class="n">stmt</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="na">createStatement</span><span class="o">();</span>
+			
+			<span class="c1">//准备sql</span>
+			<span class="n">String</span> <span class="n">sql</span> <span class="o">=</span> <span class="s">"SELECT * FROM users WHERE NAME='"</span><span class="o">+</span><span class="n">name</span><span class="o">+</span><span class="s">"' AND PASSWORD='"</span><span class="o">+</span><span class="n">password</span><span class="o">+</span><span class="s">"'"</span><span class="o">;</span>
+			
+			<span class="c1">//执行sql</span>
+			<span class="n">rs</span> <span class="o">=</span> <span class="n">stmt</span><span class="o">.</span><span class="na">executeQuery</span><span class="o">(</span><span class="n">sql</span><span class="o">);</span>
+			
+			<span class="k">if</span><span class="o">(</span><span class="n">rs</span><span class="o">.</span><span class="na">next</span><span class="o">()){</span>
+				<span class="c1">//登录成功</span>
+				<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"登录成功"</span><span class="o">);</span>
+			<span class="o">}</span><span class="k">else</span><span class="o">{</span>
+				<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"登录失败"</span><span class="o">);</span>
+			<span class="o">}</span>
+			
+		<span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+			<span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+			<span class="k">throw</span> <span class="k">new</span> <span class="nf">RuntimeException</span><span class="o">(</span><span class="n">e</span><span class="o">);</span>
+		<span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>
+			<span class="n">JdbcUtil</span><span class="o">.</span><span class="na">close</span><span class="o">(</span><span class="n">conn</span><span class="o">,</span> <span class="n">stmt</span> <span class="o">,</span><span class="n">rs</span><span class="o">);</span>
+		<span class="o">}</span>
+		
+	<span class="o">}</span>
+	
+	<span class="cm">/**
+	 * PreparedStatement可以有效地防止sql被注入
+	 */</span>
+	<span class="nd">@Test</span>
+	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">testByPreparedStatement</span><span class="o">(){</span>
+		<span class="n">Connection</span> <span class="n">conn</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+		<span class="n">PreparedStatement</span> <span class="n">stmt</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+		<span class="n">ResultSet</span> <span class="n">rs</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+		<span class="k">try</span> <span class="o">{</span>
+			<span class="c1">//获取连接</span>
+			<span class="n">conn</span> <span class="o">=</span> <span class="n">JdbcUtil</span><span class="o">.</span><span class="na">getConnection</span><span class="o">();</span>
+			
+			<span class="n">String</span> <span class="n">sql</span> <span class="o">=</span> <span class="s">"SELECT * FROM users WHERE NAME=? AND PASSWORD=?"</span><span class="o">;</span>
+			
+			<span class="c1">//预编译</span>
+			<span class="n">stmt</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="na">prepareStatement</span><span class="o">(</span><span class="n">sql</span><span class="o">);</span>
+			
+			<span class="c1">//设置参数</span>
+			<span class="n">stmt</span><span class="o">.</span><span class="na">setString</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="n">name</span><span class="o">);</span>
+			<span class="n">stmt</span><span class="o">.</span><span class="na">setString</span><span class="o">(</span><span class="mi">2</span><span class="o">,</span> <span class="n">password</span><span class="o">);</span>
+			
+			<span class="c1">//执行sql</span>
+			<span class="n">rs</span> <span class="o">=</span> <span class="n">stmt</span><span class="o">.</span><span class="na">executeQuery</span><span class="o">();</span>
+			
+			<span class="k">if</span><span class="o">(</span><span class="n">rs</span><span class="o">.</span><span class="na">next</span><span class="o">()){</span>
+				<span class="c1">//登录成功</span>
+				<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"登录成功"</span><span class="o">);</span>
+			<span class="o">}</span><span class="k">else</span><span class="o">{</span>
+				<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"登录失败"</span><span class="o">);</span>
+			<span class="o">}</span>
+			
+		<span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+			<span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+			<span class="k">throw</span> <span class="k">new</span> <span class="nf">RuntimeException</span><span class="o">(</span><span class="n">e</span><span class="o">);</span>
+		<span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>
+			<span class="n">JdbcUtil</span><span class="o">.</span><span class="na">close</span><span class="o">(</span><span class="n">conn</span><span class="o">,</span> <span class="n">stmt</span> <span class="o">,</span><span class="n">rs</span><span class="o">);</span>
+		<span class="o">}</span>
+		
+	<span class="o">}</span>
+</code></pre>
+</div>
+
+<p>###使用CablleStatement调用存储过程
+```java
+/**
+	 * 调用带有输入参数的存储过程
+	 * CALL pro_findById(4);
+	 */
+	@Test
+	public void test1(){
+		Connection conn = null;
+		CallableStatement stmt = null;
+		ResultSet rs = null;
+		try {
+			//获取连接
+			conn = JdbcUtil.getConnection();</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>		//准备sql
+		String sql = "CALL pro_findById(?)"; //可以执行预编译的sql
+		
+		//预编译
+		stmt = conn.prepareCall(sql);
+		
+		//设置输入参数
+		stmt.setInt(1, 6);
+		
+		//发送参数
+		rs = stmt.executeQuery(); //注意： 所有调用存储过程的sql语句都是使用executeQuery方法执行！！！
+		
+		//遍历结果
+		while(rs.next()){
+			int id = rs.getInt("id");
+			String name = rs.getString("name");
+			String gender = rs.getString("gender");
+			System.out.println(id+","+name+","+gender);
+		}
+		
+	} catch (Exception e) {
+		e.printStackTrace();
+		throw new RuntimeException(e);
+	} finally {
+		JdbcUtil.close(conn, stmt ,rs);
+	}
+}
+
+/**
+ * 执行带有输出参数的存储过程
+ * CALL pro_findById2(5,@NAME);
+ */
+@Test
+public void test2(){
+	Connection conn = null;
+	CallableStatement stmt = null;
+	ResultSet rs = null;
+	try {
+		//获取连接
+		conn = JdbcUtil.getConnection();
+		//准备sql
+		String sql = "CALL pro_findById2(?,?)"; //第一个？是输入参数，第二个？是输出参数
+		
+		//预编译
+		stmt = conn.prepareCall(sql);
+		
+		//设置输入参数
+		stmt.setInt(1, 6);
+		//设置输出参数(注册输出参数)
+		/**
+		 * 参数一： 参数位置
+		 * 参数二： 存储过程中的输出参数的jdbc类型    VARCHAR(20)
+		 */
+		stmt.registerOutParameter(2, java.sql.Types.VARCHAR);
+		
+		//发送参数，执行
+		stmt.executeQuery(); //结果不是返回到结果集中，而是返回到输出参数中
+		
+		//得到输出参数的值
+		/**
+		 * 索引值： 预编译sql中的输出参数的位置
+		 */
+		String result = stmt.getString(2); //getXX方法专门用于获取存储过程中的输出参数
+		
+		System.out.println(result);
+
+	} catch (Exception e) {
+		e.printStackTrace();
+		throw new RuntimeException(e);
+	} finally {
+		JdbcUtil.close(conn, stmt ,rs);
+	}
+} ```
+</code></pre>
+</div>
+
+<p>###使用JDBC进行批处理
+当需要向数据库发送一批sql语句执行时，应避免像数据库一条条的发送执行，而应采用JDBC的批处理机制，以提升效率，
+实现批处理有两种方式：
+- 第一种</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="n">Statement</span><span class="o">.</span><span class="na">addBatch</span><span class="o">(</span><span class="n">sql</span><span class="o">)</span> <span class="n">list</span>
+</code></pre>
+</div>
+<ul>
+  <li>第二种</li>
+</ul>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="n">executeBatch</span><span class="o">()</span>  <span class="err">执行批处理命令</span>
+<span class="n">clearBatch</span><span class="o">()</span> <span class="err">清除批处理命令</span>
+</code></pre>
+</div>
+
+<p>Statement没有预编译，如果数据长得差不多的时候也只能我们一条一条sql语句的写，所以项目中我们最好使用<code class="highlighter-rouge">PreparedStatement</code>,这样既可以消除上面哪个问题也可以提高安全性，防止注入。</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="n">conn</span> <span class="o">=</span> <span class="n">JdbcUtil</span><span class="o">.</span><span class="na">getConnection</span><span class="o">();</span>
+<span class="n">String</span> <span class="n">sql</span> <span class="o">=</span> <span class="s">"insert into user(name,password,email,birthday) values(?,?,?,?)"</span><span class="o">;</span>
+<span class="n">st</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="na">prepareStatement</span><span class="o">(</span><span class="n">sql</span><span class="o">);</span>
+<span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span><span class="n">i</span><span class="o">&lt;</span><span class="mi">50000</span><span class="o">;</span><span class="n">i</span><span class="o">++){</span>
+<span class="n">st</span><span class="o">.</span><span class="na">setString</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="s">"aaa"</span> <span class="o">+</span> <span class="n">i</span><span class="o">);</span>
+<span class="n">st</span><span class="o">.</span><span class="na">setString</span><span class="o">(</span><span class="mi">2</span><span class="o">,</span> <span class="s">"123"</span> <span class="o">+</span> <span class="n">i</span><span class="o">);</span>
+<span class="n">st</span><span class="o">.</span><span class="na">setString</span><span class="o">(</span><span class="mi">3</span><span class="o">,</span> <span class="s">"aaa"</span> <span class="o">+</span> <span class="n">i</span> <span class="o">+</span> <span class="s">"@sina.com"</span><span class="o">);</span>
+<span class="n">st</span><span class="o">.</span><span class="na">setDate</span><span class="o">(</span><span class="mi">4</span><span class="o">,</span><span class="k">new</span> <span class="n">Date</span><span class="o">(</span><span class="mi">1980</span><span class="o">,</span> <span class="mi">10</span><span class="o">,</span> <span class="mi">10</span><span class="o">));</span>
+
+<span class="n">st</span><span class="o">.</span><span class="na">addBatch</span><span class="o">();</span>
+<span class="k">if</span><span class="o">(</span><span class="n">i</span><span class="o">%</span><span class="mi">1000</span><span class="o">==</span><span class="mi">0</span><span class="o">){</span>
+<span class="n">st</span><span class="o">.</span><span class="na">executeBatch</span><span class="o">();</span>
+<span class="n">st</span><span class="o">.</span><span class="na">clearBatch</span><span class="o">();</span>
+<span class="o">}</span>
+<span class="o">}</span>
+<span class="n">st</span><span class="o">.</span><span class="na">executeBatch</span><span class="o">();</span>
+</code></pre>
+</div>
+<p>使用<code class="highlighter-rouge">PreparedStatement.addBatch()</code>进行批处理
+- 优点
+    发送的是预编译后的sql语句，执行效率高
+- 缺点
+    只能应用在sql语句相同，但参数不同的批处理中宏。因此此种形式的批处理经常用于在同一个表中批量插入数据，货批量更新表的数据</p>
+
+<p>###使用JDBC处理大数据
+在开发中，我们需要把大文本或者二进制数据保存到数据库中，这时候就需要特殊处理了。大数据成为LOB，分为<code class="highlighter-rouge">clob</code>用于存储大文本<code class="highlighter-rouge">blob</code>用于存储二进制数据，例如图片，声音，二进制文件等。
+对于MySQL而言四没有clob的，如果存储大文本的话采用的是<code class="highlighter-rouge">TEXT</code>,Text和Blob分别有<code class="highlighter-rouge">TINYTEXT、TEXT、MEDIUMTEXT和LONGTEXT
+TINYBLOB、BLOB、MEDIUMBLOB和LONGBLOB 
+</code>
+####使用JDBC处理大文本
+对于MySql中的Text类型，可以调用如下方法设置：</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="n">PreparedStatement</span><span class="o">.</span><span class="na">setCharacterStream</span><span class="o">(</span><span class="n">index</span><span class="o">,</span> <span class="n">reader</span><span class="o">,</span> <span class="n">length</span><span class="o">);</span>
+<span class="c1">//注意length长度须设置，并且设置为int型</span>
+</code></pre>
+</div>
+<p>获取可以用下面的方法：</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="n">reader</span> <span class="o">=</span> <span class="n">resultSet</span><span class="o">.</span> <span class="nf">getCharacterStream</span><span class="o">(</span><span class="n">i</span><span class="o">);</span>
+<span class="n">reader</span> <span class="o">=</span> <span class="n">resultSet</span><span class="o">.</span><span class="na">getClob</span><span class="o">(</span><span class="n">i</span><span class="o">).</span><span class="na">getCharacterStream</span><span class="o">();</span>
+<span class="n">string</span> <span class="n">s</span> <span class="o">=</span> <span class="n">resultSet</span><span class="o">.</span><span class="na">getString</span><span class="o">(</span><span class="n">i</span><span class="o">);</span>
+</code></pre>
+</div>
+<p>####使用JDBC处理二进制数据
+存储的话可以使用下面的方法：</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="n">PreparedStatement</span><span class="o">.</span> <span class="nf">setBinaryStream</span><span class="o">(</span><span class="n">i</span><span class="o">,</span> <span class="n">inputStream</span><span class="o">,</span> <span class="n">length</span><span class="o">);</span>
+</code></pre>
+</div>
+<p>取出的话使用下面的方法：</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="n">InputStream</span> <span class="n">in</span>  <span class="o">=</span> <span class="n">resultSet</span><span class="o">.</span><span class="na">getBinaryStream</span><span class="o">(</span><span class="n">i</span><span class="o">);</span>
+<span class="n">InputStream</span> <span class="n">in</span>  <span class="o">=</span> <span class="n">resultSet</span><span class="o">.</span><span class="na">getBlob</span><span class="o">(</span><span class="n">i</span><span class="o">).</span><span class="na">getBinaryStream</span><span class="o">();</span> 
+</code></pre>
+</div>
+<p>###获取自动生成的主键</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code>
+<span class="n">Connection</span> <span class="n">conn</span> <span class="o">=</span> <span class="n">JdbcUtil</span><span class="o">.</span><span class="na">getConnection</span><span class="o">();</span>
+
+<span class="n">String</span> <span class="n">sql</span> <span class="o">=</span> <span class="s">"insert into user(name,password,email,birthday) 
+			values('abc','123','abc@sina.com','1978-08-08')"</span><span class="o">;</span>
+<span class="n">PreparedStatement</span> <span class="n">st</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span>
+			<span class="nf">prepareStatement</span><span class="o">(</span><span class="n">sql</span><span class="o">,</span><span class="n">Statement</span><span class="o">.</span><span class="na">RETURN_GENERATED_KEYS</span> <span class="o">);</span>
+
+<span class="n">st</span><span class="o">.</span><span class="na">executeUpdate</span><span class="o">();</span>
+<span class="n">ResultSet</span> <span class="n">rs</span> <span class="o">=</span> <span class="n">st</span><span class="o">.</span><span class="na">getGeneratedKeys</span><span class="o">();</span>  <span class="c1">//得到插入行的主键</span>
+<span class="k">if</span><span class="o">(</span><span class="n">rs</span><span class="o">.</span><span class="na">next</span><span class="o">())</span>
+	<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">rs</span><span class="o">.</span><span class="na">getObject</span><span class="o">(</span><span class="mi">1</span><span class="o">));</span>
+</code></pre>
+</div>
+
+
+  </section>
+</article>
+
+<section class="read-more">
+   
+   
+   
+   
+   <div class="read-more-item">
+       <span class="read-more-item-dim">更早的文章</span>
+       <h2 class="post-list__post-title post-title"><a href="/2017/01/MySql%E4%B8%80%E4%BA%9B%E8%AF%AD%E5%8F%A5/" title="link to MySql一些语句">MySql一些语句</a></h2>
+       <p class="excerpt">MYSql###1.查询所有数据库show databases使用这个命令可以查看所有的数据库###2.创建数据库create database renyufei创建数据库如果不指定编码的话默认编码就是utf8不过我们可以使用character set utf8我们可以查看默认编码show create database renyufei###3.删除数据库drop database renyufe###4.修改数据库alter database renyufei default char...&hellip;</p>
+       <div class="post-list__meta"><time datetime="2017-01-11 12:16:32 +0800" class="post-list__meta--date date">2017-01-11</time> &#8226; <span class="post-list__meta--tags tags">Blog</span><a class="btn-border-small" href=/2017/01/MySql%E4%B8%80%E4%BA%9B%E8%AF%AD%E5%8F%A5/>继续阅读</a></div>
+   </div>
+   
+</section>
+
+
+
+
+                        <!-- 多说评论框 start -->
+    <div class="ds-thread" data-thread-key=/2017/01/JDBC的用法 data-title=Java中的JDBCdata-url=your web site//2017/01/JDBC%E7%9A%84%E7%94%A8%E6%B3%95/></div>
+<!-- 多说评论框 end -->
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"renyufei8023"};
+    (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0] 
+         || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+    </script>
+<!-- 多说公共JS代码 end -->
+            <section class="footer">
+    <footer>
+      <br>
+      <br>
+    	<span class="footer__copyright">本站点采用<a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">知识共享 署名-非商业性使用-相同方式共享 4.0 国际 许可协议</a></span>
+        <span class="footer__copyright">由 <a href="https://jekyllrb.com">Jekyll</a> 于 2017-01-12 生成，感谢<a href="https://pages.github.com"> GitHub Pages</a> 强力驱动</span>
+        <span class="footer__copyright">本站由 <a href="http://yufei.ren">@halfrost</a> 创建，采用 <a href="https://github.com/onevcat/vno-jekyll">Vno - Jekyll</a> 作为主题，您可以在 GitHub 找到<a href="https://github.com/onevcat/OneV-s-Den">本站源码</a> - &copy; 2017</span>
+    </footer>
+</section>
+
+        </div>
+    </div>
+    
+    <script type="text/javascript" src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+
+<script type="text/javascript" src="/js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+<script type="text/javascript" src="/js/main.js"></script>
+
+
+
+    
+
+  </body>
+
+</html>
